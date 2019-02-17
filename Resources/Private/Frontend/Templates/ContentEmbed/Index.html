@@ -1,0 +1,27 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+<f:layout name="Default"/>
+
+<f:section name="content">
+	<div class="h5p-content-wrapper" style="background: #fff; padding: 20px 10px;">
+		<f:switch expression="{content.embedType}">
+			<f:case value="div">
+				<div class="h5p-content" data-content-id="{content.uid}"></div>
+			</f:case>
+			<f:case value="iframe">
+				<div class="h5p-iframe-wrapper">
+					<iframe id="h5p-iframe-{content.uid}"
+							class="h5p-iframe"
+							data-content-id="{content.uid}"
+							style="height:1px"
+							src="about:blank"
+							frameBorder="0"
+							scrolling="no">
+					</iframe>
+				</div>
+			</f:case>
+		</f:switch>
+	</div>
+</f:section>
+</html>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2018-10-21T04:33:29Z" product-name="lms3h5p">
+        <header/>
+        <body>
+            <trans-unit id="fullscreen">
+                <source>H5P Content</source>
+            </trans-unit>
+            <trans-unit id="fullscreen">
+                <source>Fullscreen</source>
+            </trans-unit>
+            <trans-unit id="disableFullscreen">
+                <source>Disable fullscreen</source>
+            </trans-unit>
+            <trans-unit id="download">
+                <source>Download</source>
+            </trans-unit>
+            <trans-unit id="copyrights">
+                <source>Rights of use</source>
+            </trans-unit>
+            <trans-unit id="embed">
+                <source>Embed</source>
+            </trans-unit>
+            <trans-unit id="size">
+                <source>Size</source>
+            </trans-unit>
+            <trans-unit id="showAdvanced">
+                <source>Show advanced</source>
+            </trans-unit>
+            <trans-unit id="hideAdvanced">
+                <source>Hide advanced</source>
+            </trans-unit>
+            <trans-unit id="advancedHelp">
+                <source>Include this script on your website if you want dynamic sizing of the embedded content:</source>
+            </trans-unit>
+            <trans-unit id="copyrightInformation">
+                <source>Rights of use</source>
+            </trans-unit>
+            <trans-unit id="close">
+                <source>Close</source>
+            </trans-unit>
+            <trans-unit id="title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="author">
+                <source>Author</source>
+            </trans-unit>
+            <trans-unit id="year">
+                <source>Year</source>
+            </trans-unit>
+            <trans-unit id="source">
+                <source>Source</source>
+            </trans-unit>
+            <trans-unit id="license">
+                <source>License</source>
+            </trans-unit>
+            <trans-unit id="thumbnail">
+                <source>Thumbnail</source>
+            </trans-unit>
+            <trans-unit id="noCopyrights">
+                <source>No copyright information available for this content.</source>
+            </trans-unit>
+            <trans-unit id="downloadDescription">
+                <source>Download this content as a H5P file.</source>
+            </trans-unit>
+            <trans-unit id="copyrightsDescription">
+                <source>View copyright information for this content.</source>
+            </trans-unit>
+            <trans-unit id="embedDescription">
+                <source>View the embed code for this content.</source>
+            </trans-unit>
+            <trans-unit id="h5pDescription">
+                <source>Visit H5P.org to check out more cool content.</source>
+            </trans-unit>
+            <trans-unit id="contentChanged">
+                <source>This content has changed since you last used it.</source>
+            </trans-unit>
+            <trans-unit id="startingOver">
+                <source>You'll be starting over.</source>
+            </trans-unit>
+            <trans-unit id="by">
+                <source>by</source>
+            </trans-unit>
+            <trans-unit id="showMore">
+                <source>Show more</source>
+            </trans-unit>
+            <trans-unit id="showLess">
+                <source>Show less</source>
+            </trans-unit>
+            <trans-unit id="subLevel">
+                <source>Sublevel</source>
+            </trans-unit>
+            <trans-unit id="confirmDialogHeader">
+                <source>Confirm action</source>
+            </trans-unit>
+            <trans-unit id="confirmDialogBody">
+                <source>Please confirm that you wish to proceed. This action is not reversible.</source>
+            </trans-unit>
+            <trans-unit id="cancelLabel">
+                <source>Cancel</source>
+            </trans-unit>
+            <trans-unit id="confirmLabel">
+                <source>Confirm</source>
+            </trans-unit>
+            <trans-unit id="licenseU">
+                <source>Undisclosed</source>
+            </trans-unit>
+            <trans-unit id="licenseCCBY">
+                <source>Attribution</source>
+            </trans-unit>
+            <trans-unit id="licenseCCBYSA">
+                <source>Attribution-ShareAlike</source>
+            </trans-unit>
+            <trans-unit id="licenseCCBYND">
+                <source>Attribution-NoDerivs</source>
+            </trans-unit>
+            <trans-unit id="licenseCCBYNC">
+                <source>Attribution-NonCommercial</source>
+            </trans-unit>
+            <trans-unit id="licenseCCBYNCSA">
+                <source>Attribution-NonCommercial-ShareAlike</source>
+            </trans-unit>
+            <trans-unit id="licenseCCBYNCND">
+                <source>Attribution-NonCommercial-NoDerivs</source>
+            </trans-unit>
+            <trans-unit id="licenseCC40">
+                <source>4.0 International</source>
+            </trans-unit>
+            <trans-unit id="licenseCC30">
+                <source>3.0 Unported</source>
+            </trans-unit>
+            <trans-unit id="licenseCC25">
+                <source>2.5 Generic</source>
+            </trans-unit>
+            <trans-unit id="licenseCC20">
+                <source>2.0 Generic</source>
+            </trans-unit>
+            <trans-unit id="licenseCC10">
+                <source>1.0 Generic</source>
+            </trans-unit>
+            <trans-unit id="licenseGPL">
+                <source>General Public License</source>
+            </trans-unit>
+            <trans-unit id="licenseV3">
+                <source>Version 3</source>
+            </trans-unit>
+            <trans-unit id="licenseV2">
+                <source>Version 2</source>
+            </trans-unit>
+            <trans-unit id="licenseV1">
+                <source>Version 1</source>
+            </trans-unit>
+            <trans-unit id="licensePD">
+                <source>Public Domain</source>
+            </trans-unit>
+            <trans-unit id="licenseCC010">
+                <source>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</source>
+            </trans-unit>
+            <trans-unit id="licensePDM">
+                <source>Public Domain Mark</source>
+            </trans-unit>
+            <trans-unit id="licenseC">
+                <source>Copyright</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

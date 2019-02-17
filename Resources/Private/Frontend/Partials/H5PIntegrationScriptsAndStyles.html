@@ -1,0 +1,14 @@
+<f:for each="{styles}" as="style">
+    <link rel="stylesheet" href="{style -> f:format.raw()}"/>
+</f:for>
+<script>
+    window.H5PIntegration = {settings -> f:format.raw()};
+</script>
+<f:if condition="{xAPIIntegrationSettings}">
+    <script>
+        window.TYPO3H5PxAPI = {xAPIIntegrationSettings -> f:format.raw()};
+    </script>
+</f:if>
+<f:for each="{scripts}" as="script">
+    <script src="{script -> f:format.raw()}"></script>
+</f:for>

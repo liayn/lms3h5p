@@ -1,0 +1,62 @@
+module.tx_lms3h5p {
+    view {
+        templateRootPaths.0 = {$module.tx_lms3h5p.view.templateRootPath}
+        partialRootPaths.0 = {$module.tx_lms3h5p.view.partialRootPath}
+        layoutRootPaths.0 = {$module.tx_lms3h5p.view.layoutRootPath}
+
+        widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:lms3h5p/Resources/Private/Backend/Templates/
+    }
+
+    persistence {
+        storagePid = {$module.tx_lms3h5p.persistence.storagePid}
+    }
+
+    settings {
+        config {
+            send_usage_statistics = {$module.tx_lms3h5p.settings.config.send_usage_statistics}
+            track_user = {$module.tx_lms3h5p.settings.config.track_user}
+            save_content_state = {$module.tx_lms3h5p.settings.config.save_content_state}
+            save_content_frequency = {$module.tx_lms3h5p.settings.config.save_content_frequency}
+            hub_is_enabled = {$module.tx_lms3h5p.settings.config.hub_is_enabled}
+            enable_lrs_content_types = {$module.tx_lms3h5p.settings.config.enable_lrs_content_types}
+            frame = {$module.tx_lms3h5p.settings.config.frame}
+            export = {$module.tx_lms3h5p.settings.config.export}
+            embed = {$module.tx_lms3h5p.settings.config.embed}
+            copyright = {$module.tx_lms3h5p.settings.config.copyright}
+            icon = {$module.tx_lms3h5p.settings.config.icon}
+            h5p_version = {$module.tx_lms3h5p.settings.config.h5p_version}
+        }
+
+        h5pPublicFolder {
+            url = {$module.tx_lms3h5p.settings.h5pPublicFolder.url}
+            path = {$module.tx_lms3h5p.settings.h5pPublicFolder.path}
+        }
+        subFolders {
+            content = {$module.tx_lms3h5p.settings.subFolders.content}
+            libraries = {$module.tx_lms3h5p.settings.subFolders.libraries}
+            core = {$module.tx_lms3h5p.settings.subFolders.core}
+            editor = {$module.tx_lms3h5p.settings.subFolders.editor}
+            editorTempfiles = {$module.tx_lms3h5p.settings.subFolders.editorTempfiles}
+            temp = {$module.tx_lms3h5p.settings.subFolders.temp}
+            exports = {$module.tx_lms3h5p.settings.subFolders.exports}
+            cachedAssets = {$module.tx_lms3h5p.settings.subFolders.cachedAssets}
+        }
+        libraryPath = {$module.tx_lms3h5p.settings.libraryPath}
+        aggregateAssets = {$module.tx_lms3h5p.settings.aggregateAssets}
+        enableExport = {$module.tx_lms3h5p.settings.enableExport}
+    }
+}
+
+plugin.tx_lms3h5p_pi1 {
+    view {
+        templateRootPaths.0 = {$plugin.tx_lms3h5p_pi1.view.templateRootPath}
+        partialRootPaths.0 = {$plugin.tx_lms3h5p_pi1.view.partialRootPath}
+        layoutRootPaths.0 = {$plugin.tx_lms3h5p_pi1.view.layoutRootPath}
+    }
+
+    persistence {
+        storagePid = {$plugin.tx_lms3h5p_pi1.persistence.storagePid}
+    }
+
+    settings < module.tx_lms3h5p.settings
+}

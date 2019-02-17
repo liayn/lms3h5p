@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2018-08-03T04:33:29Z" product-name="lms3h5p">
+        <header/>
+        <body>
+            <trans-unit id="tx_lms3h5p_domain_model_pi1">
+                <source>LMS3: H5P Content</source>
+            </trans-unit>
+            <trans-unit id="tx_lms3h5p_domain_model_pi1.description">
+                <source>Render H5P Contents in Frontend</source>
+            </trans-unit>
+            <trans-unit id="h5pContent">
+                <source>H5P Contents</source>
+            </trans-unit>
+            <trans-unit id="title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="library">
+                <source>Library</source>
+            </trans-unit>
+            <trans-unit id="id">
+                <source>ID</source>
+            </trans-unit>
+            <trans-unit id="created">
+                <source>Created</source>
+            </trans-unit>
+            <trans-unit id="updated">
+                <source>Updated</source>
+            </trans-unit>
+            <trans-unit id="author">
+                <source>Author</source>
+            </trans-unit>
+            <trans-unit id="back">
+                <source>Back</source>
+            </trans-unit>
+            <trans-unit id="createNewContent">
+                <source>Create new content</source>
+            </trans-unit>
+            <trans-unit id="author">
+                <source>Author</source>
+            </trans-unit>
+            <trans-unit id="noContentFound">
+                <source>There is no content created yet.</source>
+            </trans-unit>
+            <trans-unit id="flexform_select_lms3h5p_content">
+                <source>Select H5P Content</source>
+            </trans-unit>
+            <trans-unit id="h5pLibraries">
+                <source>H5P Libraries</source>
+            </trans-unit>
+            <trans-unit id="content">
+                <source>Content</source>
+            </trans-unit>
+            <trans-unit id="libraries">
+                <source>Libraries</source>
+            </trans-unit>
+            <trans-unit id="version">
+                <source>Version</source>
+            </trans-unit>
+            <trans-unit id="contents">
+                <source>Contents</source>
+            </trans-unit>
+            <trans-unit id="dependentContents">
+                <source>Dependent Contents</source>
+            </trans-unit>
+            <trans-unit id="dependentLibraries">
+                <source>Dependent Libraries</source>
+            </trans-unit>
+            <trans-unit id="contentOrOtherLibrariesAreUsingThisLibrary">
+                <source>Contents or other libraries are using this library</source>
+            </trans-unit>
+            <trans-unit id="deleteContentTitle">
+                <source>Delete Content</source>
+            </trans-unit>
+            <trans-unit id="deleteContentConfirmation">
+                <source>Do you really want to delete this content?</source>
+            </trans-unit>
+            <trans-unit id="updateContentTypeCache">
+                <source>Update Content Type Cache</source>
+            </trans-unit>
+            <trans-unit id="fullscreen">
+                <source>Fullscreen</source>
+            </trans-unit>
+            <trans-unit id="yes">
+                <source>Yes</source>
+            </trans-unit>
+            <trans-unit id="no">
+                <source>No</source>
+            </trans-unit>
+            <trans-unit id="usedBy">
+                <source>Used by</source>
+            </trans-unit>
+            <trans-unit id="contentUsingThisLibrary">
+                <source>Content using this library</source>
+            </trans-unit>
+            <trans-unit id="deleteLibraryTitle">
+                <source>Delete Library</source>
+            </trans-unit>
+            <trans-unit id="deleteLibraryConfirmation">
+                <source>Do you really want to delete this library?</source>
+            </trans-unit>
+            <trans-unit id="selectAction">
+                <source>Select Action</source>
+            </trans-unit>
+            <trans-unit id="waitingForH5PJavascriptToLoad">
+                <source>Waiting for H5P JavaScript to load...</source>
+            </trans-unit>
+            <trans-unit id="uploadFile">
+                <source>Upload File</source>
+            </trans-unit>
+            <trans-unit id="h5pError">
+                <source>H5P error</source>
+            </trans-unit>
+            <trans-unit id="contentDeleted">
+                <source>Content deleted</source>
+            </trans-unit>
+            <trans-unit id="contentUpdated">
+                <source>Content updated</source>
+            </trans-unit>
+            <trans-unit id="contentCreated">
+                <source>Content created</source>
+            </trans-unit>
+            <trans-unit id="contentDeletedMessage">
+                <source>The content "%s" has been deleted.</source>
+            </trans-unit>
+            <trans-unit id="contentUpdatedMessage">
+                <source>The content "%s" has been updated.</source>
+            </trans-unit>
+            <trans-unit id="contentCreatedMessage">
+                <source>The content "%s" has been created.</source>
+            </trans-unit>
+            <trans-unit id="libraryDeleted">
+                <source>Library deleted</source>
+            </trans-unit>
+            <trans-unit id="libraryDeletedMessage">
+                <source>The library "%s" has been deleted.</source>
+            </trans-unit>
+            <trans-unit id="h5pHubNotRespondedErrorMessage">
+                <source>The cache could not be refreshed because the H5P Hub did not respond.</source>
+            </trans-unit>
+            <trans-unit id="contentTypeCachedRefreshedMessage">
+                <source>The content type cache was refreshed successfully.</source>
+            </trans-unit>
+            <trans-unit id="displayToolbarBelowContent">
+                <source>Display toolbar below content</source>
+            </trans-unit>
+            <trans-unit id="displayDownloadButton">
+                <source>Display Download button</source>
+            </trans-unit>
+            <trans-unit id="displayEmbedButton">
+                <source>Display Embed button</source>
+            </trans-unit>
+            <trans-unit id="displayCopyrightButton">
+                <source>Display Copyright button</source>
+            </trans-unit>
+            <trans-unit id="displayOptions">
+                <source>Display Options</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

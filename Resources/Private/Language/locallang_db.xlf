@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2018-08-03T04:33:29Z" product-name="lms3h5p">
+        <header/>
+        <body>
+            <trans-unit id="tx_lms3h5p_domain_model_pi1">
+                <source>LMS3: H5P Content</source>
+            </trans-unit>
+            <trans-unit id="tx_lms3h5p_domain_model_pi1.description">
+                <source>Render H5P Content in Frontend</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

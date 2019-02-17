@@ -1,0 +1,66 @@
+plugin.tx_lms3h5p_pi1 {
+    view {
+        # cat=plugin.lms3h5p/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:lms3h5p/Resources/Private/Frontend/Templates/
+        # cat=plugin.lms3h5p/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:lms3h5p/Resources/Private/Frontend/Partials/
+        # cat=plugin.lms3h5p/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:lms3h5p/Resources/Private/Frontend/Layouts/
+    }
+
+    persistence {
+        storagePid =
+    }
+}
+
+
+module.tx_lms3h5p {
+    view {
+        # cat=module.lms3h5p/file; type=string; label=Path to template root (BE)
+        templateRootPath = EXT:lms3h5p/Resources/Private/Backend/Templates/
+        # cat=module.lms3h5p/file; type=string; label=Path to template partials (BE)
+        partialRootPath = EXT:lms3h5p/Resources/Private/Backend/Partials/
+        # cat=module.lms3h5p/file; type=string; label=Path to template layouts (BE)
+        layoutRootPath = EXT:lms3h5p/Resources/Private/Backend/Layouts/
+    }
+
+    persistence {
+        storagePid =
+    }
+
+    settings {
+        config {
+            send_usage_statistics = 0
+            track_user = 1
+            save_content_state = 1
+            save_content_frequency = 10
+            hub_is_enabled = 1
+            enable_lrs_content_types = 0
+            frame = 1
+            export = 1
+            embed = 0
+            copyright = 1
+            icon = 1
+            h5p_version = 1.0.0
+        }
+
+        h5pPublicFolder {
+            url = /fileadmin/h5p/
+            path = /fileadmin/h5p/
+        }
+        subFolders {
+            content = content
+            libraries = libraries
+            core = h5p-core
+            editor = h5p-editor
+            editorTempfiles = editor-temp
+            temp = temp
+            exports = exports
+            cachedAssets = cached-assets
+        }
+        libraryPath = /vendor/h5p/
+
+        aggregateAssets = 1
+        enableExport = 1
+    }
+}

@@ -1,0 +1,26 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+<f:layout name="Default"/>
+
+<f:section name="content">
+	<f:render partial="H5PIntegrationScriptsAndStyles" arguments="{_all}" />
+	<div class="row">
+		<div class="col-md-12">
+			<legend>{content.title}</legend>
+			<div class="h5p-content-wrapper">
+				<div class="h5p-iframe-wrapper">
+					<iframe id="h5p-iframe-{content.uid}"
+							class="h5p-iframe"
+							data-content-id="{content.uid}"
+							style="height:1px"
+							src="about:blank"
+							frameBorder="0"
+							scrolling="no">
+					</iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+</f:section>
+</html>
