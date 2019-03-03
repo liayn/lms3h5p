@@ -411,7 +411,7 @@ class FileAdapter implements \H5PFileStorage
         $persistenceManager = $this->createObject(PersistenceManager::class);
         $editotTempFile = new EditorTempFile();
         $editotTempFile->setPath(ltrim($path, PATH_site));
-        $editotTempFile->setCreatedAt(new \DateTime());
+        $editotTempFile->setCreatedAt(time());
         $editorTempfileRepository->add($editotTempFile);
         $persistenceManager->persistAll();
 
