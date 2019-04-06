@@ -339,6 +339,8 @@ class H5PIntegrationService implements SingletonInterface
             $this->h5pSettings['h5pPublicFolder']['url']
         );
 
+        $this->addCustomStylesheet($files['styles']);
+
         $buildUrl = function (\stdClass $asset) {
             return $asset->path . $asset->version;
         };
@@ -378,16 +380,16 @@ class H5PIntegrationService implements SingletonInterface
      */
     public function getMergedStyles(array $h5pIntegrationSettings): array
     {
-        $scripts = $h5pIntegrationSettings['core']['styles'];
+        $styles = $h5pIntegrationSettings['core']['styles'];
         foreach ($h5pIntegrationSettings['contents'] as $contentSettings) {
             if (isset($contentSettings['styles'])) {
-                foreach ($contentSettings['styles'] as $script) {
-                    $scripts[] = $script;
+                foreach ($contentSettings['styles'] as $style) {
+                    $styles[] = $style;
                 }
             }
         }
 
-        return $scripts;
+        return $styles;
     }
 
     /**
@@ -463,6 +465,23 @@ class H5PIntegrationService implements SingletonInterface
         $lang = $GLOBALS['TSFE'] ?? $GLOBALS['LANG'];
 
         return $lang->sL('LLL:EXT:lms3h5p/Resources/Private/Language/locallang_h5p.xlf:' . $key);
+    }
+
+    /**
+     * Add custom stylesheet
+     *
+     * @param array $styles
+     * @return void
+     */
+    protected function addCustomStylesheet(array &$styles): void
+    {
+        $customStyle = GeneralUtility::getFileAbsFileName($this->h5pSettings['customStylePath']);
+        if (file_exists($customStyle)) {
+            $styles[] = (object) [
+                'path'    => '/' . $this->h5pSettings['customStylePath'],
+                'version' => '',
+            ];
+        }
     }
 
     /**
