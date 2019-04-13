@@ -90,6 +90,33 @@ class LibraryRepository extends Repository
     }
 
     /**
+     * Check if library has upgrade
+     *
+     * @param array $library
+     * @return bool
+     * @throws InvalidQueryException
+     */
+    public function libraryHasUpgrade(array $library): bool
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('name', $library['machineName']),
+                $query->logicalOr(
+                    $query->greaterThan('majorVersion', $library['majorVersion']),
+                    $query->logicalAnd(
+                        $query->equals('majorVersion', $library['majorVersion']),
+                        $query->greaterThan('minorVersion', $library['minorVersion'])
+                    )
+                )
+            )
+        )->setLimit(1);
+
+        return $query->execute()->count() === 1;
+    }
+
+
+    /**
      * Check if is patched library
      *
      * @param array $criteria

@@ -124,4 +124,16 @@ class EditorAjax implements \H5PEditorAjaxInterface
         // TODO: Implement validateEditorToken() method.
         return true;
     }
+
+    /**
+     * Get translations for a language for a list of libraries
+     *
+     * @param array $libraries An array of libraries, in the form "<machineName> <majorVersion>.<minorVersion>
+     * @param string $language_code
+     * @return array
+     */
+    public function getTranslations($libraries, $language_code)
+    {
+        // TODO: Implement getTranslations() method.
+    }
 }

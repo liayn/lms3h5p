@@ -50,4 +50,25 @@ class ContentRepository extends Repository
     protected $defaultOrderings = [
         'createdAt' => QueryInterface::ORDER_DESCENDING
     ];
+
+    /**
+     * Content count by library and skipped content
+     *
+     * @param int $library
+     * @param array $skip
+     * @return int
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function countByLibraryAndSkipped(int $library, array $skip): int
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('library', $library),
+                $query->in('uid', $skip)
+            )
+        );
+
+        return $query->execute()->count();
+    }
 }
