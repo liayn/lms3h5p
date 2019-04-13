@@ -34,6 +34,7 @@ use LMS3\Lms3h5p\Domain\Repository\CachedAssetRepository;
 use LMS3\Lms3h5p\Domain\Repository\ContentRepository;
 use LMS3\Lms3h5p\Domain\Repository\EditorTempfileRepository;
 use LMS3\Lms3h5p\Traits\ObjectManageable;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -400,12 +401,7 @@ class FileAdapter implements \H5PFileStorage
         // Add filename to path
         $path .= DIRECTORY_SEPARATOR . $file->getName();
 
-        $fileData = $file->getData();
-        if ($fileData) {
-            file_put_contents($path, $fileData);
-        } else {
-            copy($_FILES['file']['tmp_name'], $path);
-        }
+        @copy($_FILES['file']['tmp_name'], $path);
 
         $editorTempfileRepository = $this->createObject(EditorTempfileRepository::class);
         $persistenceManager = $this->createObject(PersistenceManager::class);
@@ -451,7 +447,7 @@ class FileAdapter implements \H5PFileStorage
             return; // Nothing to copy from or target already exists
         }
 
-        copy($sourcepath, $targetpath);
+        @copy($sourcepath, $targetpath);
     }
 
     /**
@@ -656,11 +652,8 @@ class FileAdapter implements \H5PFileStorage
         if (false === $absolutePath) {
             return $this->h5pSettings['h5pPublicFolder']['path'] . $this->h5pSettings['subFolders'][$folderName] . DIRECTORY_SEPARATOR;
         }
-        $relativePath = PathUtility::getRelativePathTo(
-            PATH_site . ltrim($this->h5pSettings['h5pPublicFolder']['path'], '/') . $this->h5pSettings['subFolders'][$folderName] . DIRECTORY_SEPARATOR
-        );
 
-        return $relativePath;
+        return PATH_site . ltrim($this->h5pSettings['h5pPublicFolder']['path'], '/') . $this->h5pSettings['subFolders'][$folderName] . DIRECTORY_SEPARATOR;
     }
 
     /**
