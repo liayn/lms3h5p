@@ -29,6 +29,7 @@ namespace LMS3\Lms3h5p\H5PAdapter\Editor;
 
 use H5peditorFile;
 use LMS3\Lms3h5p\Domain\Model\Library;
+use LMS3\Lms3h5p\Domain\Model\LibraryTranslation;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryTranslationRepository;
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
@@ -254,5 +255,32 @@ class EditorFileAdapter implements \H5peditorStorage
         } else {
             unlink($filePath);
         }
+    }
+
+    /**
+     * Load a list of available language codes from the database.
+     *
+     * @param string $machineName The machine readable name of the library(content type)
+     * @param int $majorVersion Major part of version number
+     * @param int $minorVersion Minor part of version number
+     * @return array List of possible language codes
+     */
+    public function getAvailableLanguages($machineName, $majorVersion, $minorVersion)
+    {
+        $library = $this->libraryRepository->findOneByNameMajorVersionAndMinorVersion(
+            $machineName, $majorVersion, $minorVersion
+        );
+        if (null === $library) {
+            return [];
+        }
+
+        $languages = [];
+        $libraryTranslations = $this->libraryTranslationRepository->findByLibrary($library);
+        /** @var LibraryTranslation $translation */
+        foreach ($libraryTranslations as $translation) {
+            $languages[] = $translation->getLanguageCode();
+        }
+
+        return $languages;
     }
 }

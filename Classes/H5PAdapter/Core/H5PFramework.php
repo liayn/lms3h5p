@@ -1150,12 +1150,18 @@ class H5PFramework implements \H5PFrameworkInterface
      * Get number of contents using library as main library.
      *
      * @param int $libraryId
+     * @param array $skip
      * @return int
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
-    public function getNumContent($libraryId)
+    public function getNumContent($libraryId, $skip = NULL)
     {
         $library = $this->libraryRepository->findByUid($libraryId);
-        return $this->contentRepository->countByLibrary($library);
+        if (null === $skip) {
+            return $this->contentRepository->countByLibrary($library);
+        }
+
+        return $this->contentRepository->countByLibraryAndSkipped($library, $skip);
     }
 
     /**
@@ -1327,5 +1333,17 @@ class H5PFramework implements \H5PFrameworkInterface
     public function getLibraryConfig($libraries = NULL)
     {
         // TODO: Implement getLibraryConfig() method.
+    }
+
+    /**
+     * Checks if the given library has a higher version.
+     *
+     * @param array $library
+     * @return boolean
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function libraryHasUpgrade($library)
+    {
+        return $this->libraryRepository->libraryHasUpgrade($library);
     }
 }

@@ -71,6 +71,9 @@ class EditorAjaxController extends ActionController
             case \H5PEditorEndpoints::LIBRARY_UPLOAD:
                 $this->uploadLibrary();
                 break;
+            case \H5PEditorEndpoints::TRANSLATIONS:
+                $this->translations();
+                break;
         }
 
         exit;
@@ -124,7 +127,8 @@ class EditorAjaxController extends ActionController
             GeneralUtility::_GP('minorVersion'),
             $language,
             '',
-            PATH_site . ltrim($this->h5pIntegrationService->getSettings()['h5pPublicFolder']['path'], '/')
+            PATH_site . ltrim($this->h5pIntegrationService->getSettings()['h5pPublicFolder']['path'], '/'),
+            'en'
         );
     }
 
@@ -162,6 +166,18 @@ class EditorAjaxController extends ActionController
             GeneralUtility::_GP('moduleToken'),
             $_FILES['h5p']['tmp_name'],
             $contentId
+        );
+    }
+
+    /**
+     * Get translations
+     */
+    protected function translations(): void
+    {
+        $language = GeneralUtility::_GP('language');
+        $this->h5pIntegrationService->getH5pEditor()->ajax->action(
+            \H5PEditorEndpoints::TRANSLATIONS,
+            $language
         );
     }
 }

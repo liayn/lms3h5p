@@ -692,4 +692,24 @@ class FileAdapter implements \H5PFileStorage
         $filePath = realpath($srcPath . DIRECTORY_SEPARATOR . 'presave.js');
         return file_exists($filePath);
     }
+
+    /**
+     * Check if upgrades script exist for library.
+     *
+     * @param string $machineName
+     * @param int $majorVersion
+     * @param int $minorVersion
+     * @return null|string Relative path
+     */
+    public function getUpgradeScript($machineName, $majorVersion, $minorVersion)
+    {
+        $upgradeScript = "{$machineName}-{$majorVersion}.{$minorVersion}/upgrades.js";
+        $upgradesFilePath = $this->getFolderPath('libraries', false) . $upgradeScript;
+
+        if (file_exists(PATH_site . ltrim($upgradesFilePath, '/'))) {
+            return 'libraries/' . $upgradeScript;
+        } else {
+            return NULL;
+        }
+    }
 }
