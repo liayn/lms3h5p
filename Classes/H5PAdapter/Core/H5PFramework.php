@@ -573,6 +573,7 @@ class H5PFramework implements \H5PFrameworkInterface
                 $libraryTranslation = LibraryTranslation::create($library, $languageCode, $translation);
                 $this->libraryTranslationRepository->add($libraryTranslation);
             }
+            $this->persistenceManager->persistAll();
         }
     }
 
@@ -700,6 +701,7 @@ class H5PFramework implements \H5PFrameworkInterface
                 // Depedency does not exist, create it
                 $dependency = new LibraryDependency($dependingLibrary, $requiredLibrary, $dependency_type);
                 $this->libraryDependencyRepository->add($dependency);
+                $this->persistenceManager->persistAll();
             }
         }
     }
