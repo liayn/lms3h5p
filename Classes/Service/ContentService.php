@@ -154,7 +154,7 @@ class ContentService
             return null;
         }
 
-        $this->h5pEditor->processParameters($content['id'], $content['library'], $params, $oldLibrary, $oldParameters);
+        $this->h5pEditor->processParameters($content['id'], $content['library'], $params->params, $oldLibrary, $oldParameters);
         $contentObject = $this->contentRepository->findByUid($content['id']);
 
         /** @var Content $contentObject */
