@@ -1126,13 +1126,12 @@ class H5PFramework implements \H5PFrameworkInterface
         /** @var Library $library */
         $library = $this->libraryRepository->findByUid($library_id);
         if ($library === null) {
-            throw new Exception("Library with ID " . $library_id . " could not be found!");
+            throw new \Exception("Library with ID " . $library_id . " could not be found!");
         }
         $contentsOfThisLibrary = $this->contentRepository->findByLibrary($library);
         /** @var Content $content */
         foreach ($contentsOfThisLibrary as $content) {
-            // TODO: properly handle rebuild content dependencies and parameters re-filtered then enable
-            // $content->setFiltered('');
+            $content->setFiltered('');
             $this->contentRepository->update($content);
         }
     }
