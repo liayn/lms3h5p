@@ -418,6 +418,9 @@ class H5PIntegrationService implements SingletonInterface
             'license' => $this->translate('license'),
             'thumbnail' => $this->translate('thumbnail'),
             'noCopyrights' => $this->translate('noCopyrights'),
+            'reuse' => $this->translate('reuse'),
+            'reuseContent' => $this->translate('reuseContent'),
+            'reuseDescription' => $this->translate('reuseDescription'),
             'downloadDescription' => $this->translate('downloadDescription'),
             'copyrightsDescription' => $this->translate('copyrightsDescription'),
             'embedDescription' => $this->translate('embedDescription'),
@@ -451,7 +454,11 @@ class H5PIntegrationService implements SingletonInterface
             'licensePD' => $this->translate('licensePD'),
             'licenseCC010' => $this->translate('licenseCC010'),
             'licensePDM' => $this->translate('licensePDM'),
-            'licenseC' => $this->translate('licenseC')
+            'licenseC' => $this->translate('licenseC'),
+            'contentType' => $this->translate('contentType'),
+            'licenseExtras' => $this->translate('licenseExtras'),
+            'changes' => $this->translate('changes'),
+            'contentCopied' => $this->translate('contentCopied'),
         ];
     }
 

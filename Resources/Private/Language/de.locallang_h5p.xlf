@@ -80,6 +80,18 @@
                 <source>No copyright information available for this content.</source>
                 <target>Keine Copyright Informationen für den Inhalt hinterlegt.</target>
             </trans-unit>
+            <trans-unit id="reuse">
+                <source>Reuse</source>
+                <target>Wiederverwendung</target>
+            </trans-unit>
+            <trans-unit id="reuseContent">
+                <source>Reuse Content</source>
+                <target>Inhalt wiederverwenden</target>
+            </trans-unit>
+            <trans-unit id="reuseDescription">
+                <source>Reuse this content.</source>
+                <target>Inhalt wiederverwenden.</target>
+            </trans-unit>
             <trans-unit id="downloadDescription">
                 <source>Download this content as a H5P file.</source>
                 <target>Als H5P Dokument herunterladen</target>
@@ -215,6 +227,22 @@
             <trans-unit id="licenseC">
                 <source>Copyright</source>
                 <target>Copyright</target>
+            </trans-unit>
+            <trans-unit id="contentType">
+                <source>Content Type</source>
+                <target>Inhaltstyp</target>
+            </trans-unit>
+            <trans-unit id="licenseExtras">
+                <source>License Extras</source>
+                <target>Lizenz-Erweiterungen</target>
+            </trans-unit>
+            <trans-unit id="changes">
+                <source>Changelog</source>
+                <target>Änderungsliste</target>
+            </trans-unit>
+            <trans-unit id="contentCopied">
+                <source>Content is copied to the clipboard</source>
+                <target>Inhalt in der Zwischenablage kopiert</target>
             </trans-unit>
         </body>
     </file>

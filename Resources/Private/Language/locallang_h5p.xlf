@@ -60,6 +60,15 @@
             <trans-unit id="noCopyrights">
                 <source>No copyright information available for this content.</source>
             </trans-unit>
+            <trans-unit id="reuse">
+                <source>Reuse</source>
+            </trans-unit>
+            <trans-unit id="reuseContent">
+                <source>Reuse Content</source>
+            </trans-unit>
+            <trans-unit id="reuseDescription">
+                <source>Reuse this content.</source>
+            </trans-unit>
             <trans-unit id="downloadDescription">
                 <source>Download this content as a H5P file.</source>
             </trans-unit>
@@ -161,6 +170,18 @@
             </trans-unit>
             <trans-unit id="licenseC">
                 <source>Copyright</source>
+            </trans-unit>
+            <trans-unit id="contentType">
+                <source>Content Type</source>
+            </trans-unit>
+            <trans-unit id="licenseExtras">
+                <source>License Extras</source>
+            </trans-unit>
+            <trans-unit id="changes">
+                <source>Changelog</source>
+            </trans-unit>
+            <trans-unit id="contentCopied">
+                <source>Content is copied to the clipboard</source>
             </trans-unit>
         </body>
     </file>
