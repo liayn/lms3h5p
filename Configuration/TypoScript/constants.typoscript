@@ -63,7 +63,10 @@ module.tx_lms3h5p {
         aggregateAssets = 1
         enableExport = 1
 
-        # Provide only relative path
-        customStylePath = typo3conf/ext/h5p/Resources/Public/Css/custom.css
+        customStyle {
+            # Provide only relative path
+            path = typo3conf/ext/lms3h5p/Resources/Public/Css/custom.css
+            version = 20190421150000
+        }
     }
 }

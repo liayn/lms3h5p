@@ -482,11 +482,10 @@ class H5PIntegrationService implements SingletonInterface
      */
     protected function addCustomStylesheet(array &$styles): void
     {
-        $customStyle = GeneralUtility::getFileAbsFileName($this->h5pSettings['customStylePath']);
+        $customStyle = GeneralUtility::getFileAbsFileName($this->h5pSettings['customStyle']['path']);
         if (file_exists($customStyle)) {
             $styles[] = (object) [
-                'path'    => '/' . $this->h5pSettings['customStylePath'],
-                'version' => '',
+                'path'    => '/' . $this->h5pSettings['customStyle']['path'],
             ];
         }
     }

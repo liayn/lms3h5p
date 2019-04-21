@@ -45,7 +45,10 @@ module.tx_lms3h5p {
         aggregateAssets = {$module.tx_lms3h5p.settings.aggregateAssets}
         enableExport = {$module.tx_lms3h5p.settings.enableExport}
 
-        customStylePath = {$module.tx_lms3h5p.settings.customStylePath}
+        customStyle {
+            path = {$module.tx_lms3h5p.settings.customStyle.path}
+            version = {$module.tx_lms3h5p.settings.customStyle.version}
+        }
     }
 }
 

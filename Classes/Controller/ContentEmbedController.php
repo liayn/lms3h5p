@@ -119,7 +119,13 @@ class ContentEmbedController extends ActionController
          * Add H5P CSS files
          */
         foreach ($mergedStyles as $style) {
-            self::getPageRenderer()->addCssFile($style);
+            if ($this->settings['customStyle']['path'] === ltrim($style, '/')) {
+                self::getPageRenderer()->addCssFile(
+                    $style . '?v=' . $this->settings['customStyle']['version'], 'stylesheet', 'all', '', false, false, '', true
+                );
+            } else {
+                self::getPageRenderer()->addCssFile($style);
+            }
         }
         /**
          *  Add H5P javascript files
