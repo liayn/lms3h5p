@@ -109,8 +109,8 @@ class ContentEmbedController extends ActionController
         }
 
         $h5pIntegrationSettings = $this->h5pIntegrationService->getH5PSettings($this->getControllerContext(), $contentIds);
-        $mergedScripts = $this->h5pIntegrationService->getMergedScripts($h5pIntegrationSettings);
-        $mergedStyles = $this->h5pIntegrationService->getMergedStyles($h5pIntegrationSettings);
+        $mergedScripts = array_unique($this->h5pIntegrationService->getMergedScripts($h5pIntegrationSettings));
+        $mergedStyles = array_unique($this->h5pIntegrationService->getMergedStyles($h5pIntegrationSettings));
 
         self::getPageRenderer()->addJsInlineCode('H5PSettings',
             'window.H5PIntegration = ' . json_encode($h5pIntegrationSettings) . ';'
@@ -119,13 +119,9 @@ class ContentEmbedController extends ActionController
          * Add H5P CSS files
          */
         foreach ($mergedStyles as $style) {
-            if ($this->settings['customStyle']['path'] === ltrim($style, '/')) {
-                self::getPageRenderer()->addCssFile(
-                    $style . '?v=' . $this->settings['customStyle']['version'], 'stylesheet', 'all', '', false, false, '', true
-                );
-            } else {
-                self::getPageRenderer()->addCssFile($style);
-            }
+            self::getPageRenderer()->addCssFile(
+                $style, 'stylesheet', 'all', '', false, false, '', true
+            );
         }
         /**
          *  Add H5P javascript files

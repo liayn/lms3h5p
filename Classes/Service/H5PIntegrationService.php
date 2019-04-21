@@ -384,7 +384,9 @@ class H5PIntegrationService implements SingletonInterface
         foreach ($h5pIntegrationSettings['contents'] as $contentSettings) {
             if (isset($contentSettings['styles'])) {
                 foreach ($contentSettings['styles'] as $style) {
-                    $styles[] = $style;
+                    if (false === strpos($style, 'version')) {
+                        $styles[] = $style . '?version=' . $this->h5pSettings['customStyle']['version'];
+                    }
                 }
             }
         }
@@ -486,6 +488,7 @@ class H5PIntegrationService implements SingletonInterface
         if (file_exists($customStyle)) {
             $styles[] = (object) [
                 'path'    => '/' . $this->h5pSettings['customStyle']['path'],
+                'version' => '?version=' . $this->h5pSettings['customStyle']['version']
             ];
         }
     }
