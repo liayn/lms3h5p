@@ -156,6 +156,9 @@ class H5PFramework implements \H5PFrameworkInterface
      */
     protected function setDefaultStorage(): void
     {
+        $this->settingRepository->setDefaultQuerySettings(
+            $this->settingRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
+        );
         $this->contentTypeCacheEntryRepository->setDefaultQuerySettings(
             $this->contentTypeCacheEntryRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
         );

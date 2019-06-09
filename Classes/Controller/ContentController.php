@@ -134,7 +134,7 @@ class ContentController extends AbstractModuleController
         $parameters = '';
         $h5pIntegrationSettings = $this->h5pIntegrationService->getSettingsWithEditor($this->getControllerContext());
 
-        $this->view->assign('settings', json_encode($h5pIntegrationSettings));
+        $this->view->assign('h5pSettings', json_encode($h5pIntegrationSettings));
         $this->view->assign('scripts', $h5pIntegrationSettings['core']['scripts']);
         $this->view->assign('styles', $h5pIntegrationSettings['core']['styles']);
         $this->view->assign('pid', empty(GeneralUtility::_GP('id')));
@@ -192,7 +192,7 @@ class ContentController extends AbstractModuleController
         );
 
         $this->view->assign('content', $content);
-        $this->view->assign('settings', json_encode($h5pIntegrationSettings));
+        $this->view->assign('h5pSettings', json_encode($h5pIntegrationSettings));
         $this->view->assign('scripts', $this->h5pIntegrationService->getMergedScripts($h5pIntegrationSettings));
         $this->view->assign('styles', $this->h5pIntegrationService->getMergedStyles($h5pIntegrationSettings));
     }
@@ -214,7 +214,7 @@ class ContentController extends AbstractModuleController
         $parameters = '{"params":' . $content->getFiltered() . ', "metadata":' . json_encode($metadata) . '}';
         $options = $this->h5pIntegrationService->getH5PCoreInstance()->getDisplayOptionsForEdit($content->getDisable());
 
-        $this->view->assign('settings', json_encode($h5pIntegrationSettings));
+        $this->view->assign('h5pSettings', json_encode($h5pIntegrationSettings));
         $this->view->assign('scripts', $h5pIntegrationSettings['core']['scripts']);
         $this->view->assign('styles', $h5pIntegrationSettings['core']['styles']);
         $this->view->assign('content', $content);

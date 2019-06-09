@@ -68,5 +68,7 @@ module.tx_lms3h5p {
             path = typo3conf/ext/lms3h5p/Resources/Public/Css/custom.css
             version = 20190421150000
         }
+
+        showDisplayOptions = 1
     }
 }

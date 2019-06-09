@@ -34,72 +34,124 @@
             </div>
         </div>
     </div>
-    <div class="col-md-offset-1 col-md-3">
-        <div class="h5-sidebar">
-            <div role="button" class="h5p-toggle" tabindex="0" aria-expanded="true" aria-label="Toggle panel"></div>
-            <h2><f:translate key="displayOptions" /></h2>
-            <div class="h5p-action-bar-settings h5p-panel">
-                <f:if condition="{content.uid}">
-                    <f:then>
-                        <div class="form-check">
-                            <label>
-                                <f:form.checkbox name="options[frame]" value="true" checked="{options.frame} == true" />
-                                <f:translate key="displayToolbarBelowContent" />
-                            </label>
-                        </div>
-                        <div class="h5p-action-bar-buttons-settings">
-                            <div class="form-check">
-                                <label>
-                                    <f:form.checkbox name="options[download]" value="true" checked="{options.export} == true" />
-                                    <f:translate key="displayDownloadButton" />
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label>
-                                    <f:form.checkbox name="options[embed]" value="true" checked="{options.embed} == true" />
-                                    <f:translate key="displayEmbedButton" />
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label>
-                                    <f:form.checkbox name="options[copyright]" value="true" checked="{options.copyright} == true" />
-                                    <f:translate key="displayCopyrightButton" />
-                                </label>
-                            </div>
-                        </div>
-                    </f:then>
-                    <f:else>
-                        <div class="form-check">
-                            <label>
-                                <f:form.checkbox name="options[frame]" value="true" checked="true" />
-                                <f:translate key="displayToolbarBelowContent" />
-                            </label>
-                        </div>
-                        <div class="h5p-action-bar-buttons-settings">
-                            <div class="form-check">
-                                <label>
-                                    <f:form.checkbox name="options[download]" value="true" checked="true" />
-                                    <f:translate key="displayDownloadButton" />
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label>
-                                    <f:form.checkbox name="options[embed]" value="true" checked="true" />
-                                    <f:translate key="displayEmbedButton" />
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label>
-                                    <f:form.checkbox name="options[copyright]" value="true" checked="true" />
-                                    <f:translate key="displayCopyrightButton" />
-                                </label>
-                            </div>
-                        </div>
-                    </f:else>
-                </f:if>
+    <f:if condition="{settings.showDisplayOptions}">
+        <f:then>
+            <div class="col-md-offset-1 col-md-3">
+                <div class="h5-sidebar">
+                    <div role="button" class="h5p-toggle" tabindex="0" aria-expanded="true" aria-label="Toggle panel"></div>
+                    <h2><f:translate key="displayOptions" /></h2>
+                    <div class="h5p-action-bar-settings h5p-panel">
+                        <f:if condition="{content.uid}">
+                            <f:then>
+                                <div class="form-check">
+                                    <label>
+                                        <f:form.checkbox name="options[frame]" value="1" checked="{options.frame} == true" />
+                                        <f:translate key="displayToolbarBelowContent" />
+                                    </label>
+                                </div>
+                                <div class="h5p-action-bar-buttons-settings">
+                                    <f:if condition="{settings.config.export}">
+                                        <f:then>
+                                            <div class="form-check">
+                                                <label>
+                                                    <f:form.checkbox name="options[download]" value="1" checked="{options.export} == true" />
+                                                    <f:translate key="displayDownloadButton" />
+                                                </label>
+                                            </div>
+                                        </f:then>
+                                        <f:else>
+                                            <f:form.hidden name="options[download]" value="0" />
+                                        </f:else>
+                                    </f:if>
+                                    <f:if condition="{settings.config.embed}">
+                                        <f:then>
+                                            <div class="form-check">
+                                                <label>
+                                                    <f:form.checkbox name="options[embed]" value="1" checked="{options.embed} == true" />
+                                                    <f:translate key="displayEmbedButton" />
+                                                </label>
+                                            </div>
+                                        </f:then>
+                                        <f:else>
+                                            <f:form.hidden name="options[embed]" value="0" />
+                                        </f:else>
+                                    </f:if>
+                                    <f:if condition="{settings.config.copyright}">
+                                        <f:then>
+                                            <div class="form-check">
+                                                <label>
+                                                    <f:form.checkbox name="options[copyright]" value="1" checked="{options.copyright} == true" />
+                                                    <f:translate key="displayCopyrightButton" />
+                                                </label>
+                                            </div>
+                                        </f:then>
+                                        <f:else>
+                                            <f:form.hidden name="options[copyright]" value="0" />
+                                        </f:else>
+                                    </f:if>
+                                </div>
+                            </f:then>
+                            <f:else>
+                                <div class="form-check">
+                                    <label>
+                                        <f:form.checkbox name="options[frame]" value="1" checked="true" />
+                                        <f:translate key="displayToolbarBelowContent" />
+                                    </label>
+                                </div>
+                                <div class="h5p-action-bar-buttons-settings">
+                                    <f:if condition="{settings.config.export}">
+                                        <f:then>
+                                            <div class="form-check">
+                                                <label>
+                                                    <f:form.checkbox name="options[download]" value="1" checked="true" />
+                                                    <f:translate key="displayDownloadButton" />
+                                                </label>
+                                            </div>
+                                        </f:then>
+                                        <f:else>
+                                            <f:form.hidden name="options[download]" value="0" />
+                                        </f:else>
+                                    </f:if>
+                                    <f:if condition="{settings.config.embed}">
+                                        <f:then>
+                                            <div class="form-check">
+                                                <label>
+                                                    <f:form.checkbox name="options[embed]" value="1" checked="true" />
+                                                    <f:translate key="displayEmbedButton" />
+                                                </label>
+                                            </div>
+                                        </f:then>
+                                        <f:else>
+                                            <f:form.hidden name="options[embed]" value="0" />
+                                        </f:else>
+                                    </f:if>
+                                    <f:if condition="{settings.config.copyright}">
+                                        <f:then>
+                                            <div class="form-check">
+                                                <label>
+                                                    <f:form.checkbox name="options[copyright]" value="1" checked="true" />
+                                                    <f:translate key="displayCopyrightButton" />
+                                                </label>
+                                            </div>
+                                        </f:then>
+                                        <f:else>
+                                            <f:form.hidden name="options[copyright]" value="0" />
+                                        </f:else>
+                                    </f:if>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        </f:then>
+        <f:else>
+            <f:form.hidden name="options[frame]" value="1" />
+            <f:form.hidden name="options[download]" value="0" />
+            <f:form.hidden name="options[embed]" value="0" />
+            <f:form.hidden name="options[copyright]" value="0" />
+        </f:else>
+    </f:if>
 </div>
 
 <f:if condition="{content.uid}">

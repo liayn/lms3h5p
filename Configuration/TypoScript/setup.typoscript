@@ -49,6 +49,8 @@ module.tx_lms3h5p {
             path = {$module.tx_lms3h5p.settings.customStyle.path}
             version = {$module.tx_lms3h5p.settings.customStyle.version}
         }
+
+        showDisplayOptions = {$module.tx_lms3h5p.settings.showDisplayOptions}
     }
 }
 
