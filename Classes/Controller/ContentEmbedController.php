@@ -31,7 +31,7 @@ namespace LMS3\Lms3h5p\Controller;
 use LMS3\Lms3h5p\Domain\Model\Content;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Service\FlexFormService;
+use LMS3\Lms3h5p\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
