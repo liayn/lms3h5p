@@ -31,7 +31,7 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'foreign_table' => 'tx_h5p_domain_model_library',
+                'foreign_table' => 'tx_lms3h5p_domain_model_library',
                 'minitems' => 0,
                 'maxitems' => 1
             ]
