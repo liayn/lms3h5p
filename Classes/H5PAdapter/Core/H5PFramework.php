@@ -1120,22 +1120,24 @@ class H5PFramework implements \H5PFrameworkInterface
      * library. This means that the content dependencies will have to be rebuilt,
      * and the parameters re-filtered.
      *
-     * @param int $library_id
+     * @param array $library_ids
      * @throws IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      */
-    public function clearFilteredParameters($library_id)
+    public function clearFilteredParameters($library_ids)
     {
-        /** @var Library $library */
-        $library = $this->libraryRepository->findByUid($library_id);
-        if ($library === null) {
-            throw new \Exception("Library with ID " . $library_id . " could not be found!");
-        }
-        $contentsOfThisLibrary = $this->contentRepository->findByLibrary($library);
-        /** @var Content $content */
-        foreach ($contentsOfThisLibrary as $content) {
-            $content->setFiltered('');
-            $this->contentRepository->update($content);
+        foreach ((array) $library_ids as $id) {
+            /** @var Library $library */
+            $library = $this->libraryRepository->findByUid($id);
+            if ($library === null) {
+                throw new \Exception("Library with ID " . $id . " could not be found!");
+            }
+            $contentsOfThisLibrary = $this->contentRepository->findByLibrary($library);
+            /** @var Content $content */
+            foreach ($contentsOfThisLibrary as $content) {
+                $content->setFiltered('');
+                $this->contentRepository->update($content);
+            }
         }
     }
 

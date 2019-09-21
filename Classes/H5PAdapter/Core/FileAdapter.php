@@ -705,4 +705,25 @@ class FileAdapter implements \H5PFileStorage
             return NULL;
         }
     }
+
+    /**
+     * Store the given stream into the given file.
+     *
+     * @param string $path
+     * @param string $file
+     * @param resource $stream
+     * @return bool
+     */
+    public function saveFileFromZip($path, $file, $stream)
+    {
+        $filePath = $path . DIRECTORY_SEPARATOR . $file;
+
+        // Make sure the directory exists first
+        $matches = array();
+        preg_match('/(.+)\/[^\/]*$/', $filePath, $matches);
+        self::dirReady($matches[1]);
+
+        // Store in local storage folder
+        return file_put_contents($filePath, $stream);
+    }
 }
