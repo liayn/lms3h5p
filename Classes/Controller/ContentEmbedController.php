@@ -93,7 +93,7 @@ class ContentEmbedController extends ActionController
             ->getQueryBuilderForTable('tt_content');
         $query = $queryBuilder->select('pi_flexform')
             ->from('tt_content')
-            ->where('pid = ' . intval($GLOBALS['TSFE']->id) . ' AND list_type = "' . self::LIST_TYPE . '"')
+            ->where('list_type = "' . self::LIST_TYPE . '"')
             ->orderBy('sorting')
             ->execute();
         $h5pInstances = $query->fetchAll();
