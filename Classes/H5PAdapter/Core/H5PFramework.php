@@ -413,10 +413,10 @@ class H5PFramework implements \H5PFrameworkInterface
     public function getLibraryId($machineName, $majorVersion = NULL, $minorVersion = NULL)
     {
         $criteria = ['name' => $machineName];
-        if ($majorVersion) {
+        if (null !== $majorVersion) {
             $criteria['majorVersion'] = $majorVersion;
         }
-        if ($minorVersion) {
+        if (null !== $minorVersion) {
             $criteria['minorVersion'] = $minorVersion;
         }
 
