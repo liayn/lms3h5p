@@ -253,7 +253,9 @@ class EditorFileAdapter implements \H5peditorStorage
         if (is_dir($filePath)) {
             \H5PCore::deleteFileTree($filePath);
         } else {
-            unlink($filePath);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
         }
     }
 
