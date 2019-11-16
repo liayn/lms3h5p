@@ -635,7 +635,12 @@ class Library extends AbstractEntity
      */
     public function getContents()
     {
+        /** @var ContentRepository $contentRepository */
         $contentRepository = $this->createObject(ContentRepository::class);
+        $contentRepository->setDefaultQuerySettings(
+            $contentRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
+        );
+
         return $contentRepository->findByLibrary($this->getUid());
     }
 
@@ -645,7 +650,11 @@ class Library extends AbstractEntity
     public function getLibraryDependencies()
     {
         $dependencyRepository = $this->createObject(LibraryDependencyRepository::class);
-        return $dependencyRepository->findByLibrary($this->getUid());
+        $dependencyRepository->setDefaultQuerySettings(
+            $dependencyRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
+        );
+
+        return $dependencyRepository->findByRequiredLibrary($this->getUid());
     }
 
     /**
@@ -654,6 +663,10 @@ class Library extends AbstractEntity
     public function getContentDependencies()
     {
         $contentDependencyRepository = $this->createObject(ContentDependencyRepository::class);
+        $contentDependencyRepository->setDefaultQuerySettings(
+            $contentDependencyRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
+        );
+
         return $contentDependencyRepository->findByLibrary($this->getUid());
     }
 
