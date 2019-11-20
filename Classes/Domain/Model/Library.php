@@ -654,6 +654,19 @@ class Library extends AbstractEntity
             $dependencyRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
         );
 
+        return $dependencyRepository->findByLibrary($this->getUid());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDependentLibraries()
+    {
+        $dependencyRepository = $this->createObject(LibraryDependencyRepository::class);
+        $dependencyRepository->setDefaultQuerySettings(
+            $dependencyRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
+        );
+
         return $dependencyRepository->findByRequiredLibrary($this->getUid());
     }
 

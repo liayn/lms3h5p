@@ -36,7 +36,7 @@
                                     <td>{library.versionString}</td>
                                     <td>{library.contents -> f:count()}</td>
                                     <td>{library.contentDependencies -> f:count()}</td>
-                                    <td>{library.libraryDependencies -> f:count()}</td>
+                                    <td>{library.dependentLibraries -> f:count()}</td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <f:link.action
@@ -47,7 +47,7 @@
                                             >
                                                 <core:icon identifier="actions-document-info" />
                                             </f:link.action>
-                                            <f:if condition="{library.contents -> f:count()} > 0 || {library.contentDependencies -> f:count()} > 0 || {library.libraryDependencies -> f:count()} > 0">
+                                            <f:if condition="{library.contents -> f:count()} > 0 || {library.contentDependencies -> f:count()} > 0 || {library.dependentLibraries -> f:count()} > 0">
                                                 <f:then>
                                                     <button class="btn btn-default" disabled title="{f:translate(key: 'contentOrOtherLibrariesAreUsingThisLibrary')}">
                                                         <core:icon identifier="actions-delete" />
