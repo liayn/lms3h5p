@@ -91,11 +91,13 @@ class ContentEmbedController extends ActionController
         /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder */
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('tt_content');
+
         $query = $queryBuilder->select('pi_flexform')
             ->from('tt_content')
-            ->where('list_type = "' . self::LIST_TYPE . '"')
+            ->where('list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TSFE']->id)
             ->orderBy('sorting')
             ->execute();
+
         $h5pInstances = $query->fetchAll();
         if (0 === count($h5pInstances)) {
             return;
