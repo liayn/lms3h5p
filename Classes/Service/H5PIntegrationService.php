@@ -113,7 +113,7 @@ class H5PIntegrationService implements SingletonInterface
         foreach ($displayContentIds as $contentId) {
             $coreSettings['contents']['cid-' . $contentId] = $this->generateContentSettings(
                 $controllerContext,
-                $contentId
+                (int) $contentId
             );
         }
 

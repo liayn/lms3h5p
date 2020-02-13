@@ -110,7 +110,7 @@ class ContentEmbedController extends ActionController
             $contentIds[] = $flex['settings']['contentId'];
         }
 
-        $h5pIntegrationSettings = $this->h5pIntegrationService->getH5PSettings($this->getControllerContext(), $contentIds);
+        $h5pIntegrationSettings = $this->h5pIntegrationService->getH5PSettings($this->getControllerContext(), array_filter($contentIds));
         $mergedScripts = array_unique($this->h5pIntegrationService->getMergedScripts($h5pIntegrationSettings));
         $mergedStyles = array_unique($this->h5pIntegrationService->getMergedStyles($h5pIntegrationSettings));
 
