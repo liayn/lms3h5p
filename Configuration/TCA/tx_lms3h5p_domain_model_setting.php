@@ -6,9 +6,6 @@ return [
         'label' => 'title',
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'config_key, config_value',
-    ],
     'types' => [
         '1' => [
             'showitem' => '

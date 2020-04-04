@@ -6,9 +6,6 @@ return [
         'label' => 'title',
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'library, required_library, dependency_type',
-    ],
     'types' => [
         '1' => [
             'showitem' => '

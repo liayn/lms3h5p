@@ -34,6 +34,7 @@ use LMS3\Lms3h5p\Domain\Repository\CachedAssetRepository;
 use LMS3\Lms3h5p\Domain\Repository\ContentRepository;
 use LMS3\Lms3h5p\Domain\Repository\EditorTempfileRepository;
 use LMS3\Lms3h5p\Traits\ObjectManageable;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
@@ -270,8 +271,8 @@ class FileAdapter implements \H5PFileStorage
             foreach ($assets as $asset) {
                 // Get content from asset file
                 $assetContent = '';
-                if (file_exists(PATH_site . $asset->path)) {
-                    $assetContent = file_get_contents(PATH_site . $asset->path);
+                if (file_exists(Environment::getPublicPath() . DIRECTORY_SEPARATOR . $asset->path)) {
+                    $assetContent = file_get_contents(Environment::getPublicPath() . DIRECTORY_SEPARATOR . $asset->path);
                 }
                 $cssRelPath = preg_replace('/[^\/]+$/', '', $asset->path);
 
@@ -409,7 +410,7 @@ class FileAdapter implements \H5PFileStorage
         $editorTempfileRepository = $this->createObject(EditorTempfileRepository::class);
         $persistenceManager = $this->createObject(PersistenceManager::class);
         $editotTempFile = new EditorTempFile();
-        $editotTempFile->setPath(ltrim($path, PATH_site));
+        $editotTempFile->setPath(ltrim($path, Environment::getPublicPath()));
         $editotTempFile->setCreatedAt(time());
         $editorTempfileRepository->add($editotTempFile);
         $persistenceManager->persistAll();
@@ -534,7 +535,7 @@ class FileAdapter implements \H5PFileStorage
      */
     public function hasWriteAccess()
     {
-        $h5pPublicFolder = PATH_site . ltrim($this->h5pSettings['h5pPublicFolder']['path'], '/');
+        $h5pPublicFolder = Environment::getPublicPath() . $this->h5pSettings['h5pPublicFolder']['path'];
 
         return self::dirReady($h5pPublicFolder);
     }
@@ -656,7 +657,7 @@ class FileAdapter implements \H5PFileStorage
             return $this->h5pSettings['h5pPublicFolder']['path'] . $this->h5pSettings['subFolders'][$folderName] . DIRECTORY_SEPARATOR;
         }
 
-        return PATH_site . ltrim($this->h5pSettings['h5pPublicFolder']['path'], '/') . $this->h5pSettings['subFolders'][$folderName] . DIRECTORY_SEPARATOR;
+        return Environment::getPublicPath() . $this->h5pSettings['h5pPublicFolder']['path'] . $this->h5pSettings['subFolders'][$folderName] . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -672,7 +673,7 @@ class FileAdapter implements \H5PFileStorage
             return $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders'][$folderName] . DIRECTORY_SEPARATOR;
         }
 
-        return PATH_site . ltrim($this->h5pSettings['h5pPublicFolder']['url'], '/') . $this->h5pSettings['subFolders'][$folderName] . DIRECTORY_SEPARATOR;
+        return Environment::getPublicPath() . $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders'][$folderName] . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -702,7 +703,7 @@ class FileAdapter implements \H5PFileStorage
         $upgradeScript = "{$machineName}-{$majorVersion}.{$minorVersion}/upgrades.js";
         $upgradesFilePath = $this->getFolderPath('libraries', false) . $upgradeScript;
 
-        if (file_exists(PATH_site . ltrim($upgradesFilePath, '/'))) {
+        if (file_exists(Environment::getPublicPath() . $upgradesFilePath)) {
             return 'libraries/' . $upgradeScript;
         } else {
             return NULL;

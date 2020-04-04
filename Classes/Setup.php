@@ -29,6 +29,7 @@ namespace LMS3\Lms3h5p;
 
 use LMS3\Lms3h5p\H5PAdapter\Core\FileAdapter;
 use LMS3\Lms3h5p\Traits\ObjectManageable;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
 /**
@@ -65,7 +66,8 @@ class Setup
             return;
         }
 
-        $h5pLibraryPath = dirname(PATH_site) . $h5pSettings['libraryPath'];
+        $h5pLibraryPath = dirname(Environment::getPublicPath()) . $h5pSettings['libraryPath'];
+
         if (!is_dir($h5pLibraryPath)) {
             return;
         }
@@ -74,10 +76,11 @@ class Setup
         $editorSubfolders = ['ckeditor', 'images', 'language', 'libs', 'scripts', 'styles'];
 
         if (null === $path) {
-            $destinationBasePath = PATH_site . ltrim($h5pSettings['h5pPublicFolder']['path'], '/');
+            $destinationBasePath = Environment::getPublicPath() . $h5pSettings['h5pPublicFolder']['path'];
         } else {
-            $destinationBasePath = PATH_site . $path;
+            $destinationBasePath = Environment::getPublicPath() . $path;
         }
+
         $destinationH5pCorePath = $destinationBasePath . $h5pSettings['subFolders']['core'];
         $destinationH5pEditorPath = $destinationBasePath . $h5pSettings['subFolders']['editor'];
 

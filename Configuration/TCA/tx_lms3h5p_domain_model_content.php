@@ -6,9 +6,6 @@ return [
         'label' => 'title',
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'library, account, zipped_content_file, export_file, created_at, updated_at, title, parameters, filtered, slug, embed_type, disable, content_type, author, keywords, description, source, year_from, year_to, license, license_version, license_extras, author_comments, changes',
-    ],
     'types' => [
         '1' => [
             'showitem' => '

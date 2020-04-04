@@ -46,7 +46,7 @@ class LibraryService
      * Inject Library Repository
      *
      * @var \LMS3\Lms3h5p\Domain\Repository\LibraryRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $libraryRepository;
 

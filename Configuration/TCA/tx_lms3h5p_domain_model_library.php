@@ -6,9 +6,6 @@ return [
         'label' => 'title',
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'name, title, major_version, minor_version, patch_version, runnable, restricted, fullscreen, embed_types, preloaded_js, preloaded_css, dropLibrary_css, semantics, tutorial_url, has_icon, meta_data_settings, add_to, created_at, updated_at',
-    ],
     'types' => [
         '1' => [
             'showitem' => '

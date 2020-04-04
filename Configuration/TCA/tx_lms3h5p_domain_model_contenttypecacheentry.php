@@ -6,9 +6,6 @@ return [
         'label' => 'title',
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'machine_name, major_version, minor_version, patch_version, h5p_major_version, h5p_minor_version, title, summary, description, icon, created_at, updated_at, is_recommended, popularity, screenshots, license, example, tutorial, keywords, categories, owner',
-    ],
     'types' => [
         '1' => [
             'showitem' => '

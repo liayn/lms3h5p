@@ -32,31 +32,30 @@ if (!defined('TYPO3_MODE')) {
 }
 
 ExtensionUtility::registerPlugin(
-    'LMS3.' . $_EXTKEY,
+    'Lms3h5p',
     'Pi1',
-    'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:tx_lms3h5p_domain_model_pi1'
+    'LLL:EXT:lms3h5p/Resources/Private/Language/locallang.xlf:tx_lms3h5p_domain_model_pi1'
 );
 
-ExtensionUtility::registerModule(
-    'LMS3.' . $_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+    'Lms3h5p',
     'web',
     'Content',
     'after:page',
     [
-        'Content' => 'index,create,new,show,edit,update,delete',
-        'ContentResults' => 'save',
-        'EditorAjax' => 'index',
-        'Library' => 'index,show,delete,refreshContentTypeCache'
+        \LMS3\Lms3h5p\Controller\ContentController::class => 'index, create, new, show, edit, update, delete',
+        \LMS3\Lms3h5p\Controller\EditorAjaxController::class => 'index',
+        \LMS3\Lms3h5p\Controller\LibraryController::class => 'index, show, delete, refreshContentTypeCache'
     ],
     [
         'access' => 'user,group',
-        'icon' => 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/lms3h5p.png',
-        'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf',
+        'icon' => 'EXT:lms3h5p/Resources/Public/Icons/lms3h5p.png',
+        'labels' => 'LLL:EXT:lms3h5p/Resources/Private/Language/locallang_mod.xlf',
     ]
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $_EXTKEY,
+    'Lms3h5p',
     'Configuration/TypoScript',
     'LMS3 H5P Content'
 );

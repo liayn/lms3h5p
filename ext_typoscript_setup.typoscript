@@ -1,12 +1,3 @@
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:lms3h5p/Configuration/TypoScript/setup.typoscript">
 
 page.includeJSFooter.customJs = EXT:lms3h5p/Resources/Public/JavaScript/custom.js
-
-config.tx_extbase.persistence.classes {
-    LMS3\Lms3h5p\Domain\Model\BackendUser.mapping.tableName = be_users
-
-    TYPO3\CMS\Extbase\Domain\Model\BackendUser {
-        mapping.tableName = be_users
-        subclasses.\LMS3\Lms3h5p\Domain\Model\BackendUser = LMS3\Lms3h5p\Domain\Model\BackendUser
-    }
-}

@@ -1290,8 +1290,8 @@ class H5PFramework implements \H5PFrameworkInterface
      * Check if user has permissions to an action
      *
      * @method hasPermission
-     * @param  [H5PPermission] $permission Permission type, ref H5PPermission
-     * @param  [int]           $id         Id need by platform to determine permission
+     * @param $permission Permission type, ref H5PPermission
+     * @param $id  Id need by platform to determine permission
      * @return boolean
      */
     public function hasPermission($permission, $id = NULL)

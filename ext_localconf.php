@@ -33,22 +33,22 @@ if (!defined('TYPO3_MODE')) {
 
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'LMS3.' . $_EXTKEY,
+    'Lms3h5p',
     'Pi1',
     [
-        'ContentEmbed' => 'index',
+        \LMS3\Lms3h5p\Controller\ContentEmbedController::class => 'index',
     ],
     [
-        'ContentEmbed' => 'index',
+        \LMS3\Lms3h5p\Controller\ContentEmbedController::class => 'index',
     ]
 );
 
 // Include base TSconfig setup
 ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/TSconfig/Page/Mod/Wizards/NewContentElement.tsconfig">'
+    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:lms3h5p/Configuration/TSconfig/Page/Mod/Wizards/NewContentElement.tsconfig">'
 );
 ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/TSconfig/Page/Mod/HideTables.tsconfig">'
+    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:lms3h5p/Configuration/TSconfig/Page/Mod/HideTables.tsconfig">'
 );
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = \LMS3\Lms3h5p\Command\H5PCommandController::class;

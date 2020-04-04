@@ -52,13 +52,13 @@ class ContentEmbedController extends ActionController
 
     /**
      * @var \LMS3\Lms3h5p\Service\H5PIntegrationService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $h5pIntegrationService;
 
     /**
      * @var \LMS3\Lms3h5p\Service\ContentService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $contentService;
 
