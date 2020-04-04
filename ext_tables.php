@@ -49,7 +49,7 @@ ExtensionUtility::registerPlugin(
     ],
     [
         'access' => 'user,group',
-        'icon' => 'EXT:lms3h5p/Resources/Public/Icons/lms3h5p.png',
+        'icon' => 'EXT:lms3h5p/Resources/Public/Icons/lms3h5p.svg',
         'labels' => 'LLL:EXT:lms3h5p/Resources/Private/Language/locallang_mod.xlf',
     ]
 );
