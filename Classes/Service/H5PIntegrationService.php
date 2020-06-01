@@ -183,20 +183,13 @@ class H5PIntegrationService implements SingletonInterface
      */
     public function generateCoreSettings(ControllerContext $controllerContext): array
     {
-        $saveResultAction = $controllerContext->getUriBuilder() ? $controllerContext->getUriBuilder()->reset()->uriFor(
-            'save', [], 'ContentResults'
-        ) : '';
-        $saveUserDataAction = $controllerContext->getUriBuilder() ? $controllerContext->getUriBuilder()->reset()->uriFor(
-            'save', [], 'ContentUserData'
-        ): '';
-
         $settings = [
             'baseUrl' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
             'url' => $this->h5pSettings['h5pPublicFolder']['url'],
             'postUserStatistics' => true,
             'ajax' => [
-                'setFinished' => $saveResultAction,
-                'contentUserData' => $saveUserDataAction
+                'setFinished' => '',
+                'contentUserData' => ''
             ],
             'saveFreq' => (integer) $this->h5pFramework->getOption('save_content_frequency') ?? false,
             'siteUrl' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),

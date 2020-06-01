@@ -23,7 +23,12 @@
                 <td>{content.library.name}</td>
                 <td><f:format.date format="{dateFormat} {timeFormat}" date="{content.createdAt}" /></td>
                 <td><f:format.date format="{dateFormat} {timeFormat}" date="{content.updatedAt}" /></td>
-                <td>{content.account.userName}</td>
+                <td>
+                    <f:if condition="{content.account.userName}">
+                        <f:then>{content.account.userName}</f:then>
+                        <f:else><span title="Author is disabled / deleted">-</span></f:else>
+                    </f:if>
+                </td>
                 <td>
                     <div class="btn-group" role="group">
                         <f:link.action

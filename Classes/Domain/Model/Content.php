@@ -180,9 +180,9 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * @return \LMS3\Lms3h5p\Domain\Model\BackendUser
+     * @return \LMS3\Lms3h5p\Domain\Model\BackendUser|null
      */
-    public function getAccount(): BackendUser
+    public function getAccount(): ?BackendUser
     {
         return $this->account;
     }
