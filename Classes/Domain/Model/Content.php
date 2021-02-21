@@ -127,27 +127,27 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $exportFile;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $source;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $yearFrom;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $yearTo;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $licenseVersion;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $licenseExtras;
 
@@ -468,108 +468,108 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSource(): string
+    public function getSource(): ?string
     {
         return $this->source;
     }
 
     /**
-     * @param string $source
+     * @param string|null $source
      * @return Content
      */
-    public function setSource(string $source): self
+    public function setSource(?string $source): self
     {
         $this->source = $source;
         return $this;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getYearFrom(): int
+    public function getYearFrom(): ?int
     {
         return $this->yearFrom;
     }
 
     /**
-     * @param int $yearFrom
+     * @param int|null $yearFrom
      * @return Content
      */
-    public function setYearFrom(int $yearFrom): self
+    public function setYearFrom(?int $yearFrom): self
     {
         $this->yearFrom = $yearFrom;
         return $this;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getYearTo(): int
+    public function getYearTo(): ?int
     {
         return $this->yearTo;
     }
 
     /**
-     * @param int $yearTo
+     * @param int|null $yearTo
      * @return Content
      */
-    public function setYearTo(int $yearTo): self
+    public function setYearTo(?int $yearTo): self
     {
         $this->yearTo = $yearTo;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLicenseVersion(): string
+    public function getLicenseVersion(): ?string
     {
         return $this->licenseVersion;
     }
 
     /**
-     * @param string $licenseVersion
+     * @param string|null $licenseVersion
      * @return Content
      */
-    public function setLicenseVersion(string $licenseVersion): self
+    public function setLicenseVersion(?string $licenseVersion): self
     {
         $this->licenseVersion = $licenseVersion;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLicenseExtras(): string
+    public function getLicenseExtras(): ?string
     {
         return $this->licenseExtras;
     }
 
     /**
-     * @param string $licenseExtras
+     * @param string|null $licenseExtras
      * @return Content
      */
-    public function setLicenseExtras(string $licenseExtras): self
+    public function setLicenseExtras(?string $licenseExtras): self
     {
         $this->licenseExtras = $licenseExtras;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAuthorComments(): string
+    public function getAuthorComments(): ?string
     {
         return $this->authorComments;
     }
 
     /**
-     * @param string $authorComments
+     * @param string|null $authorComments
      * @return Content
      */
-    public function setAuthorComments(string $authorComments): self
+    public function setAuthorComments(?string $authorComments): self
     {
         $this->authorComments = $authorComments;
         return $this;
@@ -671,7 +671,19 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             'disable' => $this->getDisable(),
             'embedType' => $this->getEmbedType(),
             'params' => $this->getParameters(),
-            'filtered' => $this->getFiltered()
+            'filtered' => $this->getFiltered(),
+            'metadata' => json_encode([
+                'title' => $this->getTitle() ?? 'null',
+                'authors' => $this->getAuthor() ?? 'null',
+                'source' => $this->getSource() ?? '',
+                'license' => $this->getLicense() ?? 'null',
+                'licenseVersion' => $this->getLicenseVersion() ?? 'null',
+                'licenseExtras' => $this->getLicenseExtras() ?? 'null',
+                'yearFrom' => $this->getYearFrom() ?? 'null',
+                'yearTo' => $this->getYearTo() ?? 'null',
+                'changes' => $this->getChanges() ?? 'null',
+                'authorComments' => $this->getAuthorComments() ?? 'null',
+            ])
         ];
     }
 }

@@ -319,7 +319,8 @@ class H5PIntegrationService implements SingletonInterface
             'url' => $embedUrl,
             'title' => $contentArray['title'],
             // TODO: use actual account identifier instead of 0 - this is needed only for an auth check, which we default to true currently.
-            'displayOptions' => $this->getH5PCoreInstance()->getDisplayOptionsForView($contentArray['disable'], 0)
+            'displayOptions' => $this->getH5PCoreInstance()->getDisplayOptionsForView($contentArray['disable'], 0),
+            'metadata' => $contentArray['metadata'],
         ];
 
         // Get assets for this content
