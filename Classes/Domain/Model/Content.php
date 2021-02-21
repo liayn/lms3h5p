@@ -672,7 +672,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             'embedType' => $this->getEmbedType(),
             'params' => $this->getParameters(),
             'filtered' => $this->getFiltered(),
-            'metadata' => json_encode([
+            'metadata' => [
                 'title' => $this->getTitle() ?? 'null',
                 'authors' => $this->getAuthor() ?? 'null',
                 'source' => $this->getSource() ?? '',
@@ -683,7 +683,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                 'yearTo' => $this->getYearTo() ?? 'null',
                 'changes' => $this->getChanges() ?? 'null',
                 'authorComments' => $this->getAuthorComments() ?? 'null',
-            ])
+            ],
         ];
     }
 }
