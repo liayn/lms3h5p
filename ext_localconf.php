@@ -51,8 +51,6 @@ ExtensionManagementUtility::addPageTSConfig(
     '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:lms3h5p/Configuration/TSconfig/Page/Mod/HideTables.tsconfig">'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = \LMS3\Lms3h5p\Command\H5PCommandController::class;
-
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1539019571] = [
     'nodeName' => 'lms3h5pContentElement',
     'priority' => 40,
