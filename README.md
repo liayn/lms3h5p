@@ -13,6 +13,8 @@ What does this extension do?
 This extension provides a platform integration for H5P into the TYPO3 CMS (https://typo3.org/), allowing
 you to use H5P content types within TYPO3 CMS.
 
+This extension works independendly inside a TYPO3 Installation but is part of the TYPO3 based E-Learning System LMS3 http://www.lms3.de created by LEARNTUBE GmbH. 
+
 Installation
 ============
 
