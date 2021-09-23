@@ -19,5 +19,10 @@
     "psr-4": {
       "LMS3\\Lms3h5p\\": "Classes"
     }
-  }
+  },
+  "extra": {
+		"typo3/cms": {
+			"extension-key": "lms3h5p"
+		}
+	}
 }
