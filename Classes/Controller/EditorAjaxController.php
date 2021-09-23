@@ -27,6 +27,7 @@ namespace LMS3\Lms3h5p\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use LMS3\Lms3h5p\Service\H5PIntegrationService;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -44,11 +45,12 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class EditorAjaxController extends ActionController
 {
-    /**
-     * @var \LMS3\Lms3h5p\Service\H5PIntegrationService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $h5pIntegrationService;
+    protected H5PIntegrationService $h5pIntegrationService;
+
+    public function __construct(H5PIntegrationService $integrationService)
+    {
+        $this->h5pIntegrationService = $integrationService;
+    }
 
     /**
      * Handle different types of request
@@ -82,8 +84,6 @@ class EditorAjaxController extends ActionController
 
     /**
      * Content type cache
-     *
-     * @return void
      */
     protected function contentTypeCache(): void
     {
@@ -94,8 +94,6 @@ class EditorAjaxController extends ActionController
 
     /**
      * Install library
-     *
-     * @return void
      */
     protected function installLibrary(): void
     {
@@ -109,8 +107,6 @@ class EditorAjaxController extends ActionController
 
     /**
      * Libraries
-     *
-     * @return void
      */
     protected function libraries(): void
     {
@@ -135,8 +131,6 @@ class EditorAjaxController extends ActionController
 
     /**
      * Upload files
-     *
-     * @return void
      */
     protected function uploadFiles(): void
     {
@@ -156,12 +150,11 @@ class EditorAjaxController extends ActionController
 
     /**
      * Upload library
-     *
-     * @return void
      */
     protected function uploadLibrary(): void
     {
         $contentId = GeneralUtility::_GP('contentId') ?? 0;
+
         $this->h5pIntegrationService->getH5pEditor()->ajax->action(
             \H5PEditorEndpoints::LIBRARY_UPLOAD,
             GeneralUtility::_GP('moduleToken'),
@@ -176,6 +169,7 @@ class EditorAjaxController extends ActionController
     protected function translations(): void
     {
         $language = GeneralUtility::_GP('language');
+
         $this->h5pIntegrationService->getH5pEditor()->ajax->action(
             \H5PEditorEndpoints::TRANSLATIONS,
             $language

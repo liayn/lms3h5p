@@ -28,6 +28,7 @@ namespace LMS3\Lms3h5p\Service;
  * ************************************************************* */
 
 use LMS3\Lms3h5p\Domain\Model\Library;
+use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
 
 /**
  * Library Service
@@ -42,13 +43,12 @@ use LMS3\Lms3h5p\Domain\Model\Library;
  */
 class LibraryService
 {
-    /**
-     * Inject Library Repository
-     *
-     * @var \LMS3\Lms3h5p\Domain\Repository\LibraryRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $libraryRepository;
+    protected LibraryRepository $libraryRepository;
+
+    public function __construct(LibraryRepository $libraryRepository)
+    {
+        $this->libraryRepository = $libraryRepository;
+    }
 
     /**
      * Find all libraries

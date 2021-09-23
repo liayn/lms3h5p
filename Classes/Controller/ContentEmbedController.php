@@ -28,12 +28,14 @@ namespace LMS3\Lms3h5p\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-use LMS3\Lms3h5p\Domain\Model\Content;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use LMS3\Lms3h5p\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use LMS3\Lms3h5p\Service\H5PIntegrationService;
+use LMS3\Lms3h5p\Service\ContentService;
 
 /**
  * Content Embed Controller
@@ -49,38 +51,34 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class ContentEmbedController extends ActionController
 {
     const LIST_TYPE = 'lms3h5p_pi1';
+    protected PageRenderer $pageRenderer;
+    protected ContentService $contentService;
+    protected H5PIntegrationService $h5pIntegrationService;
 
-    /**
-     * @var \LMS3\Lms3h5p\Service\H5PIntegrationService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $h5pIntegrationService;
+    public function __construct(H5PIntegrationService $integrationService, ContentService $contentService, PageRenderer $pageRenderer)
+    {
+        $this->pageRenderer = $pageRenderer;
+        $this->contentService = $contentService;
+        $this->h5pIntegrationService = $integrationService;
+    }
 
-    /**
-     * @var \LMS3\Lms3h5p\Service\ContentService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $contentService;
-
-    /**
-     * Index action
-     *
-     * @return bool
-     */
-    public function indexAction()
+    public function indexAction(): ResponseInterface
     {
         $this->addScriptAndStyles();
+
         $contentId = (int) $this->settings['contentId'];
         if (empty($contentId)) {
-            return false;
+            return $this->htmlResponse();
         }
-        /** @var Content $content */
+
         $content = $this->contentService->findByUid($contentId);
         if (null === $content) {
-            return false;
+            return $this->htmlResponse();
         }
 
         $this->view->assign('content', $content);
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -114,33 +112,24 @@ class ContentEmbedController extends ActionController
         $mergedScripts = array_unique($this->h5pIntegrationService->getMergedScripts($h5pIntegrationSettings));
         $mergedStyles = array_unique($this->h5pIntegrationService->getMergedStyles($h5pIntegrationSettings));
 
-        self::getPageRenderer()->addJsInlineCode('H5PSettings',
+        $this->pageRenderer->addJsInlineCode('H5PSettings',
             'window.H5PIntegration = ' . json_encode($h5pIntegrationSettings) . ';'
         );
+
         /**
          * Add H5P CSS files
          */
         foreach ($mergedStyles as $style) {
-            self::getPageRenderer()->addCssFile(
+            $this->pageRenderer->addCssFile(
                 $style, 'stylesheet', 'all', '', false, false, '', true
             );
         }
+
         /**
          *  Add H5P javascript files
          */
         foreach ($mergedScripts as $script) {
-            self::getPageRenderer()->addJsFile($script);
+            $this->pageRenderer->addJsFile($script);
         }
     }
-
-    /**
-     * Get PageRenderer instance
-     *
-     * @return PageRenderer
-     */
-    protected static function getPageRenderer(): PageRenderer
-    {
-        return GeneralUtility::makeInstance(PageRenderer::class);
-    }
-
 }
