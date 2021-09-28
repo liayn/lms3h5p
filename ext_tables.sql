@@ -1,10 +1,7 @@
-#
-# Table structure for table 'tx_lms3h5p_domain_model_setting'
-#
 CREATE TABLE tx_lms3h5p_domain_model_setting (
 
     uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
+    pid int(11) DEFAULT 0 NOT NULL,
 
     config_key VARCHAR(255) NOT NULL,
     config_value LONGTEXT NOT NULL,
@@ -13,13 +10,10 @@ CREATE TABLE tx_lms3h5p_domain_model_setting (
     KEY parent (pid)
 );
 
-#
-# Table structure for table 'tx_lms3h5p_domain_model_library'
-#
 CREATE TABLE tx_lms3h5p_domain_model_library (
 
     uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
+    pid int(11) DEFAULT 0 NOT NULL,
 
     name VARCHAR(255) NOT NULL,
     title VARCHAR(255) NOT NULL,
@@ -38,20 +32,17 @@ CREATE TABLE tx_lms3h5p_domain_model_library (
     has_icon TINYINT(1) NOT NULL,
     meta_data_settings LONGTEXT DEFAULT NULL,
     add_to LONGTEXT DEFAULT NULL,
-    created_at int(11) DEFAULT '0' NOT NULL,
-    updated_at int(11) DEFAULT '0' NOT NULL,
+    created_at int(11) DEFAULT 0 NOT NULL,
+    updated_at int(11) DEFAULT 0 NOT NULL,
 
     PRIMARY KEY (uid),
     KEY parent (pid)
 );
 
-#
-# Table structure for table 'tx_lms3h5p_domain_model_librarydependency'
-#
 CREATE TABLE tx_lms3h5p_domain_model_librarydependency (
 
     uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
+    pid int(11) DEFAULT 0 NOT NULL,
 
     library int(11) NOT NULL,
     required_library int(11) NOT NULL,
@@ -61,13 +52,10 @@ CREATE TABLE tx_lms3h5p_domain_model_librarydependency (
     KEY parent (pid)
 );
 
-#
-# Table structure for table 'tx_lms3h5p_domain_model_librarytranslation'
-#
 CREATE TABLE tx_lms3h5p_domain_model_librarytranslation (
 
     uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
+    pid int(11) DEFAULT 0 NOT NULL,
 
     library int(11) NOT NULL,
     language_code varchar(255) NOT NULL,
@@ -77,13 +65,10 @@ CREATE TABLE tx_lms3h5p_domain_model_librarytranslation (
     KEY parent (pid)
 );
 
-#
-# Table structure for table 'tx_lms3h5p_domain_model_contenttypecacheentry'
-#
 CREATE TABLE tx_lms3h5p_domain_model_contenttypecacheentry (
 
     uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
+    pid int(11) DEFAULT 0 NOT NULL,
 
     machine_name VARCHAR(255) NOT NULL,
     major_version INT NOT NULL,
@@ -95,8 +80,8 @@ CREATE TABLE tx_lms3h5p_domain_model_contenttypecacheentry (
     summary LONGTEXT NOT NULL,
     description LONGTEXT NOT NULL,
     icon LONGTEXT NOT NULL,
-    created_at int(11) DEFAULT '0' NOT NULL,
-    updated_at int(11) DEFAULT '0' NOT NULL,
+    created_at int(11) DEFAULT 0 NOT NULL,
+    updated_at int(11) DEFAULT 0 NOT NULL,
     is_recommended TINYINT(1) NOT NULL,
     popularity INT NOT NULL,
     screenshots LONGTEXT DEFAULT NULL,
@@ -111,13 +96,10 @@ CREATE TABLE tx_lms3h5p_domain_model_contenttypecacheentry (
     KEY parent (pid)
 );
 
-#
-# Table structure for table 'tx_lms3h5p_domain_model_cachedasset'
-#
 CREATE TABLE tx_lms3h5p_domain_model_cachedasset (
 
     uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
+    pid int(11) DEFAULT 0 NOT NULL,
 
     library int(11) DEFAULT NULL,
     hash_key VARCHAR(255) NOT NULL,
@@ -127,20 +109,17 @@ CREATE TABLE tx_lms3h5p_domain_model_cachedasset (
     KEY parent (pid)
 );
 
-#
-# Table structure for table 'tx_lms3h5p_domain_model_content'
-#
 CREATE TABLE tx_lms3h5p_domain_model_content (
 
     uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
+    pid int(11) DEFAULT 0 NOT NULL,
 
     library int(11) DEFAULT NULL,
     account int(11) DEFAULT NULL,
     zipped_content_file VARCHAR(40) DEFAULT NULL,
     export_file VARCHAR(40) DEFAULT NULL,
-    created_at int(11) DEFAULT '0' NOT NULL,
-    updated_at int(11) DEFAULT '0' NOT NULL,
+    created_at int(11) DEFAULT 0 NOT NULL,
+    updated_at int(11) DEFAULT 0 NOT NULL,
     title VARCHAR(255) NOT NULL,
     parameters LONGTEXT NOT NULL,
     filtered LONGTEXT NOT NULL,
@@ -164,13 +143,10 @@ CREATE TABLE tx_lms3h5p_domain_model_content (
     KEY parent (pid)
 );
 
-#
-# Table structure for table 'tx_lms3h5p_domain_model_contentdependency'
-#
 CREATE TABLE tx_lms3h5p_domain_model_contentdependency (
 
     uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
+    pid int(11) DEFAULT 0 NOT NULL,
 
     content int(11) NOT NULL,
     library int(11) NOT NULL,
@@ -182,16 +158,13 @@ CREATE TABLE tx_lms3h5p_domain_model_contentdependency (
     KEY parent (pid)
 );
 
-#
-# Table structure for table 'tx_lms3h5p_domain_model_editortempfile'
-#
 CREATE TABLE tx_lms3h5p_domain_model_editortempfile (
 
     uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
+    pid int(11) DEFAULT 0 NOT NULL,
 
     path VARCHAR(255) NOT NULL,
-    created_at int(11) DEFAULT '0' NOT NULL,
+    created_at int(11) DEFAULT 0 NOT NULL,
 
     PRIMARY KEY (uid),
     KEY parent (pid)
