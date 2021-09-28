@@ -32,6 +32,16 @@ if (!defined('TYPO3_MODE')) {
 }
 
 
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants(
+    "@import 'EXT:lms3h5p/Configuration/TypoScript/constants.typoscript'"
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(
+    "@import 'EXT:lms3h5p/Configuration/TypoScript/setup.typoscript'"
+);
+
+
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'Lms3h5p',
     'Pi1',

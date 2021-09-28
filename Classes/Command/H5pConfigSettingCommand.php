@@ -1,14 +1,16 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+
 declare(strict_types = 1);
 
 namespace LMS3\Lms3h5p\Command;
 
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
-use LMS3\Lms3h5p\Traits\ObjectManageable;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * H5P Config Setting Command
@@ -23,52 +25,44 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
  */
 class H5pConfigSettingCommand extends Command
 {
-    use ObjectManageable;
+    private array $ts;
+    private TYPO3H5P $h5p;
 
-    /**
-     * Defines the allowed options for this command
-     */
-    public function configure()
+    public function __construct(ConfigurationManager $manager, TYPO3H5P $h5p)
     {
-        $this
-            ->setName('h5p:configsetting')
-            ->setDescription('Run this command to add required configuration settings');
+        parent::__construct();
+
+        $this->h5p = $h5p;
+
+        $this->ts = $manager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'Lms3h5p',
+            'Pi1'
+        );
+    }
+
+    public function configure(): void
+    {
+        $info = 'Run this command to add required configuration settings';
+
+        $this->setDescription($info);
     }
 
     /**
      * Add h5p settings in database table
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $configurationManager = $this->createObject(ConfigurationManager::class);
-        $h5pSettings = $configurationManager->getConfiguration(
-            ConfigurationManager::CONFIGURATION_TYPE_SETTINGS,
-            'Lms3h5p',
-            'Pi1'
-        );
+        $interface = $this->h5p->getH5PInstance('interface');
 
-        /** @var TYPO3H5P $TYPO3H5P */
-        $TYPO3H5P = $this->createObject(TYPO3H5P::class);
-
-        $interface = $TYPO3H5P->getH5PInstance('interface');
-
-        if (empty($h5pSettings['config'])) {
-            $output->writeln('<error>Config settings are not found to import.</error>');
-
-            return 1;
+        if (empty($this->ts['config'])) {
+            return Command::FAILURE;
         }
 
-        foreach ($h5pSettings['config'] as $name => $value) {
+        foreach ($this->ts['config'] as $name => $value) {
             $interface->setOption($name, $value);
         }
-        $output->writeln('<info>Config settings imported successfully.</info>');
 
-        return 0;
+        return Command::SUCCESS;
     }
-
 }

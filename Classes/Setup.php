@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace LMS3\Lms3h5p;
 
@@ -27,10 +28,10 @@ namespace LMS3\Lms3h5p;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-use LMS3\Lms3h5p\H5PAdapter\Core\FileAdapter;
-use LMS3\Lms3h5p\Traits\ObjectManageable;
 use TYPO3\CMS\Core\Core\Environment;
+use LMS3\Lms3h5p\H5PAdapter\Core\FileAdapter;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Setup
@@ -45,28 +46,27 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
  */
 class Setup
 {
-    use ObjectManageable;
+    private array $ts;
 
-    /**
-     * Copy H5P libraries resources
-     *
-     * @param null|string $extname
-     * @param null|string $path
-     * @throws \Exception
-     */
-    public function copyResourcesFromH5PLibraries($extname = null, $path = null)
+    public function __construct(ConfigurationManager $manager)
     {
-        $configurationManager = $this->createObject(ConfigurationManager::class);
-        $h5pSettings = $configurationManager->getConfiguration(
-            ConfigurationManager::CONFIGURATION_TYPE_SETTINGS,
+        $this->ts = $manager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'Lms3h5p',
             'Pi1'
         );
-        if ('lms3h5p' !== $extname && empty($h5pSettings)) {
+    }
+
+    /**
+     * Copy H5P libraries resources
+     */
+    public function copyResourcesFromH5PLibraries(): void
+    {
+        if (empty($this->ts)) {
             return;
         }
 
-        $h5pLibraryPath = dirname(Environment::getPublicPath()) . $h5pSettings['libraryPath'];
+        $h5pLibraryPath = dirname(Environment::getPublicPath()) . $this->ts['libraryPath'];
 
         if (!is_dir($h5pLibraryPath)) {
             return;
@@ -75,17 +75,13 @@ class Setup
         $coreSubfolders = ['fonts', 'images', 'js', 'styles'];
         $editorSubfolders = ['ckeditor', 'images', 'language', 'libs', 'scripts', 'styles'];
 
-        if (null === $path) {
-            $destinationBasePath = Environment::getPublicPath() . $h5pSettings['h5pPublicFolder']['path'];
-        } else {
-            $destinationBasePath = Environment::getPublicPath() . $path;
-        }
+        $destinationBasePath = Environment::getPublicPath() . $this->ts['h5pPublicFolder']['path'];
 
-        $destinationH5pCorePath = $destinationBasePath . $h5pSettings['subFolders']['core'];
-        $destinationH5pEditorPath = $destinationBasePath . $h5pSettings['subFolders']['editor'];
+        $destinationH5pCorePath = $destinationBasePath . $this->ts['subFolders']['core'];
+        $destinationH5pEditorPath = $destinationBasePath . $this->ts['subFolders']['editor'];
 
-        $sourceH5pCorePath = $h5pLibraryPath . $h5pSettings['subFolders']['core'];
-        $sourceH5pEditorPath = $h5pLibraryPath . $h5pSettings['subFolders']['editor'];
+        $sourceH5pCorePath = $h5pLibraryPath . $this->ts['subFolders']['core'];
+        $sourceH5pEditorPath = $h5pLibraryPath . $this->ts['subFolders']['editor'];
 
         foreach ($coreSubfolders as $folder) {
             $destination = $destinationH5pCorePath . DIRECTORY_SEPARATOR . $folder;

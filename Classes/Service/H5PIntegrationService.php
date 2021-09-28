@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace LMS3\Lms3h5p\Service;
 
@@ -27,14 +27,14 @@ namespace LMS3\Lms3h5p\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-use LMS3\Lms3h5p\Domain\Model\Content;
-use LMS3\Lms3h5p\H5PAdapter\Core\H5PFramework;
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
-use LMS3\Lms3h5p\Traits\ObjectManageable;
 use TYPO3\CMS\Core\SingletonInterface;
+use LMS3\Lms3h5p\Domain\Model\Content;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use LMS3\Lms3h5p\H5PAdapter\Core\H5PFramework;
 use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * H5P Integration service
@@ -49,63 +49,38 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
  */
 class H5PIntegrationService implements SingletonInterface
 {
-    use ObjectManageable;
+    protected array $h5pSettings;
+    protected TYPO3H5P $typo3H5p;
+    protected H5PFramework $h5pFramework;
+    protected ContentService $contentService;
 
-    /**
-     * @var H5PFramework
-     */
-    protected $h5pFramework;
-
-    /**
-     * @var array
-     */
-    protected $h5pSettings;
-
-    /**
-     * @var ContentService
-     */
-    protected $contentService;
-
-    /**
-     * Inject ContentService
-     *
-     * @param ContentService $contentService
-     */
-    public function injectContentService(ContentService $contentService)
+    public function __construct(ConfigurationManager $manager)
     {
-        $this->contentService = $contentService;
-    }
-
-    /**
-     * H5PIntegrationService constructor.
-     */
-    public function __construct()
-    {
-        $configurationManager = $this->createObject(ConfigurationManager::class);
-        $this->h5pSettings = $configurationManager->getConfiguration(
-            ConfigurationManager::CONFIGURATION_TYPE_SETTINGS,
+        $this->h5pSettings = $manager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'Lms3h5p',
             'Pi1'
         );
     }
 
-    /**
-     * Inject H5PFramework
-     *
-     * @param H5PFramework $h5PFramework
-     */
-    public function injectH5PFramework(H5PFramework $h5PFramework)
+    public function injectContentService(ContentService $contentService): void
+    {
+        $this->contentService = $contentService;
+    }
+
+    public function injectH5PFramework(H5PFramework $h5PFramework): void
     {
         $this->h5pFramework = $h5PFramework;
+    }
+
+    public function injectTypo3H5p(TYPO3H5P $service): void
+    {
+        $this->typo3H5p = $service;
     }
 
     /**
      * Returns an array with a set of core settings that the H5P JavaScript needs
      * to do its thing. Can also include editor settings.
-     *
-     * @param ControllerContext $controllerContext
-     * @param array<int> $displayContentIds content IDs for which display settings should be generated
-     * @return array
      */
     public function getH5PSettings(ControllerContext $controllerContext, array $displayContentIds = []): array
     {
@@ -122,10 +97,6 @@ class H5PIntegrationService implements SingletonInterface
 
     /**
      * Get the settings with editor
-     *
-     * @param ControllerContext $controllerContext
-     * @param int $editorContentId content ID for which editor settings should be generated
-     * @return array
      */
     public function getSettingsWithEditor(ControllerContext $controllerContext, int $editorContentId = -1): array
     {
@@ -138,10 +109,6 @@ class H5PIntegrationService implements SingletonInterface
     /**
      * Returns an array with a set of editor settings that the H5P JavaScript needs
      * to do its thing.
-     *
-     * @param ControllerContext $controllerContext
-     * @param int $contentId provide this to set the "nodeVersionId" - needed to edit contents.
-     * @return array
      */
     private function generateEditorSettings(ControllerContext $controllerContext, int $contentId = -1): array
     {
@@ -177,9 +144,6 @@ class H5PIntegrationService implements SingletonInterface
     /**
      * Returns an array with a set of core settings that the H5P JavaScript needs
      * to do its thing.
-     *
-     * @param ControllerContext $controllerContext
-     * @return array
      */
     public function generateCoreSettings(ControllerContext $controllerContext): array
     {
@@ -211,8 +175,6 @@ class H5PIntegrationService implements SingletonInterface
      * Generates the relative script urls the H5P JS expects in window.H5PIntegration.scripts.
      * Is needed for the window.H5PIntegration object and also to actually load these scripts into
      * the window as head scripts.
-     *
-     * @return array
      */
     private function getRelativeCoreScriptUrls(): array
     {
@@ -228,8 +190,6 @@ class H5PIntegrationService implements SingletonInterface
      * Generates the relative style urls the H5P JS expects in window.H5PIntegration.styles.
      * Is needed for the window.H5PIntegration object and also to actually load these styles into
      * the window as head styles.
-     *
-     * @return array
      */
     private function getRelativeCoreStyleUrls(): array
     {
@@ -245,8 +205,6 @@ class H5PIntegrationService implements SingletonInterface
      * Generates the relative script urls the H5P JS expects in window.H5PIntegration.editor.assets.js.
      * Is needed for the window.H5PIntegration object and also to actually load these scripts into
      * the window as head scripts.
-     *
-     * @return array
      */
     private function getRelativeEditorScriptUrls(): array
     {
@@ -273,8 +231,6 @@ class H5PIntegrationService implements SingletonInterface
      * Generates the relative style urls the H5P JS expects in window.H5PIntegration.editor.assets.css.
      * Is needed for the window.H5PIntegration object and also to actually load these styles into
      * the window as head styles.
-     *
-     * @return array
      */
     private function getRelativeEditorStyleUrls(): array
     {
@@ -287,12 +243,8 @@ class H5PIntegrationService implements SingletonInterface
 
     /**
      * Get settings for given content
-     *
-     * @param ControllerContext $controllerContext
-     * @param int $contentId
-     * @return array
      */
-    private function generateContentSettings(ControllerContext $controllerContext, int $contentId)
+    private function generateContentSettings(ControllerContext $controllerContext, int $contentId): array
     {
         /** @var Content $content */
         $content = $this->contentService->findByUid($contentId);
@@ -347,9 +299,6 @@ class H5PIntegrationService implements SingletonInterface
     /**
      * Merges the core scripts with all content scripts, so that there is one list of scripts that
      * can be passed to a template for inclusion.
-     *
-     * @param array $h5pIntegrationSettings
-     * @return array
      */
     public function getMergedScripts(array $h5pIntegrationSettings): array
     {
@@ -368,9 +317,6 @@ class H5PIntegrationService implements SingletonInterface
     /**
      * Merges the core styles with all content styles, so that there is one list of styles that
      * can be passed to a template for inclusion.
-     *
-     * @param array $h5pIntegrationSettings
-     * @return array
      */
     public function getMergedStyles(array $h5pIntegrationSettings): array
     {
@@ -390,8 +336,6 @@ class H5PIntegrationService implements SingletonInterface
 
     /**
      * Provide localization for the Core JS
-     *
-     * @return array
      */
     public function getLocalization(): array
     {
@@ -460,8 +404,6 @@ class H5PIntegrationService implements SingletonInterface
 
     /**
      * Translate by id
-     *
-     * @return string
      */
     protected function translate($key): string
     {
@@ -472,9 +414,6 @@ class H5PIntegrationService implements SingletonInterface
 
     /**
      * Add custom stylesheet
-     *
-     * @param array $styles
-     * @return void
      */
     protected function addCustomStylesheet(array &$styles): void
     {
@@ -489,49 +428,30 @@ class H5PIntegrationService implements SingletonInterface
 
     /**
      * Get the H5PCore instance
-     *
-     * @return \H5PCore
      */
     public function getH5PCoreInstance(): \H5PCore
     {
-        /** @var TYPO3H5P $TYPO3H5P */
-        $TYPO3H5P = $this->createObject(TYPO3H5P::class);
-
-        return $TYPO3H5P->getH5PInstance('core');
+        return $this->typo3H5p->getH5PInstance('core');
     }
 
     /**
      * Get the H5P Content Validator
-     *
-     * @return \H5PContentValidator
      */
     public function getH5pContentValidator(): \H5PContentValidator
     {
-        /** @var TYPO3H5P $TYPO3H5P */
-        $TYPO3H5P = $this->createObject(TYPO3H5P::class);
-
-        return $TYPO3H5P->getH5PInstance('contentvalidator');
+        return $this->typo3H5p->getH5PInstance('contentvalidator');
     }
 
     /**
      * Get the H5P Editor
-     *
-     * @return \H5peditor
      */
     public function getH5pEditor(): \H5peditor
     {
-        /** @var TYPO3H5P $TYPO3H5P */
-        $TYPO3H5P = $this->createObject(TYPO3H5P::class);
-
-        return $TYPO3H5P->getH5PInstance('editor');
+        return $this->typo3H5p->getH5PInstance('editor');
     }
 
-    /**
-     * @return array
-     */
     public function getSettings(): array
     {
         return $this->h5pSettings;
     }
-
 }

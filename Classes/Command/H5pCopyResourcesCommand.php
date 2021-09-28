@@ -1,12 +1,10 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace LMS3\Lms3h5p\Command;
 
 use LMS3\Lms3h5p\Setup;
-use LMS3\Lms3h5p\Traits\ObjectManageable;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -23,44 +21,33 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class H5pCopyResourcesCommand extends Command
 {
+    private Setup $setup;
 
-    use ObjectManageable;
-
-    /**
-     * Defines the allowed options for this command
-     */
-    public function configure()
+    public function __construct(Setup $setup)
     {
-        $this
-            ->setName('h5p:copyresources')
-            ->setDescription('Run this command to copy required resources from h5p vendor packages.')
-            ->addArgument(
-                'path',
-                InputArgument::OPTIONAL
-            );
+        parent::__construct();
+
+        $this->setup = $setup;
+    }
+
+    public function configure(): void
+    {
+        $info = 'Run this command to copy required resources from h5p vendor packages.';
+
+        $this->setDescription($info);
     }
 
     /**
      * Copy required resources from h5p vendor packages
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var Setup $h5pSetup */
-        $h5pSetup = $this->createObject(Setup::class);
         try {
-            $h5pSetup->copyResourcesFromH5PLibraries('lms3h5p', $input->getArgument('path'));
+            $this->setup->copyResourcesFromH5PLibraries();
         } catch (\Exception $exception) {
-            $output->writeln('<error>Something went wrong.</error>');
-
-            return 1;
+            return Command::FAILURE;
         }
 
-        $output->writeln('<info>Resources copied successfully.</info>');
-
-        return 0;
+        return Command::SUCCESS;
     }
 }

@@ -1,3 +1,0 @@
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:lms3h5p/Configuration/TypoScript/setup.typoscript">
-
-page.includeJSFooter.customJs = EXT:lms3h5p/Resources/Public/JavaScript/custom.js
