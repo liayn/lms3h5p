@@ -125,7 +125,7 @@ class ContentController extends AbstractModuleController
                 $this->translate('contentCreated')
             );
 
-            return (new ForwardResponse('show'))->withArguments(['content' => $content]);
+            return (new ForwardResponse('show'))->withArguments(['content' => $content->getUid()]);
         }
     }
 
@@ -201,7 +201,7 @@ class ContentController extends AbstractModuleController
                 $this->translate('contentUpdated')
             );
 
-            return (new ForwardResponse('show'))->withArguments(['content' => $content]);
+            return (new ForwardResponse('show'))->withArguments(['content' => $content->getUid()]);
         }
     }
 
