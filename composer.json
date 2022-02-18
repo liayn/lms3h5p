@@ -12,8 +12,8 @@
   "require": {
     "ext-zip": "*",
     "typo3/cms-core": "^11",
-    "h5p/h5p-core": "1.24.0",
-    "h5p/h5p-editor": "1.24.1"
+    "h5p/h5p-core": "1.24.3",
+    "h5p/h5p-editor": "1.24.4"
   },
   "autoload": {
     "psr-4": {
