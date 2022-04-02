@@ -151,7 +151,11 @@ class TYPO3H5P
      */
     protected function getLanguage(): string
     {
-        return $GLOBALS['BE_USER']->uc['lang'] ?? 'en';
+        if ($GLOBALS['BE_USER']->uc['lang'] === null || $GLOBALS['BE_USER']->uc['lang'] === 'default') {
+            return 'en';
+        }
+
+        return $GLOBALS['BE_USER']->uc['lang'];
     }
 
 }

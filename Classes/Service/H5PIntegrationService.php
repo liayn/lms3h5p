@@ -221,7 +221,11 @@ class H5PIntegrationService implements SingletonInterface
             $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . $script;
         }
 
-        $language = $GLOBALS['BE_USER']->uc['lang'] ?: 'en';
+        $language = $GLOBALS['BE_USER']->uc['lang'];
+        if ($language === null || $language === 'default') {
+            $language = 'en';
+        }
+
         $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . "/language/{$language}.js";
 
         return $urls;

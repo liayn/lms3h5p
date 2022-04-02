@@ -116,7 +116,12 @@ class EditorAjaxController extends ActionController
             );
             exit;
         }
-        $language = $GLOBALS['BE_USER']->uc['lang'] ?? 'en';
+
+        $language = $GLOBALS['BE_USER']->uc['lang'];
+        if ($language === null || $language === 'default') {
+            $language = 'en';
+        }
+
         $this->h5pIntegrationService->getH5pEditor()->ajax->action(
             \H5PEditorEndpoints::SINGLE_LIBRARY,
             GeneralUtility::_GP('machineName'),
