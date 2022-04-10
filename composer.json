@@ -9,10 +9,13 @@
       "email": "sagardesai1990@gmail.com"
     }
   ],
+  "repositories": [
+    {"type": "git", "url": "https://github.com/desaisagar/h5p-php-library.git"}
+  ],
   "require": {
     "ext-zip": "*",
     "typo3/cms-core": "^11",
-    "h5p/h5p-core": "1.24.3",
+    "h5p/h5p-core": "dev-fix-php8-compatibility",
     "h5p/h5p-editor": "1.24.4"
   },
   "autoload": {
