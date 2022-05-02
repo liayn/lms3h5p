@@ -66,3 +66,5 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1539019571] = [
     'priority' => 40,
     'class' => \LMS3\Lms3h5p\Form\Element\H5PContentElement::class,
 ];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['lms3h5p_libraries'] ??= [];

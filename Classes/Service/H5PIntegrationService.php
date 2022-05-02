@@ -28,6 +28,7 @@ namespace LMS3\Lms3h5p\Service;
  * ************************************************************* */
 
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\SingletonInterface;
 use LMS3\Lms3h5p\Domain\Model\Content;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -84,12 +85,20 @@ class H5PIntegrationService implements SingletonInterface
      */
     public function getH5PSettings(ControllerContext $controllerContext, array $displayContentIds = []): array
     {
-        $coreSettings = $this->generateCoreSettings($controllerContext);
-        foreach ($displayContentIds as $contentId) {
-            $coreSettings['contents']['cid-' . $contentId] = $this->generateContentSettings(
-                $controllerContext,
-                (int) $contentId
-            );
+        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('lms3h5p_libraries');
+        $cacheKey = sha1(__CLASS__ . md5(implode('-', $displayContentIds)));
+        $coreSettings = $cache->get($cacheKey);
+        if ($coreSettings === false) {
+            $coreSettings = $this->generateCoreSettings($controllerContext);
+            foreach ($displayContentIds as $contentId) {
+                $coreSettings['contents']['cid-' . $contentId] = $this->generateContentSettings(
+                    $controllerContext,
+                    (int) $contentId
+                );
+            }
+            $cache->set($cacheKey, $coreSettings, ['lms3h5p']);
+
+            return $coreSettings;
         }
 
         return $coreSettings;
