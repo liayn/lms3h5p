@@ -364,7 +364,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getAuthor(): string
     {
-        return $this->author;
+        return (string)$this->author;
     }
 
     /**
@@ -580,7 +580,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getChanges(): string
     {
-        return $this->changes;
+        return (string)$this->changes;
     }
 
     /**
