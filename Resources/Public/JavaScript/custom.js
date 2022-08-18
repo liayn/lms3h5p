@@ -1,14 +1,63 @@
-(function ($) {
-    $(document).ready(function () {
-        // Using setTimeout to run after other ready callbacks
-        setTimeout(function () {
-            if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
-                var evt = document.createEvent('UIEvents');
-                evt.initUIEvent('resize', true, false, window, 0);
-                window.dispatchEvent(evt);
-            } else {
-                window.dispatchEvent(new Event('resize'));
+( function() {
+
+    /*
+     * Polyfill for IE11, doesn't feature new Event()
+     * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
+     */
+    if ( 'function' === typeof window.CustomEvent ) {
+        return false;
+    }
+
+    /**
+     * Create custom event.
+     *
+     * @param {string} event Event handler.
+     * @param {object} params Parameters.
+     * @return {Event} Event.
+     */
+    function CustomEvent( event, params ) {
+        var evt;
+        params = params || { bubbles: false, cancelable: false, detail: null };
+        evt = document.createEvent( 'CustomEvent' );
+        evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+        return evt;
+    }
+
+    window.CustomEvent = CustomEvent;
+}() );
+
+( function() {
+
+    var timeout = 500;
+
+    /**
+     * Regularly trigger H5P resizing.
+     */
+    function h5pResizePulse() {
+        setTimeout( function() {
+
+            try {
+                window.dispatchEvent( new Event( 'resize' ) );
+            } catch ( error ) {
+                window.dispatchEvent( new window.CustomEvent( 'resize' ) );
             }
-        }, 500);
+
+            h5pResizePulse();
+        }, timeout );
+    }
+
+    document.addEventListener( 'readystatechange', function() {
+        if ( 'interactive' === document.readyState ) {
+
+            if ( ! window.H5P || ! window.H5P.externalDispatcher ) {
+                return; // H5P not present, but should by now
+            }
+
+            // Resize once an H5P instance is initialized and resize might be needed
+            window.H5P.externalDispatcher.once( 'initialized', function() {
+                h5pResizePulse();
+            });
+        }
     });
-})(jQuery);
+
+}() );
