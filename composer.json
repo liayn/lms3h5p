@@ -14,7 +14,6 @@
   ],
   "require": {
     "ext-zip": "*",
-    "typo3/cms-core": "^11",
     "h5p/h5p-core": "dev-fix-php8-compatibility",
     "h5p/h5p-editor": "1.24.4"
   },
