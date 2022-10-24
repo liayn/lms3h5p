@@ -238,7 +238,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getTitle(): string
     {
-        return $this->title;
+        return (string)$this->title;
     }
 
     /**
@@ -256,7 +256,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getParameters(): string
     {
-        return $this->parameters;
+        return (string)$this->parameters;
     }
 
     /**
@@ -274,7 +274,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getFiltered(): string
     {
-        return $this->filtered;
+        return (string)$this->filtered;
     }
 
     /**
@@ -310,7 +310,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getEmbedType(): string
     {
-        return $this->embedType;
+        return (string)$this->embedType;
     }
 
     /**
@@ -346,7 +346,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getContentType(): string
     {
-        return $this->contentType;
+        return (string)$this->contentType;
     }
 
     /**
@@ -400,7 +400,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getKeywords(): string
     {
-        return $this->keywords;
+        return (string)$this->keywords;
     }
 
     /**
@@ -418,7 +418,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getDescription(): string
     {
-        return $this->description;
+        return (string)$this->description;
     }
 
     /**
@@ -436,7 +436,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getZippedContentFile(): string
     {
-        return $this->zippedContentFile;
+        return (string)$this->zippedContentFile;
     }
 
     /**
@@ -454,7 +454,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getExportFile(): string
     {
-        return $this->exportFile;
+        return (string)$this->exportFile;
     }
 
     /**
