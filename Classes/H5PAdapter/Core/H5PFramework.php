@@ -219,7 +219,7 @@ class H5PFramework implements \H5PFrameworkInterface
      * @return string The content (response body). NULL if something went wrong
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function fetchExternalData($url, $data = NULL, $blocking = TRUE, $stream = NULL)
+    public function fetchExternalData($url, $data = NULL, $blocking = TRUE, $stream = NULL, $fullData = false, $headers = [], $files = [], $method = 'POST')
     {
         $client = new Client();
         $options = [
@@ -1351,5 +1351,25 @@ class H5PFramework implements \H5PFrameworkInterface
     public function libraryHasUpgrade($library)
     {
         return $this->libraryRepository->libraryHasUpgrade($library);
+    }
+
+    public function replaceContentHubMetadataCache($metadata, $lang)
+    {
+        // TODO: Implement replaceContentHubMetadataCache() method.
+    }
+
+    public function getContentHubMetadataCache($lang = 'en')
+    {
+        // TODO: Implement getContentHubMetadataCache() method.
+    }
+
+    public function getContentHubMetadataChecked($lang = 'en')
+    {
+        // TODO: Implement getContentHubMetadataChecked() method.
+    }
+
+    public function setContentHubMetadataChecked($time, $lang = 'en')
+    {
+        // TODO: Implement setContentHubMetadataChecked() method.
     }
 }

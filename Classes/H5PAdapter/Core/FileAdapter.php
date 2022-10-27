@@ -730,4 +730,9 @@ class FileAdapter implements \H5PFileStorage
         // Store in local storage folder
         return file_put_contents($filePath, $stream);
     }
+
+    public function deleteLibrary($library): void
+    {
+        // TODO: Implement deleteLibrary() method.
+    }
 }
