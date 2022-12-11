@@ -90,12 +90,11 @@ class H5PIntegrationService implements SingletonInterface
         $coreSettings = $cache->get($cacheKey);
         if ($coreSettings === false) {
             $coreSettings = $this->generateCoreSettings($controllerContext);
-            foreach ($displayContentIds as $contentId) {
-                $coreSettings['contents']['cid-' . $contentId] = $this->generateContentSettings(
-                    $controllerContext,
-                    (int) $contentId
-                );
-            }
+            $coreSettings['contents'] = $this->generateContentSettings(
+                $controllerContext,
+                $displayContentIds
+            );
+
             $cache->set($cacheKey, $coreSettings, ['lms3h5p']);
 
             return $coreSettings;
@@ -257,56 +256,63 @@ class H5PIntegrationService implements SingletonInterface
     /**
      * Get settings for given content
      */
-    private function generateContentSettings(ControllerContext $controllerContext, int $contentId): array
+    private function generateContentSettings(ControllerContext $controllerContext, array $contentIds): array
     {
-        /** @var Content $content */
-        $content = $this->contentService->findByUid($contentId);
-        if ($content === null) {
+        /** @var Content[] $contents */
+        $contents = $this->contentService->findByUids($contentIds);
+
+        if (!isset($contents[0])) {
             return [];
         }
 
-        $contentArray = $content->toAssocArray();
+        $result = [];
 
-        $embedUrl =  $controllerContext->getUriBuilder() ? $controllerContext->getUriBuilder()->reset()->uriFor(
-            'index', ['content' => $content], 'ContentEmbed'
-        ) : '';
+        foreach ($contents as $content) {
+            $contentArray = $content->toAssocArray();
 
-        $h5pCorePublicUrl = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['core'];
+            $embedUrl =  $controllerContext->getUriBuilder() ? $controllerContext->getUriBuilder()->reset()->uriFor(
+                'index', ['content' => $content], 'ContentEmbed'
+            ) : '';
 
-        // Add JavaScript settings for this content
-        $contentSettings = [
-            'library' => \H5PCore::libraryToString($contentArray['library']),
-            'jsonContent' => $content->getFiltered(),
-            'fullScreen' => $contentArray['library']['fullscreen'],
-            'exportUrl' => $content->getExportFile() ? GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . ltrim($this->h5pSettings['h5pPublicFolder']['url'], '/') . $this->h5pSettings['subFolders']['exports'] . DIRECTORY_SEPARATOR . $content->getExportFile() : '',
-            'embedCode' => '<iframe src="' . $embedUrl . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
-            'resizeCode' => '<script src="' . $h5pCorePublicUrl . '/js/h5p-resizer.js' . '" charset="UTF-8"></script>',
-            'url' => $embedUrl,
-            'title' => $contentArray['title'],
-            // TODO: use actual account identifier instead of 0 - this is needed only for an auth check, which we default to true currently.
-            'displayOptions' => $this->getH5PCoreInstance()->getDisplayOptionsForView($contentArray['disable'], 0),
-            'metadata' => $contentArray['metadata'],
-        ];
+            $h5pCorePublicUrl = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['core'];
 
-        // Get assets for this content
-        $preloadedDependencies = $this->getH5PCoreInstance()->loadContentDependencies(
-            $content->getUid(),
-            'preloaded'
-        );
-        $files = $this->getH5PCoreInstance()->getDependenciesFiles(
-            $preloadedDependencies,
-            $this->h5pSettings['h5pPublicFolder']['url']
-        );
+            // Add JavaScript settings for this content
+            $contentSettings = [
+                'library' => \H5PCore::libraryToString($contentArray['library']),
+                'jsonContent' => $content->getFiltered(),
+                'fullScreen' => $contentArray['library']['fullscreen'],
+                'exportUrl' => $content->getExportFile() ? GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . ltrim($this->h5pSettings['h5pPublicFolder']['url'], '/') . $this->h5pSettings['subFolders']['exports'] . DIRECTORY_SEPARATOR . $content->getExportFile() : '',
+                'embedCode' => '<iframe src="' . $embedUrl . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
+                'resizeCode' => '<script src="' . $h5pCorePublicUrl . '/js/h5p-resizer.js' . '" charset="UTF-8"></script>',
+                'url' => $embedUrl,
+                'title' => $contentArray['title'],
+                // TODO: use actual account identifier instead of 0 - this is needed only for an auth check, which we default to true currently.
+                'displayOptions' => $this->getH5PCoreInstance()->getDisplayOptionsForView($contentArray['disable'], 0),
+                'metadata' => $contentArray['metadata'],
+            ];
 
-        $this->addCustomStylesheet($files['styles']);
+            // Get assets for this content
+            $preloadedDependencies = $this->getH5PCoreInstance()->loadContentDependencies(
+                $content->getUid(),
+                'preloaded'
+            );
+            $files = $this->getH5PCoreInstance()->getDependenciesFiles(
+                $preloadedDependencies,
+                $this->h5pSettings['h5pPublicFolder']['url']
+            );
 
-        $buildUrl = function (\stdClass $asset) {
-            return $asset->path . $asset->version;
-        };
-        $contentSettings['scripts'] = array_map($buildUrl, $files['scripts']);
-        $contentSettings['styles'] = array_map($buildUrl, $files['styles']);
+            $this->addCustomStylesheet($files['styles']);
 
-        return $contentSettings;
+            $buildUrl = function (\stdClass $asset) {
+                return $asset->path . $asset->version;
+            };
+            $contentSettings['scripts'] = array_map($buildUrl, $files['scripts']);
+            $contentSettings['styles'] = array_map($buildUrl, $files['styles']);
+
+            $result['cid-' . $content->getUid()] = $contentSettings;
+        }
+
+        return $result;
     }
 
     /**
