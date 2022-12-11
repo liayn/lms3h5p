@@ -202,6 +202,18 @@ class ContentService
         return $this->contentRepository->findByUid($uid);
     }
 
+    public function findByUids(array $uids): array
+    {
+        $this->contentRepository->setDefaultQuerySettings(
+            $this->contentRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
+        );
+
+        $query = $this->contentRepository->createQuery();
+        $where = $query->in('uid', $uids);
+
+        return $query->matching($where)->execute()->toArray();
+    }
+
     /**
      * Get disabled content features
      *
