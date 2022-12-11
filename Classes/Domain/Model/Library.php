@@ -617,15 +617,15 @@ class Library extends AbstractEntity
             'metadataSettings' => $this->getMetaDataSettings()
         ];
 
-        $dependencies = $this->getLibraryDependencies();
-        /** @var LibraryDependency $dependency */
-        foreach ($dependencies as $dependency) {
-            $libraryArray[$dependency->getDependencyType() . 'Dependencies'][] = [
-                'machineName' => $dependency->getRequiredLibrary()->getName(),
-                'majorVersion' => $dependency->getRequiredLibrary()->getMajorVersion(),
-                'minorVersion' => $dependency->getRequiredLibrary()->getMinorVersion()
-            ];
-        }
+//        $dependencies = $this->getLibraryDependencies();
+//        /** @var LibraryDependency $dependency */
+//        foreach ($dependencies as $dependency) {
+//            $libraryArray[$dependency->getDependencyType() . 'Dependencies'][] = [
+//                'machineName' => $dependency->getRequiredLibrary()->getName(),
+//                'majorVersion' => $dependency->getRequiredLibrary()->getMajorVersion(),
+//                'minorVersion' => $dependency->getRequiredLibrary()->getMinorVersion()
+//            ];
+//        }
 
         return $libraryArray;
     }
