@@ -90,9 +90,11 @@ class ContentEmbedController extends ActionController
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('tt_content');
 
+        $languageId = $GLOBALS['TSFE']->language->getLanguageId();
+
         $query = $queryBuilder->select('pi_flexform')
             ->from('tt_content')
-            ->where('list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TSFE']->id)
+            ->where('list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TSFE']->id. ' AND sys_language_uid = ' . $languageId)
             ->orderBy('sorting')
             ->execute();
 
