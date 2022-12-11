@@ -163,13 +163,13 @@ class H5PIntegrationService implements SingletonInterface
                 'setFinished' => '',
                 'contentUserData' => ''
             ],
-            'saveFreq' => (integer) $this->h5pFramework->getOption('save_content_frequency') ?? false,
+            'saveFreq' => 10,
             'siteUrl' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
             'l10n' => [
                 'H5P' => $this->getLocalization(),
             ],
-            'hubIsEnabled' => (bool) $this->h5pFramework->getOption('hub_is_enabled') == 1,
-            'reportingIsEnabled' => (bool) $this->h5pFramework->getOption('enable_lrs_content_types') == 1,
+            'hubIsEnabled' => true,
+            'reportingIsEnabled' => false,
             'core' => [
                 'scripts' => $this->getRelativeCoreScriptUrls(),
                 'styles' => $this->getRelativeCoreStyleUrls()
