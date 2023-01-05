@@ -32,6 +32,7 @@ use LMS3\Lms3h5p\Domain\Repository\ContentDependencyRepository;
 use LMS3\Lms3h5p\Domain\Repository\ContentRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryDependencyRepository;
 use LMS3\Lms3h5p\Traits\ObjectManageable;
+use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -617,15 +618,17 @@ class Library extends AbstractEntity
             'metadataSettings' => $this->getMetaDataSettings()
         ];
 
-//        $dependencies = $this->getLibraryDependencies();
-//        /** @var LibraryDependency $dependency */
-//        foreach ($dependencies as $dependency) {
-//            $libraryArray[$dependency->getDependencyType() . 'Dependencies'][] = [
-//                'machineName' => $dependency->getRequiredLibrary()->getName(),
-//                'majorVersion' => $dependency->getRequiredLibrary()->getMajorVersion(),
-//                'minorVersion' => $dependency->getRequiredLibrary()->getMinorVersion()
-//            ];
-//        }
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
+            $dependencies = $this->getLibraryDependencies();
+            /** @var LibraryDependency $dependency */
+            foreach ($dependencies as $dependency) {
+                $libraryArray[$dependency->getDependencyType() . 'Dependencies'][] = [
+                    'machineName' => $dependency->getRequiredLibrary()->getName(),
+                    'majorVersion' => $dependency->getRequiredLibrary()->getMajorVersion(),
+                    'minorVersion' => $dependency->getRequiredLibrary()->getMinorVersion()
+                ];
+            }
+        }
 
         return $libraryArray;
     }
