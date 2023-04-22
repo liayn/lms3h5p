@@ -86,7 +86,7 @@ class FileAdapter implements \H5PFileStorage
      */
     public function saveLibrary($library)
     {
-        $dest = $this->getFolderPath('libraries') . \H5PCore::libraryToString($library, true);
+        $dest = $this->getFolderPath('libraries') . \H5PCore::libraryToFolderName($library);
 
         // Make sure destination dir doesn't exist
         \H5PCore::deleteFileTree($dest);
