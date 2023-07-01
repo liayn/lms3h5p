@@ -331,7 +331,12 @@ class H5PFramework implements \H5PFrameworkInterface
      */
     public function getLibraryFileUrl($libraryFolderName, $fileName)
     {
-        // TODO: Implement getLibraryFileUrl() method.
+        return sprintf(
+            '%s/libraries/%s/%s',
+            rtrim($this->getInjectedH5PCore()->url, '/'),
+            $libraryFolderName,
+            $fileName
+        );
     }
 
     /**
