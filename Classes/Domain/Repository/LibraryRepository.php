@@ -77,7 +77,7 @@ class LibraryRepository extends Repository
             GROUP BY lib2.name, lib2.major_version";
 
         $finalSql = "SELECT lib4.uid as id, lib4.name AS machine_name, lib4.title, lib4.major_version, lib4.minor_version,
-            lib4.patch_version, lib4.restricted, lib4.has_icon
+            lib4.patch_version, lib4.restricted, lib4.has_icon, null as patch_version_in_folder_name
             FROM ({$minorVersionSql}) lib3
             JOIN {$tableName} lib4
             ON lib3.name = lib4.name
