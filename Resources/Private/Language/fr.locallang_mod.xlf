@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:lms3h5p/Resources/Private/Language/locallang_mod.xlf" date="2023-07-05T10:06:31Z" product-name="lms3h5p">
+	<file source-language="en" target-language="fr" datatype="plaintext" original="EXT:lms3h5p/Resources/Private/Language/locallang_mod.xlf" date="2023-07-05T10:06:31Z" product-name="lms3h5p">
 		<header/>
 		<body>
 			<trans-unit id="mlang_labels_tablabel" resname="mlang_labels_tablabel">
 				<source>LMS3: H5P Content</source>
+				<target>LMS3: H5P Contenu</target>
 			</trans-unit>
 			<trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
 				<source>Add or manage H5P Content</source>
+				<target>Ajouter ou mettre à jour le contenu du H5P</target>
 			</trans-unit>
 			<trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
 				<source>LMS3: H5P Content</source>
+				<target>LMS3: H5P Contenu</target>
 			</trans-unit>
 		</body>
 	</file>

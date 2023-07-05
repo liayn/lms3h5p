@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:lms3h5p/Resources/Private/Language/locallang.xlf" date="2023-07-05T10:06:20Z" product-name="lms3h5p">
+	<file source-language="en" target-language="fr" datatype="plaintext" original="EXT:lms3h5p/Resources/Private/Language/locallang.xlf" date="2023-07-05T10:06:20Z" product-name="lms3h5p">
 		<header/>
 		<body>
 			<trans-unit id="tx_lms3h5p_domain_model_pi1" resname="tx_lms3h5p_domain_model_pi1">
 				<source>LMS3: H5P Content</source>
-				<target>LMS3: H5P Inhalt</target>
+				<target>LMS3: H5P Contenu</target>
 			</trans-unit>
 			<trans-unit id="tx_lms3h5p_domain_model_pi1.description" resname="tx_lms3h5p_domain_model_pi1.description">
 				<source>Render H5P Contents in Frontend</source>
-				<target>Zeige H5P Inhalte im Frontend</target>
+				<target>Afficher le contenu H5P sur le front-end</target>
 			</trans-unit>
 			<trans-unit id="h5pContent" resname="h5pContent">
 				<source>H5P Contents</source>
-				<target>H5P Inhalte</target>
+				<target>Contenu du H5P</target>
 			</trans-unit>
 			<trans-unit id="title" resname="title">
 				<source>Title</source>
-				<target>Titel</target>
+				<target>Titre</target>
 			</trans-unit>
 			<trans-unit id="library" resname="library">
 				<source>Library</source>
-				<target>Bibliothek</target>
+				<target>Bibliothèque</target>
 			</trans-unit>
 			<trans-unit id="id" resname="id">
 				<source>ID</source>
@@ -29,43 +29,43 @@
 			</trans-unit>
 			<trans-unit id="created" resname="created">
 				<source>Created</source>
-				<target>Erzeugt</target>
+				<target>Génère</target>
 			</trans-unit>
 			<trans-unit id="updated" resname="updated">
 				<source>Updated</source>
-				<target>Aktualisiert</target>
+				<target>Actualisé</target>
 			</trans-unit>
 			<trans-unit id="author" resname="author">
 				<source>Author</source>
-				<target>Autor</target>
+				<target>Auteur</target>
 			</trans-unit>
 			<trans-unit id="back" resname="back">
 				<source>Back</source>
-				<target>Zurück</target>
+				<target>Retour</target>
 			</trans-unit>
 			<trans-unit id="createNewContent" resname="createNewContent">
 				<source>Create new content</source>
-				<target>Neuen Inhalt erstelllen</target>
+				<target>Créer un nouveau contenu</target>
 			</trans-unit>
 			<trans-unit id="noContentFound" resname="noContentFound">
 				<source>There is no content created yet.</source>
-				<target>Es wurde noch kein Inhalt erstellt.</target>
+				<target>Aucun contenu n&#039;a encore été créé.</target>
 			</trans-unit>
 			<trans-unit id="flexform_select_lms3h5p_content" resname="flexform_select_lms3h5p_content">
 				<source>Select H5P Content</source>
-				<target>Wähle H5P Inhalt</target>
+				<target>Choisir le contenu H5P</target>
 			</trans-unit>
 			<trans-unit id="h5pLibraries" resname="h5pLibraries">
 				<source>H5P Libraries</source>
-				<target>H5P Bibliotheken</target>
+				<target>Bibliothèques H5P</target>
 			</trans-unit>
 			<trans-unit id="content" resname="content">
 				<source>Content</source>
-				<target>Inhalt</target>
+				<target>Contenu</target>
 			</trans-unit>
 			<trans-unit id="libraries" resname="libraries">
 				<source>Libraries</source>
-				<target>Bibliotheken</target>
+				<target>Bibliothèques</target>
 			</trans-unit>
 			<trans-unit id="version" resname="version">
 				<source>Version</source>
@@ -73,115 +73,115 @@
 			</trans-unit>
 			<trans-unit id="contents" resname="contents">
 				<source>Contents</source>
-				<target>Inhalte</target>
+				<target>Contenu</target>
 			</trans-unit>
 			<trans-unit id="dependentContents" resname="dependentContents">
 				<source>Dependent Contents</source>
-				<target>Abhängige Inhalt</target>
+				<target>Contenu dépendant</target>
 			</trans-unit>
 			<trans-unit id="dependentLibraries" resname="dependentLibraries">
 				<source>Dependent Libraries</source>
-				<target>Abhängige Bibliotheken</target>
+				<target>Bibliothèques dépendantes</target>
 			</trans-unit>
 			<trans-unit id="contentOrOtherLibrariesAreUsingThisLibrary" resname="contentOrOtherLibrariesAreUsingThisLibrary">
 				<source>Contents or other libraries are using this library</source>
-				<target>Inhalte anderer Bibliotheken nutzen diese Bibliothek</target>
+				<target>Les contenus d&#039;autres bibliothèques utilisent cette bibliothèque</target>
 			</trans-unit>
 			<trans-unit id="deleteContentTitle" resname="deleteContentTitle">
 				<source>Delete Content</source>
-				<target>Inhalt löschen</target>
+				<target>Supprimer le contenu</target>
 			</trans-unit>
 			<trans-unit id="deleteContentConfirmation" resname="deleteContentConfirmation">
 				<source>Do you really want to delete this content?</source>
-				<target>Möchten Sie den Inhalt wirklich löschen?</target>
+				<target>Voulez-vous vraiment supprimer le contenu ?</target>
 			</trans-unit>
 			<trans-unit id="updateContentTypeCache" resname="updateContentTypeCache">
 				<source>Update Content Type Cache</source>
-				<target>Inhaltstyp Cache aktualisieren</target>
+				<target>Mettre à jour le cache du type de contenu</target>
 			</trans-unit>
 			<trans-unit id="fullscreen" resname="fullscreen">
 				<source>Fullscreen</source>
-				<target>Fullscreen</target>
+				<target>Plein écran</target>
 			</trans-unit>
 			<trans-unit id="yes" resname="yes">
 				<source>Yes</source>
-				<target>Ja</target>
+				<target>Oui</target>
 			</trans-unit>
 			<trans-unit id="no" resname="no">
 				<source>No</source>
-				<target>Nein</target>
+				<target>Non</target>
 			</trans-unit>
 			<trans-unit id="usedBy" resname="usedBy">
 				<source>Used by</source>
-				<target>Benutzt von</target>
+				<target>Utilisé par</target>
 			</trans-unit>
 			<trans-unit id="contentUsingThisLibrary" resname="contentUsingThisLibrary">
 				<source>Content using this library</source>
-				<target>Inhalte, die diese Bibliothek nutzen</target>
+				<target>Contenus utilisant cette bibliothèque</target>
 			</trans-unit>
 			<trans-unit id="deleteLibraryTitle" resname="deleteLibraryTitle">
 				<source>Delete Library</source>
-				<target>Bibliotheken löschen</target>
+				<target>Supprimer des bibliothèques</target>
 			</trans-unit>
 			<trans-unit id="deleteLibraryConfirmation" resname="deleteLibraryConfirmation">
 				<source>Do you really want to delete this library?</source>
-				<target>Möchten Sie wirklich diese Bibliotheken löschen?</target>
+				<target>Voulez-vous vraiment supprimer ces bibliothèques ?</target>
 			</trans-unit>
 			<trans-unit id="selectAction" resname="selectAction">
 				<source>Select Action</source>
-				<target></target>
+				<target>Sélectionner l&#039;action</target>
 			</trans-unit>
 			<trans-unit id="waitingForH5PJavascriptToLoad" resname="waitingForH5PJavascriptToLoad">
 				<source>Waiting for H5P JavaScript to load...</source>
-				<target></target>
+				<target>En attente du chargement du JavaScript de H5P...</target>
 			</trans-unit>
 			<trans-unit id="uploadFile" resname="uploadFile">
 				<source>Upload File</source>
-				<target></target>
+				<target>Télécharger le fichier</target>
 			</trans-unit>
 			<trans-unit id="h5pError" resname="h5pError">
 				<source>H5P error</source>
-				<target></target>
+				<target>Erreur H5P</target>
 			</trans-unit>
 			<trans-unit id="contentDeleted" resname="contentDeleted">
 				<source>Content deleted</source>
-				<target></target>
+				<target>Contenu supprimé</target>
 			</trans-unit>
 			<trans-unit id="contentUpdated" resname="contentUpdated">
 				<source>Content updated</source>
-				<target></target>
+				<target>Contenu mis à jour</target>
 			</trans-unit>
 			<trans-unit id="contentCreated" resname="contentCreated">
 				<source>Content created</source>
-				<target></target>
+				<target>Contenu créé</target>
 			</trans-unit>
 			<trans-unit id="contentDeletedMessage" resname="contentDeletedMessage">
 				<source>The content &quot;%s&quot; has been deleted.</source>
-				<target></target>
+				<target>Le contenu &quot;%s&quot; a été supprimé.</target>
 			</trans-unit>
 			<trans-unit id="contentUpdatedMessage" resname="contentUpdatedMessage">
 				<source>The content &quot;%s&quot; has been updated.</source>
-				<target></target>
+				<target>Le contenu &quot;%s&quot; a été mis à jour.</target>
 			</trans-unit>
 			<trans-unit id="contentCreatedMessage" resname="contentCreatedMessage">
 				<source>The content &quot;%s&quot; has been created.</source>
-				<target></target>
+				<target>Le contenu &quot;%s&quot; a été créé.</target>
 			</trans-unit>
 			<trans-unit id="libraryDeleted" resname="libraryDeleted">
 				<source>Library deleted</source>
-				<target></target>
+				<target>Bibliothèque supprimée</target>
 			</trans-unit>
 			<trans-unit id="libraryDeletedMessage" resname="libraryDeletedMessage">
 				<source>The library &quot;%s&quot; has been deleted.</source>
-				<target></target>
+				<target>La bibliothèque &quot;%s&quot; a été supprimée.</target>
 			</trans-unit>
 			<trans-unit id="h5pHubNotRespondedErrorMessage" resname="h5pHubNotRespondedErrorMessage">
 				<source>The cache could not be refreshed because the H5P Hub did not respond.</source>
-				<target></target>
+				<target>Le cache n&#039;a pas pu être actualisé car le concentrateur H5P n&#039;a pas répondu.</target>
 			</trans-unit>
 			<trans-unit id="contentTypeCachedRefreshedMessage" resname="contentTypeCachedRefreshedMessage">
 				<source>The content type cache was refreshed successfully.</source>
-				<target></target>
+				<target>Le cache du type de contenu a été actualisé avec succès.</target>
 			</trans-unit>
 			<trans-unit id="displayToolbarBelowContent" resname="displayToolbarBelowContent">
 				<source>Display toolbar below content</source>
@@ -201,7 +201,7 @@
 			</trans-unit>
 			<trans-unit id="displayOptions" resname="displayOptions">
 				<source>Display Options</source>
-				<target></target>
+				<target>Options d&#039;affichage</target>
 			</trans-unit>
 		</body>
 	</file>

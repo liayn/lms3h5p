@@ -1,155 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="pl" datatype="plaintext" original="EXT:lms3h5p/Resources/Private/Language/locallang_h5p.xlf" date="2023-07-05T10:06:26Z" product-name="lms3h5p">
+	<file source-language="en" target-language="fr" datatype="plaintext" original="EXT:lms3h5p/Resources/Private/Language/locallang_h5p.xlf" date="2023-07-05T10:06:26Z" product-name="lms3h5p">
 		<header/>
 		<body>
 			<trans-unit id="fullscreen" resname="fullscreen">
 				<source>Fullscreen</source>
-				<target>Fullscreen</target>
+				<target>Plein écran</target>
 			</trans-unit>
 			<trans-unit id="disableFullscreen" resname="disableFullscreen">
 				<source>Disable fullscreen</source>
-				<target>Fullscreen unterdrücken</target>
+				<target>Supprimer le plein écran</target>
 			</trans-unit>
 			<trans-unit id="download" resname="download">
 				<source>Download</source>
-				<target>Download</target>
+				<target>Télécharger</target>
 			</trans-unit>
 			<trans-unit id="copyrights" resname="copyrights">
 				<source>Rights of use</source>
-				<target>Nutzungsrechte</target>
+				<target>Droits d&#039;utilisation</target>
 			</trans-unit>
 			<trans-unit id="embed" resname="embed">
 				<source>Embed</source>
-				<target>Einbinden</target>
+				<target>Intégrer</target>
 			</trans-unit>
 			<trans-unit id="size" resname="size">
 				<source>Size</source>
-				<target>Größe</target>
+				<target>Taille</target>
 			</trans-unit>
 			<trans-unit id="showAdvanced" resname="showAdvanced">
 				<source>Show advanced</source>
-				<target>Mehr Optionen</target>
+				<target>Plus d&#039;options</target>
 			</trans-unit>
 			<trans-unit id="hideAdvanced" resname="hideAdvanced">
 				<source>Hide advanced</source>
-				<target>Weniger Optionen</target>
+				<target>Moins d&#039;options</target>
 			</trans-unit>
 			<trans-unit id="advancedHelp" resname="advancedHelp">
 				<source>Include this script on your website if you want dynamic sizing of the embedded content:</source>
-				<target>Binden Sie das Script ein um eine automatische Größenanpassung auf der Website zu erzeugen.</target>
+				<target>Intégrez le script pour créer un redimensionnement automatique sur le site.</target>
 			</trans-unit>
 			<trans-unit id="copyrightInformation" resname="copyrightInformation">
 				<source>Rights of use</source>
-				<target>Nutzungsrechte</target>
+				<target>Droits d&#039;utilisation</target>
 			</trans-unit>
 			<trans-unit id="close" resname="close">
 				<source>Close</source>
-				<target>Schließen</target>
+				<target>Fermer</target>
 			</trans-unit>
 			<trans-unit id="title" resname="title">
 				<source>Title</source>
-				<target>Titel</target>
+				<target>Titre</target>
 			</trans-unit>
 			<trans-unit id="author" resname="author">
 				<source>Author</source>
-				<target>Autor</target>
+				<target>Auteur</target>
 			</trans-unit>
 			<trans-unit id="year" resname="year">
 				<source>Year</source>
-				<target>Jahr</target>
+				<target>Année</target>
 			</trans-unit>
 			<trans-unit id="source" resname="source">
 				<source>Source</source>
-				<target>Quelle</target>
+				<target>Source</target>
 			</trans-unit>
 			<trans-unit id="license" resname="license">
 				<source>License</source>
-				<target>Lizenz</target>
+				<target>Licence</target>
 			</trans-unit>
 			<trans-unit id="thumbnail" resname="thumbnail">
 				<source>Thumbnail</source>
-				<target>Thumbnail</target>
+				<target>Vignette</target>
 			</trans-unit>
 			<trans-unit id="noCopyrights" resname="noCopyrights">
 				<source>No copyright information available for this content.</source>
-				<target>Keine Copyright Informationen für den Inhalt hinterlegt.</target>
+				<target>Aucune information de copyright déposée pour le contenu.</target>
 			</trans-unit>
 			<trans-unit id="reuse" resname="reuse">
 				<source>Reuse</source>
-				<target>Wiederverwendung</target>
+				<target>Réutilisation</target>
 			</trans-unit>
 			<trans-unit id="reuseContent" resname="reuseContent">
 				<source>Reuse Content</source>
-				<target>Inhalt wiederverwenden</target>
+				<target>Réutiliser le contenu</target>
 			</trans-unit>
 			<trans-unit id="reuseDescription" resname="reuseDescription">
 				<source>Reuse this content.</source>
-				<target>Inhalt wiederverwenden.</target>
+				<target>Réutiliser le contenu.</target>
 			</trans-unit>
 			<trans-unit id="downloadDescription" resname="downloadDescription">
 				<source>Download this content as a H5P file.</source>
-				<target>Als H5P Dokument herunterladen</target>
+				<target>Télécharger en tant que document H5P</target>
 			</trans-unit>
 			<trans-unit id="copyrightsDescription" resname="copyrightsDescription">
 				<source>View copyright information for this content.</source>
-				<target>Copyright Informationen für den Inhalt anzeigen</target>
+				<target>Afficher les informations de copyright pour le contenu</target>
 			</trans-unit>
 			<trans-unit id="embedDescription" resname="embedDescription">
 				<source>View the embed code for this content.</source>
-				<target>Embed-Code anzeigen</target>
+				<target>Voir le code d&#039;intégration de ce contenu.</target>
 			</trans-unit>
 			<trans-unit id="h5pDescription" resname="h5pDescription">
 				<source>Visit H5P.org to check out more cool content.</source>
-				<target>Besuchen Sie H5P.org um mehr tollen content zu finden.</target>
+				<target>Visitez le site H5P.org pour découvrir d&#039;autres contenus intéressants.</target>
 			</trans-unit>
 			<trans-unit id="contentChanged" resname="contentChanged">
 				<source>This content has changed since you last used it.</source>
-				<target>Der Inhalt wurde seit dem letzten Besuch verändert.</target>
+				<target>Ce contenu a changé depuis la dernière fois que vous l&#039;avez utilisé.</target>
 			</trans-unit>
 			<trans-unit id="startingOver" resname="startingOver">
 				<source>You&#039;ll be starting over.</source>
-				<target>Sie haben neu gestartet.</target>
+				<target>Vous repartirez à zéro.</target>
 			</trans-unit>
 			<trans-unit id="by" resname="by">
 				<source>by</source>
-				<target>von</target>
+				<target>de</target>
 			</trans-unit>
 			<trans-unit id="showMore" resname="showMore">
 				<source>Show more</source>
-				<target>Mehr anzeigen</target>
+				<target>Afficher plus</target>
 			</trans-unit>
 			<trans-unit id="showLess" resname="showLess">
 				<source>Show less</source>
-				<target>Weniger anzeigen</target>
+				<target>Afficher moins</target>
 			</trans-unit>
 			<trans-unit id="subLevel" resname="subLevel">
 				<source>Sublevel</source>
-				<target>Unterebene</target>
+				<target>Sous-niveau</target>
 			</trans-unit>
 			<trans-unit id="confirmDialogHeader" resname="confirmDialogHeader">
 				<source>Confirm action</source>
-				<target>Aktion bestätigen</target>
+				<target>Confirmer l&#039;action</target>
 			</trans-unit>
 			<trans-unit id="confirmDialogBody" resname="confirmDialogBody">
 				<source>Please confirm that you wish to proceed. This action is not reversible.</source>
-				<target>Aktion bestätigen. Die Aktion kann nicht rückgängig gemacht werden.</target>
+				<target>Confirmer l&#039;action. L&#039;action ne peut pas être annulée.</target>
 			</trans-unit>
 			<trans-unit id="cancelLabel" resname="cancelLabel">
 				<source>Cancel</source>
-				<target>Abbrechen</target>
+				<target>Annuler</target>
 			</trans-unit>
 			<trans-unit id="confirmLabel" resname="confirmLabel">
 				<source>Confirm</source>
-				<target>Bestätigen</target>
+				<target>Confirmer</target>
 			</trans-unit>
 			<trans-unit id="licenseU" resname="licenseU">
 				<source>Undisclosed</source>
-				<target>Nicht veröffentlicht</target>
+				<target>Non publié</target>
 			</trans-unit>
 			<trans-unit id="licenseCCBY" resname="licenseCCBY">
 				<source>Attribution</source>
-				<target>Unbekannt</target>
+				<target>Inconnu</target>
 			</trans-unit>
 			<trans-unit id="licenseCCBYSA" resname="licenseCCBYSA">
 				<source>Attribution-ShareAlike</source>
@@ -181,19 +181,19 @@
 			</trans-unit>
 			<trans-unit id="licenseCC25" resname="licenseCC25">
 				<source>2.5 Generic</source>
-				<target>2.5 Generic</target>
+				<target>2.5 Générique</target>
 			</trans-unit>
 			<trans-unit id="licenseCC20" resname="licenseCC20">
 				<source>2.0 Generic</source>
-				<target>2.0 Generic</target>
+				<target>2.0 Générique</target>
 			</trans-unit>
 			<trans-unit id="licenseCC10" resname="licenseCC10">
 				<source>1.0 Generic</source>
-				<target>1.0 Generic</target>
+				<target>1.0 Générique</target>
 			</trans-unit>
 			<trans-unit id="licenseGPL" resname="licenseGPL">
 				<source>General Public License</source>
-				<target>General Public License</target>
+				<target>Licence publique générale</target>
 			</trans-unit>
 			<trans-unit id="licenseV3" resname="licenseV3">
 				<source>Version 3</source>
@@ -209,35 +209,35 @@
 			</trans-unit>
 			<trans-unit id="licensePD" resname="licensePD">
 				<source>Public Domain</source>
-				<target>Public Domain</target>
+				<target>Domaine public</target>
 			</trans-unit>
 			<trans-unit id="licenseCC010" resname="licenseCC010">
 				<source>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</source>
-				<target>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</target>
+				<target>CC0 1.0 Universel (CC0 1.0) Dédicace du domaine public</target>
 			</trans-unit>
 			<trans-unit id="licensePDM" resname="licensePDM">
 				<source>Public Domain Mark</source>
-				<target>Public Domain Mark</target>
+				<target>Marque du domaine public</target>
 			</trans-unit>
 			<trans-unit id="licenseC" resname="licenseC">
 				<source>Copyright</source>
-				<target>Copyright</target>
+				<target>Droit d&#039;auteur</target>
 			</trans-unit>
 			<trans-unit id="contentType" resname="contentType">
 				<source>Content Type</source>
-				<target>Inhaltstyp</target>
+				<target>Type de contenu</target>
 			</trans-unit>
 			<trans-unit id="licenseExtras" resname="licenseExtras">
 				<source>License Extras</source>
-				<target>Lizenz-Erweiterungen</target>
+				<target>Extensions de licence</target>
 			</trans-unit>
 			<trans-unit id="changes" resname="changes">
 				<source>Changelog</source>
-				<target>Änderungsliste</target>
+				<target>Liste des modifications</target>
 			</trans-unit>
 			<trans-unit id="contentCopied" resname="contentCopied">
 				<source>Content is copied to the clipboard</source>
-				<target>Inhalt in der Zwischenablage kopiert</target>
+				<target>Contenu copié dans le presse-papiers</target>
 			</trans-unit>
 		</body>
 	</file>

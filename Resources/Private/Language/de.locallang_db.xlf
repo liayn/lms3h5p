@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2018-08-03T04:33:29Z" product-name="lms3h5p">
-        <header/>
-        <body>
-            <trans-unit id="tx_lms3h5p_domain_model_pi1">
-                <source>LMS3: H5P Content</source>
-                <target>LMS3: H5P Inhalt</target>
-            </trans-unit>
-            <trans-unit id="tx_lms3h5p_domain_model_pi1.description">
-                <source>Render H5P Content in Frontend</source>
-                <target>H5P Inhalt im Frontend erzeugen</target>
-            </trans-unit>
-        </body>
-    </file>
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:lms3h5p/Resources/Private/Language/locallang_db.xlf" date="2023-07-05T10:06:23Z" product-name="lms3h5p">
+		<header/>
+		<body>
+			<trans-unit id="tx_lms3h5p_domain_model_pi1" resname="tx_lms3h5p_domain_model_pi1">
+				<source>LMS3: H5P Content</source>
+				<target>LMS3: H5P Inhalt</target>
+			</trans-unit>
+			<trans-unit id="tx_lms3h5p_domain_model_pi1.description" resname="tx_lms3h5p_domain_model_pi1.description">
+				<source>Render H5P Content in Frontend</source>
+				<target>H5P Inhalt im Frontend erzeugen</target>
+			</trans-unit>
+		</body>
+	</file>
 </xliff>
