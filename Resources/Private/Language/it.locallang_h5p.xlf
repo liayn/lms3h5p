@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="it" datatype="plaintext" original="messages" date="2018-10-21T04:33:29Z"
+          product-name="lms3h5p">
+        <header/>
+        <body>
+            <trans-unit id="fullscreen">
+                <source>H5P Content</source>
+                <target>Contenuto H5P</target>
+            </trans-unit>
+            <trans-unit id="fullscreen">
+                <source>Fullscreen</source>
+                <target>Schermo intero</target>
+            </trans-unit>
+            <trans-unit id="disableFullscreen">
+                <source>Disable fullscreen</source>
+                <target>Disattivare lo schermo intero</target>
+            </trans-unit>
+            <trans-unit id="download">
+                <source>Download</source>
+                <target>Scaricare</target>
+            </trans-unit>
+            <trans-unit id="copyrights">
+                <source>Rights of use</source>
+                <target>Diritti di utilizzo</target>
+            </trans-unit>
+            <trans-unit id="embed">
+                <source>Embed</source>
+                <target>Incorporato</target>
+            </trans-unit>
+            <trans-unit id="size">
+                <source>Size</source>
+                <target>Dimensione</target>
+            </trans-unit>
+            <trans-unit id="showAdvanced">
+                <source>Show advanced</source>
+                <target>Mostra avanzata</target>
+            </trans-unit>
+            <trans-unit id="hideAdvanced">
+                <source>Hide advanced</source>
+                <target>Nascondi avanzato</target>
+            </trans-unit>
+            <trans-unit id="advancedHelp">
+                <source>Include this script on your website if you want dynamic sizing of the embedded content:</source>
+                <target>Includete questo script nel vostro sito web se desiderate un dimensionamento dinamico del contenuto incorporato:</target>
+            </trans-unit>
+            <trans-unit id="copyrightInformation">
+                <source>Rights of use</source>
+                <target>Diritti di utilizzo</target>
+            </trans-unit>
+            <trans-unit id="close">
+                <source>Close</source>
+                <target>Chiudere</target>
+            </trans-unit>
+            <trans-unit id="title">
+                <source>Title</source>
+                <target>Titolo</target>
+            </trans-unit>
+            <trans-unit id="author">
+                <source>Author</source>
+                <target>Autore</target>
+            </trans-unit>
+            <trans-unit id="year">
+                <source>Year</source>
+                <target>Anno</target>
+            </trans-unit>
+            <trans-unit id="source">
+                <source>Source</source>
+                <target>Fonte</target>
+            </trans-unit>
+            <trans-unit id="license">
+                <source>License</source>
+                <target>Licenza</target>
+            </trans-unit>
+            <trans-unit id="thumbnail">
+                <source>Thumbnail</source>
+                <target>Miniatura</target>
+            </trans-unit>
+            <trans-unit id="noCopyrights">
+                <source>No copyright information available for this content.</source>
+                <target>Non sono disponibili informazioni sul copyright per questo contenuto.</target>
+            </trans-unit>
+            <trans-unit id="reuse">
+                <source>Reuse</source>
+                <target>Riutilizzo</target>
+            </trans-unit>
+            <trans-unit id="reuseContent">
+                <source>Reuse Content</source>
+                <target>Riutilizzare i contenuti</target>
+            </trans-unit>
+            <trans-unit id="reuseDescription">
+                <source>Reuse this content.</source>
+                <target>Riutilizzare questo contenuto.</target>
+            </trans-unit>
+            <trans-unit id="downloadDescription">
+                <source>Download this content as a H5P file.</source>
+                <target>Scaricate questo contenuto come file H5P.</target>
+            </trans-unit>
+            <trans-unit id="copyrightsDescription">
+                <source>View copyright information for this content.</source>
+                <target>Visualizza le informazioni sul copyright di questo contenuto.</target>
+            </trans-unit>
+            <trans-unit id="embedDescription">
+                <source>View the embed code for this content.</source>
+                <target>Visualizza il codice di incorporamento per questo contenuto.</target>
+            </trans-unit>
+            <trans-unit id="h5pDescription">
+                <source>Visit H5P.org to check out more cool content.</source>
+                <target>Visitate H5P.org per scoprire altri contenuti interessanti.</target>
+            </trans-unit>
+            <trans-unit id="contentChanged">
+                <source>This content has changed since you last used it.</source>
+                <target>Questo contenuto è cambiato dall'ultima volta che lo avete usato.</target>
+            </trans-unit>
+            <trans-unit id="startingOver">
+                <source>You'll be starting over.</source>
+                <target>Dovrete ricominciare da capo.</target>
+            </trans-unit>
+            <trans-unit id="by">
+                <source>by</source>
+                <target>da</target>
+            </trans-unit>
+            <trans-unit id="showMore">
+                <source>Show more</source>
+                <target>Mostra di più</target>
+            </trans-unit>
+            <trans-unit id="showLess">
+                <source>Show less</source>
+                <target>Mostra meno</target>
+            </trans-unit>
+            <trans-unit id="subLevel">
+                <source>Sublevel</source>
+                <target>Sottolivello</target>
+            </trans-unit>
+            <trans-unit id="confirmDialogHeader">
+                <source>Confirm action</source>
+                <target>Confermare l'azione</target>
+            </trans-unit>
+            <trans-unit id="confirmDialogBody">
+                <source>Please confirm that you wish to proceed. This action is not reversible.</source>
+                <target>Confermare che si desidera procedere. Questa azione non è reversibile.</target>
+            </trans-unit>
+            <trans-unit id="cancelLabel">
+                <source>Cancel</source>
+                <target>Annullamento</target>
+            </trans-unit>
+            <trans-unit id="confirmLabel">
+                <source>Confirm</source>
+                <target>Confermare</target>
+            </trans-unit>
+            <trans-unit id="licenseU">
+                <source>Undisclosed</source>
+                <target>Non divulgato</target>
+            </trans-unit>
+            <trans-unit id="licenseCCBY">
+                <source>Attribution</source>
+                <target>Attribuzione</target>
+            </trans-unit>
+            <trans-unit id="licenseCCBYSA">
+                <source>Attribution-ShareAlike</source>
+                <target>Attribuzione-Condividi allo stesso modo</target>
+            </trans-unit>
+            <trans-unit id="licenseCCBYND">
+                <source>Attribution-NoDerivs</source>
+                <target>Attribuzione-NoDerive</target>
+            </trans-unit>
+            <trans-unit id="licenseCCBYNC">
+                <source>Attribution-NonCommercial</source>
+                <target>Attribuzione non commerciale</target>
+            </trans-unit>
+            <trans-unit id="licenseCCBYNCSA">
+                <source>Attribution-NonCommercial-ShareAlike</source>
+                <target>Attribuzione-Non commerciale-Condividi allo stesso modo</target>
+            </trans-unit>
+            <trans-unit id="licenseCCBYNCND">
+                <source>Attribution-NonCommercial-NoDerivs</source>
+                <target>Attribuzione-Non commerciale-NoDerivs</target>
+            </trans-unit>
+            <trans-unit id="licenseCC40">
+                <source>4.0 International</source>
+                <target>4.0 Internazionale</target>
+            </trans-unit>
+            <trans-unit id="licenseCC30">
+                <source>3.0 Unported</source>
+                <target>3.0 Non supportato</target>
+            </trans-unit>
+            <trans-unit id="licenseCC25">
+                <source>2.5 Generic</source>
+                <target>2.5 Generici</target>
+            </trans-unit>
+            <trans-unit id="licenseCC20">
+                <source>2.0 Generic</source>
+                <target>2.0 Generico</target>
+            </trans-unit>
+            <trans-unit id="licenseCC10">
+                <source>1.0 Generic</source>
+                <target>1.0 Generico</target>
+            </trans-unit>
+            <trans-unit id="licenseGPL">
+                <source>General Public License</source>
+                <target>Licenza pubblica generale</target>
+            </trans-unit>
+            <trans-unit id="licenseV3">
+                <source>Version 3</source>
+                <target>Versione 3</target>
+            </trans-unit>
+            <trans-unit id="licenseV2">
+                <source>Version 2</source>
+                <target>Versione 2</target>
+            </trans-unit>
+            <trans-unit id="licenseV1">
+                <source>Version 1</source>
+                <target>Versione 1</target>
+            </trans-unit>
+            <trans-unit id="licensePD">
+                <source>Public Domain</source>
+                <target>Pubblico dominio</target>
+            </trans-unit>
+            <trans-unit id="licenseCC010">
+                <source>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</source>
+                <target>CC0 1.0 Universale (CC0 1.0) Dedicazione al pubblico dominio</target>
+            </trans-unit>
+            <trans-unit id="licensePDM">
+                <source>Public Domain Mark</source>
+                <target>Marchio di pubblico dominio</target>
+            </trans-unit>
+            <trans-unit id="licenseC">
+                <source>Copyright</source>
+                <target>Copyright</target>
+            </trans-unit>
+            <trans-unit id="contentType">
+                <source>Content Type</source>
+                <target>Tipo di contenuto</target>
+            </trans-unit>
+            <trans-unit id="licenseExtras">
+                <source>License Extras</source>
+                <target>Extra della licenza</target>
+            </trans-unit>
+            <trans-unit id="changes">
+                <source>Changelog</source>
+                <target>Changelog</target>
+            </trans-unit>
+            <trans-unit id="contentCopied">
+                <source>Content is copied to the clipboard</source>
+                <target>Il contenuto viene copiato negli appunti</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

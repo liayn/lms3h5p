@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2018-08-03T04:33:29Z"
+          product-name="lms3h5p">
+        <header/>
+        <body>
+            <trans-unit id="tx_lms3h5p_domain_model_pi1">
+                <source>LMS3: H5P Content</source>
+                <target>LMS3: Contenido H5P</target>
+            </trans-unit>
+            <trans-unit id="tx_lms3h5p_domain_model_pi1.description">
+                <source>Render H5P Contents in Frontend</source>
+                <target>Renderización de contenidos H5P en frontend</target>
+            </trans-unit>
+            <trans-unit id="h5pContent">
+                <source>H5P Contents</source>
+                <target>H5P Contenido</target>
+            </trans-unit>
+            <trans-unit id="title">
+                <source>Title</source>
+                <target>Título</target>
+            </trans-unit>
+            <trans-unit id="library">
+                <source>Library</source>
+                <target>Biblioteca</target>
+            </trans-unit>
+            <trans-unit id="id">
+                <source>ID</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="created">
+                <source>Created</source>
+                <target>Creado</target>
+            </trans-unit>
+            <trans-unit id="updated">
+                <source>Updated</source>
+                <target>Actualizado</target>
+            </trans-unit>
+            <trans-unit id="author">
+                <source>Author</source>
+                <target>Autor</target>
+            </trans-unit>
+            <trans-unit id="back">
+                <source>Back</source>
+                <target>Volver</target>
+            </trans-unit>
+            <trans-unit id="createNewContent">
+                <source>Create new content</source>
+                <target>Crear nuevos contenidos</target>
+            </trans-unit>
+            <trans-unit id="noContentFound">
+                <source>There is no content created yet.</source>
+                <target>Aún no se ha creado ningún contenido.</target>
+            </trans-unit>
+            <trans-unit id="flexform_select_lms3h5p_content">
+                <source>Select H5P Content</source>
+                <target>Seleccionar contenido H5P</target>
+            </trans-unit>
+            <trans-unit id="h5pLibraries">
+                <source>H5P Libraries</source>
+                <target>Bibliotecas H5P</target>
+            </trans-unit>
+            <trans-unit id="content">
+                <source>Content</source>
+                <target>Contenido</target>
+            </trans-unit>
+            <trans-unit id="libraries">
+                <source>Libraries</source>
+                <target>Bibliotecas</target>
+            </trans-unit>
+            <trans-unit id="version">
+                <source>Version</source>
+                <target>Versión</target>
+            </trans-unit>
+            <trans-unit id="contents">
+                <source>Contents</source>
+                <target>Contenido</target>
+            </trans-unit>
+            <trans-unit id="dependentContents">
+                <source>Dependent Contents</source>
+                <target>Contenidos dependientes</target>
+            </trans-unit>
+            <trans-unit id="dependentLibraries">
+                <source>Dependent Libraries</source>
+                <target>Bibliotecas dependientes</target>
+            </trans-unit>
+            <trans-unit id="contentOrOtherLibrariesAreUsingThisLibrary">
+                <source>Contents or other libraries are using this library</source>
+                <target>Contenidos u otras bibliotecas están utilizando esta biblioteca</target>
+            </trans-unit>
+            <trans-unit id="deleteContentTitle">
+                <source>Delete Content</source>
+                <target>Borrar contenido</target>
+            </trans-unit>
+            <trans-unit id="deleteContentConfirmation">
+                <source>Do you really want to delete this content?</source>
+                <target>¿De verdad quieres borrar este contenido?</target>
+            </trans-unit>
+            <trans-unit id="updateContentTypeCache">
+                <source>Update Content Type Cache</source>
+                <target>Actualizar caché de tipos de contenido</target>
+            </trans-unit>
+            <trans-unit id="fullscreen">
+                <source>Fullscreen</source>
+                <target>Pantalla completa</target>
+            </trans-unit>
+            <trans-unit id="yes">
+                <source>Yes</source>
+                <target>Sí</target>
+            </trans-unit>
+            <trans-unit id="no">
+                <source>No</source>
+                <target>No</target>
+            </trans-unit>
+            <trans-unit id="usedBy">
+                <source>Used by</source>
+                <target>Utilizado por</target>
+            </trans-unit>
+            <trans-unit id="contentUsingThisLibrary">
+                <source>Content using this library</source>
+                <target>Contenidos que utilizan esta biblioteca</target>
+            </trans-unit>
+            <trans-unit id="deleteLibraryTitle">
+                <source>Delete Library</source>
+                <target>Borrar biblioteca</target>
+            </trans-unit>
+            <trans-unit id="deleteLibraryConfirmation">
+                <source>Do you really want to delete this library?</source>
+                <target>¿De verdad quieres borrar esta biblioteca?</target>
+            </trans-unit>
+            <trans-unit id="selectAction">
+                <source>Select Action</source>
+                <target>Seleccionar acción</target>
+            </trans-unit>
+            <trans-unit id="waitingForH5PJavascriptToLoad">
+                <source>Waiting for H5P JavaScript to load...</source>
+                <target>Esperando a que se cargue H5P JavaScript...</target>
+            </trans-unit>
+            <trans-unit id="uploadFile">
+                <source>Upload File</source>
+                <target>Cargar archivo</target>
+            </trans-unit>
+
+            <trans-unit id="selectAction">
+                <source>Select Action</source>
+                <target>Seleccionar acción</target>
+            </trans-unit>
+            <trans-unit id="waitingForH5PJavascriptToLoad">
+                <source>Waiting for H5P JavaScript to load...</source>
+                <target>Esperando a que se cargue H5P JavaScript...</target>
+            </trans-unit>
+            <trans-unit id="uploadFile">
+                <source>Upload File</source>
+                <target>Cargar archivo</target>
+            </trans-unit>
+            <trans-unit id="h5pError">
+                <source>H5P error</source>
+                <target>Error H5P</target>
+            </trans-unit>
+            <trans-unit id="contentDeleted">
+                <source>Content deleted</source>
+                <target>Contenido eliminado</target>
+            </trans-unit>
+            <trans-unit id="contentUpdated">
+                <source>Content updated</source>
+                <target>Contenido actualizado</target>
+            </trans-unit>
+            <trans-unit id="contentCreated">
+                <source>Content created</source>
+                <target>Contenido creado</target>
+            </trans-unit>
+            <trans-unit id="contentDeletedMessage">
+                <source>The content "%s" has been deleted.</source>
+                <target>El contenido "%s" ha sido borrado.</target>
+            </trans-unit>
+            <trans-unit id="contentUpdatedMessage">
+                <source>The content "%s" has been updated.</source>
+                <target>El contenido "%s" ha sido actualizado.</target>
+            </trans-unit>
+            <trans-unit id="contentCreatedMessage">
+                <source>The content "%s" has been created.</source>
+                <target>El contenido "%s" ha sido creado.</target>
+            </trans-unit>
+            <trans-unit id="libraryDeleted">
+                <source>Library deleted</source>
+                <target>Biblioteca eliminada</target>
+            </trans-unit>
+            <trans-unit id="libraryDeletedMessage">
+                <source>The library "%s" has been deleted.</source>
+                <target>La biblioteca "%s" ha sido eliminada.</target>
+            </trans-unit>
+            <trans-unit id="h5pHubNotRespondedErrorMessage">
+                <source>The cache could not be refreshed because the H5P Hub did not respond.</source>
+                <target>No se ha podido actualizar la caché porque el concentrador H5P no ha respondido.</target>
+            </trans-unit>
+            <trans-unit id="contentTypeCachedRefreshedMessage">
+                <source>The content type cache was refreshed successfully.</source>
+                <target>La caché del tipo de contenido se ha actualizado correctamente.</target>
+            </trans-unit>
+            <trans-unit id="displayOptions">
+                <source>Display Options</source>
+                <target>Opciones de visualización</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
