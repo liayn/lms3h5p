@@ -66,7 +66,7 @@ class Setup
             return;
         }
 
-        $h5pLibraryPath = dirname(Environment::getPublicPath()) . $this->ts['libraryPath'];
+        $h5pLibraryPath = Environment::getProjectPath() . $this->ts['libraryPath'];
 
         if (!is_dir($h5pLibraryPath)) {
             return;
