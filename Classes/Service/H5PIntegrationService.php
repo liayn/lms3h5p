@@ -298,7 +298,7 @@ class H5PIntegrationService implements SingletonInterface
             );
             $files = $this->getH5PCoreInstance()->getDependenciesFiles(
                 $preloadedDependencies,
-                $this->h5pSettings['h5pPublicFolder']['url']
+                rtrim($this->h5pSettings['h5pPublicFolder']['url'], '/')
             );
 
             $this->addCustomStylesheet($files['styles']);

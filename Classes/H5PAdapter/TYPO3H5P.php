@@ -106,7 +106,7 @@ class TYPO3H5P
             self::$core = new \H5PCore(
                 self::$interface,
                 new FileAdapter(),
-                $settings['h5pPublicFolder']['url'],
+                rtrim($settings['h5pPublicFolder']['url'], '/'),
                 $this->getLanguage(),
                 (bool) $settings['enableExport']
             );
