@@ -28,14 +28,15 @@ namespace LMS3\Lms3h5p\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use LMS3\Lms3h5p\Service\ContentService;
+use LMS3\Lms3h5p\Service\FlexFormService;
+use LMS3\Lms3h5p\Service\H5PIntegrationService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Domain\ConsumableString;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use LMS3\Lms3h5p\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use LMS3\Lms3h5p\Service\H5PIntegrationService;
-use LMS3\Lms3h5p\Service\ContentService;
 
 /**
  * Content Embed Controller
@@ -54,6 +55,7 @@ class ContentEmbedController extends ActionController
     protected PageRenderer $pageRenderer;
     protected ContentService $contentService;
     protected H5PIntegrationService $h5pIntegrationService;
+    protected string $nonce;
 
     public function __construct(H5PIntegrationService $integrationService, ContentService $contentService, PageRenderer $pageRenderer)
     {
@@ -64,6 +66,11 @@ class ContentEmbedController extends ActionController
 
     public function indexAction(): ResponseInterface
     {
+        $nonceAttribute = $this->request->getAttribute('nonce');
+        if ($nonceAttribute instanceof ConsumableString) {
+            $this->nonce = $nonceAttribute->consume();
+        }
+
         $this->addScriptAndStyles();
 
         $contentId = (int) $this->settings['contentId'];
@@ -114,9 +121,13 @@ class ContentEmbedController extends ActionController
         $mergedScripts = array_unique($this->h5pIntegrationService->getMergedScripts($h5pIntegrationSettings));
         $mergedStyles = array_unique($this->h5pIntegrationService->getMergedStyles($h5pIntegrationSettings));
 
-        $this->pageRenderer->addJsInlineCode('H5PSettings',
-            'window.H5PIntegration = ' . json_encode($h5pIntegrationSettings) . ';'
-        );
+        $h5pIntegrationSettingsJs = 'window.H5PIntegration = ' . json_encode($h5pIntegrationSettings) . ';';
+
+        if (!empty($this->nonce)) {
+            $this->pageRenderer->addJsInlineCode('H5PSettings', $h5pIntegrationSettingsJs, true, false, true);
+        } else {
+            $this->pageRenderer->addJsInlineCode('H5PSettings', $h5pIntegrationSettingsJs);
+        }
 
         /**
          * Add H5P CSS files
