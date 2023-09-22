@@ -20,7 +20,8 @@ return [
                 'type' => 'input',
                 'size' => 20,
                 'max' => 50,
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ],
         'library' => [

@@ -18,14 +18,16 @@ return [
             'label' => 'Name',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ],
         'title' => [
             'label' => 'Title',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ],
         'major_version' => [

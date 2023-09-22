@@ -16,7 +16,6 @@
                             <label>LLL:EXT:lms3h5p/Resources/Private/Language/locallang.xlf:flexform_select_lms3h5p_content</label>
                             <config>
                                 <type>group</type>
-                                <internal_type>db</internal_type>
                                 <allowed>tx_lms3h5p_domain_model_content</allowed>
                                 <size>1</size>
                                 <maxitems>1</maxitems>

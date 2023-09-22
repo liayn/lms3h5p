@@ -18,7 +18,8 @@ return [
             'label' => 'Machine Name',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ],
         'major_version' => [

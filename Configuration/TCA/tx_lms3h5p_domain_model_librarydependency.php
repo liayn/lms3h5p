@@ -18,21 +18,24 @@ return [
             'label' => 'Library',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ],
         'required_library' => [
             'label' => 'Required Library',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ],
         'dependency_type' => [
             'label' => 'Dependency Type',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ]
     ]

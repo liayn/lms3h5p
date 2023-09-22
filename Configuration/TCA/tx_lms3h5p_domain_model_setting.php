@@ -18,14 +18,16 @@ return [
             'label' => 'Config Key',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ],
         'config_value' => [
             'label' => 'Config Value',
             'config' => [
                 'type' => 'text',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ],
     ]

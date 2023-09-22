@@ -18,21 +18,24 @@ return [
             'label' => 'Library',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ],
         'language_code' => [
             'label' => 'Language Code',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ],
         'translation' => [
             'label' => 'Translation',
             'config' => [
                 'type' => 'text',
-                'eval' => 'trim,required'
+                'required' => true,
+                'eval' => 'trim'
             ]
         ]
     ]
