@@ -38,6 +38,8 @@ use LMS3\Lms3h5p\H5PAdapter\Core\FileAdapter;
 use LMS3\Lms3h5p\H5PAdapter\Core\H5PFramework;
 use LMS3\Lms3h5p\H5PAdapter\Editor\EditorAjax;
 use LMS3\Lms3h5p\H5PAdapter\Editor\EditorFileAdapter;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
@@ -104,11 +106,22 @@ class TYPO3H5P
 
     protected function getLanguage(): string
     {
-        $language = $GLOBALS['BE_USER']->uc['lang'];
+        /** @var SiteLanguage $siteLanguage */
+        $siteLanguage = $this->getRequest()->getAttribute('language');
+        $language = $siteLanguage?->getLocale()->getLanguageCode();
+        
         if (empty($language) || $language === 'default') {
             $language = 'en';
         }
 
         return $language;
+    }
+
+    /**
+     * @return ServerRequestInterface
+     */
+    private function getRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }
