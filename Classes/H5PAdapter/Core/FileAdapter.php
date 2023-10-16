@@ -189,7 +189,7 @@ class FileAdapter implements \H5PFileStorage
      */
     public function exportLibrary($library, $target)
     {
-        $folder = \H5PCore::libraryToString($library, true);
+        $folder = \H5PCore::libraryToFolderName($library, true);
         $srcPath = $this->getFolderPath('libraries') . $folder;
         $destination = $target . DIRECTORY_SEPARATOR . $folder;
 
