@@ -271,8 +271,8 @@ class FileAdapter implements \H5PFileStorage
             foreach ($assets as $asset) {
                 // Get content from asset file
                 $assetContent = '';
-                if (file_exists(Environment::getPublicPath() . DIRECTORY_SEPARATOR . $asset->path)) {
-                    $assetContent = file_get_contents(Environment::getPublicPath() . DIRECTORY_SEPARATOR . $asset->path);
+                if (file_exists(Environment::getPublicPath() . DIRECTORY_SEPARATOR . ltrim($asset->path, '/'))) {
+                    $assetContent = file_get_contents(Environment::getPublicPath() . DIRECTORY_SEPARATOR . ltrim($asset->path, '/'));
                 }
                 $cssRelPath = preg_replace('/[^\/]+$/', '', $asset->path);
 
