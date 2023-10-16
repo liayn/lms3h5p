@@ -33,6 +33,7 @@ use TYPO3\CMS\Core\SingletonInterface;
 use LMS3\Lms3h5p\Domain\Model\Content;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use LMS3\Lms3h5p\H5PAdapter\Core\H5PFramework;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -439,7 +440,7 @@ class H5PIntegrationService implements SingletonInterface
         $customStyle = GeneralUtility::getFileAbsFileName($this->h5pSettings['customStyle']['path']);
         if (file_exists($customStyle)) {
             $styles[] = (object) [
-                'path'    => '/' . $this->h5pSettings['customStyle']['path'],
+                'path'    => PathUtility::getPublicResourceWebPath($this->h5pSettings['customStyle']['path']),
                 'version' => '?version=' . $this->h5pSettings['customStyle']['version']
             ];
         }
