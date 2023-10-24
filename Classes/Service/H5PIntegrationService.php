@@ -28,6 +28,7 @@ namespace LMS3\Lms3h5p\Service;
  * ************************************************************* */
 
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -203,13 +204,13 @@ class H5PIntegrationService implements SingletonInterface
              * If we loaded this, the iframe would continually try to load more iframes inside itself.
              * This is a bug in the H5P integration (or rather a weird way of declaring the libraries)
              */
-            if (strpos($script, 'scripts/h5peditor-editor.js') !== false) {
+            if (str_contains($script, 'scripts/h5peditor-editor.js')) {
                 continue;
             }
             $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . $script;
         }
 
-        $language = $GLOBALS['BE_USER']->uc['lang'];
+        $language = $GLOBALS['BE_USER']->user['lang'];
         if (empty($language) || $language === 'default') {
             $language = 'en';
         }
