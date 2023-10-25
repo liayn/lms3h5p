@@ -39,6 +39,7 @@ use LMS3\Lms3h5p\H5PAdapter\Core\H5PFramework;
 use LMS3\Lms3h5p\H5PAdapter\Editor\EditorAjax;
 use LMS3\Lms3h5p\H5PAdapter\Editor\EditorFileAdapter;
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -106,6 +107,10 @@ class TYPO3H5P
 
     protected function getLanguage(): string
     {
+        if (Environment::isCli()) {
+            return "en";
+        }
+
         /** @var SiteLanguage $siteLanguage */
         $siteLanguage = $this->getRequest()->getAttribute('language');
         $language = $siteLanguage?->getLocale()->getLanguageCode();
