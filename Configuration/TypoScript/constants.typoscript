@@ -36,10 +36,10 @@ module.tx_lms3h5p {
             save_content_frequency = 10
             hub_is_enabled = 1
             enable_lrs_content_types = 0
-            frame = 1
-            export = 1
+            frame = 0
+            export = 0
             embed = 0
-            copyright = 1
+            copyright = 0
             icon = 1
             h5p_version = 1.0.0
         }
