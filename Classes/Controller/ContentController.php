@@ -70,6 +70,7 @@ class ContentController extends AbstractModuleController
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
+        $this->moduleTemplate->assign('settings', $this->settings);
         $actions = ['createAction', 'updateAction', 'deleteAction'];
 
         if (!in_array($this->actionMethodName, $actions)) {
