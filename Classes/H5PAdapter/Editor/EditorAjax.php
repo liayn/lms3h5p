@@ -30,6 +30,7 @@ namespace LMS3\Lms3h5p\H5PAdapter\Editor;
 use LMS3\Lms3h5p\Domain\Model\Library;
 use LMS3\Lms3h5p\Domain\Repository\ContentTypeCacheEntryRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
+use LMS3\Lms3h5p\Domain\Repository\LibraryTranslationRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -46,11 +47,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class EditorAjax implements \H5PEditorAjaxInterface
 {
     protected LibraryRepository $libraryRepository;
+    protected LibraryTranslationRepository $libraryTranslationRepository;
     protected ContentTypeCacheEntryRepository $contentTypeCacheEntryRepository;
 
     public function __construct()
     {
         $this->libraryRepository = GeneralUtility::makeInstance(LibraryRepository::class);
+        $this->libraryTranslationRepository = GeneralUtility::makeInstance(LibraryTranslationRepository::class);
         $this->contentTypeCacheEntryRepository = GeneralUtility::makeInstance(
             ContentTypeCacheEntryRepository::class
         );
@@ -124,6 +127,19 @@ class EditorAjax implements \H5PEditorAjaxInterface
      */
     public function getTranslations($libraries, $language_code)
     {
-        // TODO: Implement getTranslations() method.
+        $libraryTranslations = [];
+        foreach ($libraries as $libraryName) {
+            preg_match_all('/(.+)\s(\d+)\.(\d+)$/', $libraryName, $matches);
+            if ($matches && $matches[1] && $matches[2] && $matches[3]) {
+                $library = $this->libraryRepository->findOneByNameMajorVersionAndMinorVersion(
+                    $matches[1][0],
+                    $matches[2][0],
+                    $matches[3][0]
+                );
+                $libraryTranslation = $this->libraryTranslationRepository->findOneByLibraryAndLanguage($library, $language_code);
+                $libraryTranslations[$libraryName] = $libraryTranslation->getTranslation();
+            }
+        }
+        return $libraryTranslations;
     }
 }
