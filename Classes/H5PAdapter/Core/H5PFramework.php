@@ -492,9 +492,8 @@ class H5PFramework implements \H5PFrameworkInterface
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
-    public function saveLibraryData(&$libraryData, $new = TRUE)
+    public function saveLibraryData(&$libraryData, $new = true)
     {
-        $library = null;
         if ($new) {
             $library = Library::createFromMetadata($libraryData);
             $this->libraryRepository->add($library);

@@ -517,8 +517,6 @@ class Library extends AbstractEntity
         }
         if (!isset($libraryData['fullscreen'])) {
             $libraryData['fullscreen'] = 0;
-        }if (!isset($libraryData['fullscreen'])) {
-            $libraryData['fullscreen'] = 0;
         }
 
         $library = new self();
@@ -546,7 +544,7 @@ class Library extends AbstractEntity
             ->setMinorVersion($libraryData['minorVersion'])
             ->setPatchVersion($libraryData['patchVersion'])
             ->setRunnable((bool) $libraryData['runnable'])
-            ->setHasIcon($libraryData['hasIcon'] ? true : false)
+            ->setHasIcon((bool) $libraryData['hasIcon'])
             ->setMetaDataSettings($libraryData['metadataSettings'] ?? null)
             ->setAddTo(isset($library['addTo']) ? json_encode($libraryData['addTo']) : null);
         if (isset($libraryData['semantics'])) {
@@ -563,15 +561,22 @@ class Library extends AbstractEntity
                 $content->determineEmbedType();
             }
         }
-        if (isset($libraryData['__preloadedJs'])) {
-            $this->setPreloadedJs($libraryData['__preloadedJs']);
+
+        $libraryData['__preloadedJs'] = self::pathsToCsv($libraryData, 'preloadedJs');
+        $libraryData['__preloadedCss'] = self::pathsToCsv($libraryData, 'preloadedCss');
+
+        $this->setPreloadedJs($libraryData['__preloadedJs']);
+        $this->setPreloadedCss($libraryData['__preloadedCss']);
+
+        $libraryData['__dropLibraryCss'] = '0';
+        if (isset($libraryData['dropLibraryCss'])) {
+            $libs = [];
+            foreach ($libraryData['dropLibraryCss'] as $lib) {
+                $libs[] = $lib['machineName'];
+            }
+            $libraryData['__dropLibraryCss'] = implode(', ', $libs);
         }
-        if (isset($libraryData['__preloadedCss'])) {
-            $this->setPreloadedCss($libraryData['__preloadedCss']);
-        }
-        if (isset($libraryData['__dropLibraryCss'])) {
-            $this->setDropLibraryCss($libraryData['__dropLibraryCss']);
-        }
+        $this->setDropLibraryCss($libraryData['__dropLibraryCss']);
     }
 
     /**
@@ -592,7 +597,6 @@ class Library extends AbstractEntity
      */
     public function toAssocArray(): array
     {
-        // the keys majorVersion and major_version are both used within the h5p library classes. Same goes for minor and patch.
         $libraryArray = [
             'id' => $this->getUid(),
             'libraryId' => $this->getUid(),
@@ -687,7 +691,7 @@ class Library extends AbstractEntity
     /**
      * @return string
      */
-    public function getVersionString() : string
+    public function getVersionString(): string
     {
         return $this->getMajorVersion() . '.' . $this->getMinorVersion() . '.' . $this->getPatchVersion();
     }
@@ -702,7 +706,7 @@ class Library extends AbstractEntity
     private static function pathsToCsv($library, $key): string
     {
         if (isset($library[$key])) {
-            $paths = array();
+            $paths = [];
             foreach ($library[$key] as $file) {
                 $paths[] = $file['path'];
             }
