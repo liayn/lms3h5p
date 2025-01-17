@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Controller;
 
@@ -32,6 +33,7 @@ use LMS3\Lms3h5p\Service\ContentService;
 use LMS3\Lms3h5p\Service\FlexFormService;
 use LMS3\Lms3h5p\Service\H5PIntegrationService;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Domain\ConsumableString;
 use TYPO3\CMS\Core\Page\PageRenderer;
@@ -52,6 +54,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class ContentEmbedController extends ActionController
 {
     const LIST_TYPE = 'lms3h5p_pi1';
+
+    protected Context $context;
     protected PageRenderer $pageRenderer;
     protected ContentService $contentService;
     protected H5PIntegrationService $h5pIntegrationService;
@@ -59,6 +63,7 @@ class ContentEmbedController extends ActionController
 
     public function __construct(H5PIntegrationService $integrationService, ContentService $contentService, PageRenderer $pageRenderer)
     {
+        $this->context = GeneralUtility::makeInstance(Context::class);
         $this->pageRenderer = $pageRenderer;
         $this->contentService = $contentService;
         $this->h5pIntegrationService = $integrationService;
@@ -97,15 +102,15 @@ class ContentEmbedController extends ActionController
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('tt_content');
 
-        $languageId = $GLOBALS['TSFE']->language->getLanguageId();
+        $languageId = $this->context->getPropertyFromAspect('language', 'id');
 
         $query = $queryBuilder->select('pi_flexform')
             ->from('tt_content')
-            ->where('list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TSFE']->id. ' AND sys_language_uid IN (0, ' . $languageId . ')')
+            ->where('list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TSFE']->id . ' AND sys_language_uid IN (0, ' . $languageId . ')')
             ->orderBy('sorting')
-            ->execute();
+            ->executeQuery();
 
-        $h5pInstances = $query->fetchAll();
+        $h5pInstances = $query->fetchAllAssociative();
         if (0 === count($h5pInstances)) {
             return;
         }
@@ -134,7 +139,14 @@ class ContentEmbedController extends ActionController
          */
         foreach ($mergedStyles as $style) {
             $this->pageRenderer->addCssFile(
-                $style, 'stylesheet', 'all', '', false, false, '', true
+                $style,
+                'stylesheet',
+                'all',
+                '',
+                false,
+                false,
+                '',
+                true
             );
         }
 

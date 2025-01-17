@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Controller;
 
@@ -34,9 +35,9 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Imaging\IconSize;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 
 /**
@@ -59,8 +60,7 @@ class LibraryController extends AbstractModuleController
         private readonly IconFactory $iconFactory,
         private readonly LibraryService $libraryService,
         private readonly H5PIntegrationService $h5pIntegrationService
-    ){
-    }
+    ) {}
 
     public function initializeAction(): void
     {
@@ -120,7 +120,7 @@ class LibraryController extends AbstractModuleController
             $this->addFlashMessage(
                 $this->translate('h5pHubNotRespondedErrorMessage'),
                 '',
-                AbstractMessage::ERROR
+                ContextualFeedbackSeverity::ERROR
             );
         }
         $this->addFlashMessage($this->translate('contentTypeCachedRefreshedMessage'));
@@ -136,12 +136,12 @@ class LibraryController extends AbstractModuleController
             $uri = $this->uriBuilder->uriFor('index', null);
             $title = $this->translate('back');
             $icon = $this->iconFactory
-                ->getIcon('actions-view-go-back', Icon::SIZE_SMALL);
+                ->getIcon('actions-view-go-back', IconSize::SMALL);
         } else {
             $uri = $this->uriBuilder->uriFor('new', null, 'Content');
             $title = $this->translate('createNewContent');
             $icon = $this->iconFactory
-                ->getIcon('actions-document-new', Icon::SIZE_SMALL);
+                ->getIcon('actions-document-new', IconSize::SMALL);
         }
 
         $button = $buttonBar->makeLinkButton()
