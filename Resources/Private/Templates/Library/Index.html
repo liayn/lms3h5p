@@ -1,9 +1,10 @@
 <f:layout name="Default"/>
 
 <f:section name="content">
-    <f:be.pageRenderer includeRequireJsModules="{0:'TYPO3/CMS/Backend/Modal'}" />
-    <f:be.pageRenderer includeRequireJsModules="{0: 'TYPO3/CMS/Lms3h5p/DataTable'}" />
-    <f:be.pageRenderer includeCssFiles="{0: '{f:uri.resource(path:\'Css/jquery.dataTables.css\')}'}" />
+    <f:be.pageRenderer
+    includeJavaScriptModules="{0: 'TYPO3/CMS/Backend/Modal', 1: 'TYPO3/CMS/Lms3h5p/DataTable'}"
+    includeCssFiles="{0: '{f:uri.resource(path: \'Css/jquery.dataTables.css\')}'}"
+/>
     <div class="row">
         <div class="col-md-12">
             <f:link.action class="btn btn-primary pull-right" action="refreshContentTypeCache" controller="Library">

@@ -1,6 +1,7 @@
-<f:be.pageRenderer includeRequireJsModules="{0:'TYPO3/CMS/Backend/Modal'}" />
-<f:be.pageRenderer includeRequireJsModules="{0: 'TYPO3/CMS/Lms3h5p/DataTable'}" />
-<f:be.pageRenderer includeCssFiles="{0: '{f:uri.resource(path:\'Css/jquery.dataTables.css\')}'}" />
+<f:be.pageRenderer
+    includeJavaScriptModules="{0: 'TYPO3/CMS/Backend/Modal', 1: 'TYPO3/CMS/Lms3h5p/DataTable'}"
+    includeCssFiles="{0: '{f:uri.resource(path: \'Css/jquery.dataTables.css\')}'}"
+/>
 
 <div class="table-fit" style="border: none">
     <table class="table table-striped table-hover" id="h5p-content">
