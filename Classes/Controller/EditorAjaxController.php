@@ -29,7 +29,6 @@ namespace LMS3\Lms3h5p\Controller;
 
 use LMS3\Lms3h5p\Service\H5PIntegrationService;
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
@@ -45,13 +44,11 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class EditorAjaxController extends ActionController
 {
-    public function __construct(private readonly H5PIntegrationService $h5pIntegrationService)
-    {
-    }
+    public function __construct(private readonly H5PIntegrationService $h5pIntegrationService) {}
 
     public function indexAction()
     {
-        $type = GeneralUtility::_GET('type');
+        $type = $this->request->getQueryParams()['type'];
         switch ($type) {
             case \H5PEditorEndpoints::CONTENT_TYPE_CACHE:
                 $this->contentTypeCache();
@@ -85,10 +82,10 @@ class EditorAjaxController extends ActionController
 
     protected function installLibrary(): void
     {
-        $id = GeneralUtility::_GET('id');
+        $id = $this->request->getQueryParams()['id'];
         $this->h5pIntegrationService->getH5pEditor()->ajax->action(
             \H5PEditorEndpoints::LIBRARY_INSTALL,
-            GeneralUtility::_GET('moduleToken'),
+            $this->request->getQueryParams()['moduleToken'],
             $id
         );
     }
@@ -109,9 +106,9 @@ class EditorAjaxController extends ActionController
 
         $this->h5pIntegrationService->getH5pEditor()->ajax->action(
             \H5PEditorEndpoints::SINGLE_LIBRARY,
-            GeneralUtility::_GET('machineName'),
-            GeneralUtility::_GET('majorVersion'),
-            GeneralUtility::_GET('minorVersion'),
+            $this->request->getQueryParams()['machineName'],
+            $this->request->getQueryParams()['majorVersion'],
+            $this->request->getQueryParams()['minorVersion'],
             $language,
             '',
             Environment::getPublicPath() . $this->h5pIntegrationService->getSettings()['h5pPublicFolder']['path'],
@@ -137,11 +134,11 @@ class EditorAjaxController extends ActionController
 
     protected function uploadLibrary(): void
     {
-        $contentId = GeneralUtility::_GET('contentId') ?? 0;
+        $contentId = (int)($this->request->getQueryParams()['id'] ?? 0);
 
         $this->h5pIntegrationService->getH5pEditor()->ajax->action(
             \H5PEditorEndpoints::LIBRARY_UPLOAD,
-            GeneralUtility::_GET('moduleToken'),
+            $this->request->getQueryParams()['moduleToken'],
             $_FILES['h5p']['tmp_name'],
             $contentId
         );
@@ -149,7 +146,7 @@ class EditorAjaxController extends ActionController
 
     protected function translations(): void
     {
-        $language = GeneralUtility::_GET('language');
+        $language = $this->request->getQueryParams()['language'];
 
         $this->h5pIntegrationService->getH5pEditor()->ajax->action(
             \H5PEditorEndpoints::TRANSLATIONS,

@@ -39,7 +39,6 @@ use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 
@@ -88,7 +87,7 @@ class ContentController extends AbstractModuleController
             'contents' => $contents,
             'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
             'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
-            'pid' => empty(GeneralUtility::_GP('id'))
+            'pid' => empty($this->request->getQueryParams()['id'])
         ]);
 
         return $this->moduleTemplate->renderResponse('Content/Index');
@@ -102,7 +101,7 @@ class ContentController extends AbstractModuleController
             'h5pSettings' => json_encode($h5pIntegrationSettings),
             'scripts' => $h5pIntegrationSettings['core']['scripts'],
             'styles' => $h5pIntegrationSettings['core']['styles'],
-            'pid' => empty(GeneralUtility::_GET('id')),
+            'pid' => empty($this->request->getQueryParams()['id']),
             'parameters' => ''
         ]);
 
@@ -258,7 +257,7 @@ class ContentController extends AbstractModuleController
      */
     protected function setStoragePid(): void
     {
-        $storagePid = GeneralUtility::_GET('id');
+        $storagePid = (int)($this->request->getQueryParams()['id'] ?? 0);
         $frameworkConfiguration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
