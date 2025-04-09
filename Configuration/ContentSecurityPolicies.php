@@ -62,6 +62,16 @@ return Map::fromEntries([
             \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceKeyword::unsafeInline,
         ),
         new Mutation(
+            MutationMode::Extend,
+            Directive::FrameSrc,
+            new UriValue('https://documentation.h5p.com/'),
+        ),
+        new Mutation(
+            MutationMode::Extend,
+            Directive::FontSrc,
+            \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceScheme::data
+        ),
+        new Mutation(
             MutationMode::Reduce,
             Directive::ScriptSrcElem,
             \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceKeyword::nonceProxy,
