@@ -49,6 +49,21 @@ return Map::fromEntries([
         new Mutation(
             MutationMode::Extend,
             Directive::ScriptSrc,
+            new UriValue('https://www.youtube.com/'),
+        ),
+        new Mutation(
+            MutationMode::Extend,
+            Directive::MediaSrc,
+            new UriValue('https://api.mymemory.translated.net/'),
+        ),
+        new Mutation(
+            MutationMode::Extend,
+            Directive::MediaSrc,
+            \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceScheme::blob,
+        ),
+        new Mutation(
+            MutationMode::Extend,
+            Directive::ScriptSrc,
             \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceKeyword::unsafeInline,
         ),
         new Mutation(
