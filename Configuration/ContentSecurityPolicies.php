@@ -36,31 +36,28 @@ use TYPO3\CMS\Core\Type\Map;
 return Map::fromEntries([
     Scope::backend(),
     new MutationCollection(
+    // Fonts
+        new Mutation(
+            MutationMode::Extend,
+            Directive::FontSrc,
+            \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceScheme::data
+        ),
+
+        // Images
         new Mutation(
             MutationMode::Extend,
             Directive::ImgSrc,
             new UriValue('https://h5p.org/'),
         ),
+
+        // Styles
         new Mutation(
             MutationMode::Extend,
             Directive::StyleSrc,
             new UriValue('https://h5p.org/'),
         ),
-        new Mutation(
-            MutationMode::Extend,
-            Directive::ScriptSrc,
-            new UriValue('https://www.youtube.com/'),
-        ),
-        new Mutation(
-            MutationMode::Extend,
-            Directive::MediaSrc,
-            new UriValue('https://api.mymemory.translated.net/'),
-        ),
-        new Mutation(
-            MutationMode::Extend,
-            Directive::MediaSrc,
-            \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceScheme::blob,
-        ),
+
+        //Scripts
         new Mutation(
             MutationMode::Extend,
             Directive::ScriptSrc,
@@ -73,18 +70,8 @@ return Map::fromEntries([
         ),
         new Mutation(
             MutationMode::Extend,
-            Directive::FrameSrc,
-            \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceKeyword::unsafeInline,
-        ),
-        new Mutation(
-            MutationMode::Extend,
-            Directive::FrameSrc,
-            new UriValue('https://documentation.h5p.com/'),
-        ),
-        new Mutation(
-            MutationMode::Extend,
-            Directive::FontSrc,
-            \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceScheme::data
+            Directive::ScriptSrc,
+            new UriValue('https://www.youtube.com/'),
         ),
         new Mutation(
             MutationMode::Reduce,
@@ -95,6 +82,30 @@ return Map::fromEntries([
             MutationMode::Reduce,
             Directive::ScriptSrc,
             \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceKeyword::nonceProxy,
+        ),
+
+        // iFrames
+        new Mutation(
+            MutationMode::Extend,
+            Directive::FrameSrc,
+            \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceKeyword::unsafeInline,
+        ),
+        new Mutation(
+            MutationMode::Extend,
+            Directive::FrameSrc,
+            new UriValue('https://documentation.h5p.com/'),
+        ),
+
+        // Media
+        new Mutation(
+            MutationMode::Extend,
+            Directive::MediaSrc,
+            new UriValue('https://api.mymemory.translated.net/'),
+        ),
+        new Mutation(
+            MutationMode::Extend,
+            Directive::MediaSrc,
+            \TYPO3\CMS\Core\Security\ContentSecurityPolicy\SourceScheme::blob,
         ),
     ),
 ]);
