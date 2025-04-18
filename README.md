@@ -20,17 +20,17 @@ Installation
 
 Installation is simple and consists of these steps:
 
-1. Run `composer require "lms3/lms3h5p:^1.0"`
-2. Install extension from Extension Manager.
-3. Make sure `typo3/cms-fluid-styled-content` installed.
+1. Run `composer require "lms3/lms3h5p:v13.x-dev"`
+2. Make sure `typo3/cms-fluid-styled-content` installed.
 
 Configuration
 ============
 
 1. Make sure database tables are created.
-2. Run `./vendor/bin/typo3 lms3h5p:h5p:configsetting`
-3. Run  `./vendor/bin/typo3 lms3h5p:h5p:copyresources`
-4. Include the static TypoScript of the extension
+2. Include the static TypoScript of the extension
+3. Unzip `EXT:Resources/Private/Files/h5p.zip` into your **fileadmin** directory
+4. Run `./vendor/bin/typo3 lms3h5p:h5p:configsetting`
+5. Run  `./vendor/bin/typo3 lms3h5p:h5p:copyresources`
 
 H5P Content Preparation
 ============
