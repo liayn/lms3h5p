@@ -25,10 +25,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use LMS3\Lms3h5p\Controller\ContentEmbedController;
 use LMS3\Lms3h5p\Form\Element\H5PContentElement;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3') or die();
 
@@ -50,14 +50,6 @@ ExtensionUtility::configurePlugin(
     [
         ContentEmbedController::class => 'index',
     ]
-);
-
-// Include base TSconfig setup
-ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:lms3h5p/Configuration/TSconfig/Page/Mod/Wizards/NewContentElement.tsconfig">'
-);
-ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:lms3h5p/Configuration/TSconfig/Page/Mod/HideTables.tsconfig">'
 );
 
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1539019571] = [
