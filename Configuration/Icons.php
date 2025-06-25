@@ -1,10 +1,10 @@
 <?php
 
+defined('TYPO3') or die();
+
 /* * *************************************************************
  *
  *  Copyright notice
- *
- *  (c) 2019 LEARNTUBE! GmbH - Contact: mail@learntube.de
  *
  *  All rights reserved
  *
@@ -25,18 +25,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-use \TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 
-defined('TYPO3') or die();
-
-ExtensionUtility::registerPlugin(
-    'Lms3h5p',
-    'Pi1',
-    'LLL:EXT:lms3h5p/Resources/Private/Language/locallang.xlf:tx_lms3h5p_domain_model_pi1'
-);
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    'Lms3h5p',
-    'Configuration/TypoScript',
-    'LMS3 H5P Content'
-);
+return [
+    'tx-lms3h5p-svgicon' => [
+        'provider' => SvgIconProvider::class,
+        'source' => 'EXT:lms3h5p/Resources/Public/Icons/Extension.svg',
+    ],
+];

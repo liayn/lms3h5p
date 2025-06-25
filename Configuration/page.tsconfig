@@ -1,2 +1,1 @@
-@import 'EXT:lms3h5p/Configuration/TSconfig/Page/Mod/Wizards/NewContentElement.tsconfig'
 @import 'EXT:lms3h5p/Configuration/TSconfig/Page/Mod/HideTables.tsconfig'

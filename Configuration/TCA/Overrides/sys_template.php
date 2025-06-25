@@ -26,28 +26,9 @@ defined('TYPO3') or die();
  * ************************************************************* */
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-// Register Plugin
-$contentTypeName = ExtensionUtility::registerPlugin(
-    'Lms3h5p',
-    'Pi1',
-    'LLL:EXT:lms3h5p/Resources/Private/Language/locallang_db.xlf:tx_lms3h5p_domain_model_pi1.name',
-    'tx-lms3h5p-svgicon',
-    'LMS3',
-    'LLL:EXT:lms3h5p/Resources/Private/Language/locallang_db.xlf:tx_lms3h5p_domain_model_pi1.description',
-);
-
-// Register Flexform
-ExtensionManagementUtility::addPiFlexFormValue(
-    '*',
-    'FILE:EXT:lms3h5p/Configuration/FlexForms/FlexFormPi1.xml',
-    $contentTypeName
-);
-
-ExtensionManagementUtility::addToAllTCAtypes(
-    'tt_content',
-    '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:plugin, pi_flexform',
-    $contentTypeName,
-    'after:palette:headers'
+ExtensionManagementUtility::addStaticFile(
+    'lms3h5p',
+    'Configuration/TypoScript',
+    'LMS3: H5P'
 );

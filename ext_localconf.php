@@ -1,10 +1,10 @@
 <?php
 
+defined('TYPO3') or die();
+
 /* * *************************************************************
  *
  *  Copyright notice
- *
- *  (c) 2019 LEARNTUBE! GmbH - Contact: mail@learntube.de
  *
  *  All rights reserved
  *
@@ -30,8 +30,6 @@ use LMS3\Lms3h5p\Form\Element\H5PContentElement;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-defined('TYPO3') or die();
-
 ExtensionManagementUtility::addTypoScriptConstants(
     "@import 'EXT:lms3h5p/Configuration/TypoScript/constants.typoscript'"
 );
@@ -39,7 +37,6 @@ ExtensionManagementUtility::addTypoScriptConstants(
 ExtensionManagementUtility::addTypoScriptSetup(
     "@import 'EXT:lms3h5p/Configuration/TypoScript/setup.typoscript'"
 );
-
 
 ExtensionUtility::configurePlugin(
     'Lms3h5p',
@@ -49,7 +46,8 @@ ExtensionUtility::configurePlugin(
     ],
     [
         ContentEmbedController::class => 'index',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1539019571] = [
