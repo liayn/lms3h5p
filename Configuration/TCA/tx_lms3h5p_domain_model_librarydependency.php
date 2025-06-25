@@ -4,7 +4,7 @@ return [
     'ctrl' => [
         'title' => 'LMS3 H5P Library Dependency',
         'label' => 'title',
-        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
+        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/Extension.svg'
     ],
     'types' => [
         '1' => [
