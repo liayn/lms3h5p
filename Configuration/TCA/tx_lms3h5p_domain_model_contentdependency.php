@@ -3,7 +3,8 @@
 return [
     'ctrl' => [
         'title' => 'LMS3 H5P Content Dependency',
-        'label' => 'title',
+        'label' => 'dependency_type',
+        'hideTable' => 1,
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/Extension.svg'
     ],
     'types' => [

@@ -4,6 +4,7 @@ return [
     'ctrl' => [
         'title' => 'LMS3 H5P Content Type Cache Entry',
         'label' => 'title',
+        'hideTable' => 1,
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/Extension.svg'
     ],
     'types' => [
