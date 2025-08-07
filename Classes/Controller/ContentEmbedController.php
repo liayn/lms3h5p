@@ -53,7 +53,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class ContentEmbedController extends ActionController
 {
-    const LIST_TYPE = 'lms3h5p_pi1';
+    const CTYPE = 'lms3h5p_pi1';
 
     protected Context $context;
     protected PageRenderer $pageRenderer;
@@ -106,7 +106,7 @@ class ContentEmbedController extends ActionController
 
         $query = $queryBuilder->select('pi_flexform')
             ->from('tt_content')
-            ->where('list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TSFE']->id . ' AND sys_language_uid IN (0, ' . $languageId . ')')
+            ->where('cType = "' . self::CTYPE . '" AND pid = ' . $GLOBALS['TSFE']->id . ' AND sys_language_uid IN (0, ' . $languageId . ')')
             ->orderBy('sorting')
             ->executeQuery();
 
