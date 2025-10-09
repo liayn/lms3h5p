@@ -211,15 +211,17 @@ class ContentController extends AbstractModuleController
     public function deleteAction(int $content): ResponseInterface
     {
         $content = $this->contentService->findByUid($content);
-        $this->contentService->handleDelete($content);
+        if ($content) {
+            $this->contentService->handleDelete($content);
 
-        $this->addFlashMessage(
-            sprintf(
-                $this->translate('contentDeletedMessage'),
-                $content->getTitle()
-            ),
-            $this->translate('contentDeleted')
-        );
+            $this->addFlashMessage(
+                sprintf(
+                    $this->translate('contentDeletedMessage'),
+                    $content->getTitle()
+                ),
+                $this->translate('contentDeleted')
+            );
+        }
 
         return new ForwardResponse('index');
     }
