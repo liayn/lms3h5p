@@ -288,7 +288,7 @@ class FileAdapter implements \H5PFileStorage
                                 return $matches[0]; // Not relative, skip
                             }
 
-                            return 'url("../../..' . $cssRelPath.$matches[1].'")';
+                            return 'url("' . $cssRelPath . $matches[1].'")';
                         }, $assetContent)."\n";
                 }
             }
