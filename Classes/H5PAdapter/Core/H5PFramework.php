@@ -160,17 +160,18 @@ class H5PFramework implements \H5PFrameworkInterface
     /**
      * Fetches a file from a remote server using HTTP GET
      *
-     * @param string $url Where you want to get or send data.
-     * @param null $data Data to post to the URL.
-     * @param bool $blocking Set to 'FALSE' to instantly time out (fire and forget).
-     * @param null $stream Path to where the file should be saved.
-     * @param bool $fullData
-     * @param array $headers
-     * @param array $files
-     * @param string $method
-     * @return bool|string The content (response body). NULL if something went wrong
+     * @param  string  $url  Where you want to get or send data.
+     * @param  array  $data  Data to post to the URL.
+     * @param  bool  $blocking  Set to 'FALSE' to instantly time out (fire and forget).
+     * @param  string  $stream  Path to where the file should be saved.
+     * @param  bool  $fullData  Return additional response data such as headers and potentially other data
+     * @param  array  $headers  Headers to send
+     * @param  array  $files Files to send
+     * @param  string  $method
+     *
+     * @return string|array The content (response body), or an array with data. NULL if something went wrong
      */
-    public function fetchExternalData($url, $data = NULL, $blocking = TRUE, $stream = NULL, $fullData = false, $headers = [], $files = [], $method = 'POST'): bool|string
+    public function fetchExternalData($url, $data = NULL, $blocking = TRUE, $stream = NULL, $fullData = false, $headers = [], $files = [], $method = 'POST'): string|array
     {
         $client = new Client();
         $options = [
@@ -181,6 +182,12 @@ class H5PFramework implements \H5PFrameworkInterface
 
         try {
             $response = $client->request($data === null ? 'GET' : 'POST', $url, $options);
+            if ($fullData) {
+                return [
+                    'status' => $response->getStatusCode(),
+                    'data' => $response->getBody()->getContents()
+                ];
+            }
             if ($response->getStatusCode() === 200) {
                 return $response->getBody()->getSize() ? $response->getBody()->getContents() : true;
             }

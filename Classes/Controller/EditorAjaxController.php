@@ -68,6 +68,9 @@ class EditorAjaxController extends ActionController
             case \H5PEditorEndpoints::TRANSLATIONS:
                 $this->translations();
                 break;
+            case \H5PEditorEndpoints::CONTENT_HUB_METADATA_CACHE:
+                $this->contentHubMetadataCache();
+                break;
         }
 
         exit;
@@ -99,17 +102,12 @@ class EditorAjaxController extends ActionController
             exit;
         }
 
-        $language = $GLOBALS['BE_USER']->user['lang'];
-        if (empty($language) || $language === 'default') {
-            $language = 'en';
-        }
-
         $this->h5pIntegrationService->getH5pEditor()->ajax->action(
             \H5PEditorEndpoints::SINGLE_LIBRARY,
             $this->request->getQueryParams()['machineName'],
             $this->request->getQueryParams()['majorVersion'],
             $this->request->getQueryParams()['minorVersion'],
-            $language,
+            $this->getBELanguage(),
             '',
             Environment::getPublicPath() . $this->h5pIntegrationService->getSettings()['h5pPublicFolder']['path'],
             'en'
@@ -152,5 +150,25 @@ class EditorAjaxController extends ActionController
             \H5PEditorEndpoints::TRANSLATIONS,
             $language
         );
+    }
+
+    protected function contentHubMetadataCache()
+    {
+        $this->h5pIntegrationService->getH5pEditor()->ajax->action(
+            \H5PEditorEndpoints::CONTENT_HUB_METADATA_CACHE,
+            $this->getBELanguage()
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getBELanguage(): string
+    {
+        $language = $GLOBALS['BE_USER']->user['lang'];
+        if (empty($language) || $language === 'default') {
+            $language = 'en';
+        }
+        return $language;
     }
 }
