@@ -36,8 +36,8 @@ use TYPO3\CMS\Backend\Attribute\Controller;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
@@ -226,12 +226,12 @@ class ContentController extends AbstractModuleController
             $uri = $this->uriBuilder->uriFor('index');
             $title = $this->translate('back');
             $icon = $this->iconFactory
-                ->getIcon('actions-view-go-back', IconSize::SMALL);
+                ->getIcon('actions-view-go-back', Icon::SIZE_SMALL);
         } else {
             $uri = $this->uriBuilder->reset()->uriFor('new');
             $title = $this->translate('createNewContent');
             $icon = $this->iconFactory
-                ->getIcon('actions-document-new', IconSize::SMALL);
+                ->getIcon('actions-document-new', Icon::SIZE_SMALL);
         }
 
         $button = $buttonBar->makeLinkButton()
