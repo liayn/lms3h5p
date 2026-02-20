@@ -199,7 +199,7 @@ class EditorFileAdapter implements \H5peditorStorage
      */
     public static function saveFileTemporarily($data, $move_file)
     {
-        $interface = TYPO3H5P::getInstance()->getH5PInstance();
+        $interface = GeneralUtility::makeInstance(TYPO3H5P::class)->getH5PInstance();
 
         $path = $interface->getUploadedH5pPath();
 

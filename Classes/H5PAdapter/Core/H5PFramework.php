@@ -69,7 +69,7 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
  */
-class H5PFramework implements \H5PFrameworkInterface
+class H5PFramework implements \H5PFrameworkInterface, \TYPO3\CMS\Core\SingletonInterface
 {
     public const PLATFORM_NAME = 'TYPO3 CMS';
 
@@ -135,7 +135,7 @@ class H5PFramework implements \H5PFrameworkInterface
 
     protected function getInjectedH5PCore(): \H5PCore
     {
-        return TYPO3H5P::getInstance()->getH5PInstance('core');
+        return GeneralUtility::makeInstance(TYPO3H5P::class)->getH5PInstance('core');
     }
 
     /**

@@ -432,7 +432,7 @@ class H5PIntegrationService implements SingletonInterface
      */
     public function getH5PCoreInstance(): \H5PCore
     {
-        return TYPO3H5P::getInstance()->getH5PInstance('core');
+        return GeneralUtility::makeInstance(TYPO3H5P::class)->getH5PInstance('core');
     }
 
     /**
@@ -440,7 +440,7 @@ class H5PIntegrationService implements SingletonInterface
      */
     public function getH5pContentValidator(): \H5PContentValidator
     {
-        return TYPO3H5P::getInstance()->getH5PInstance('contentvalidator');
+        return GeneralUtility::makeInstance(TYPO3H5P::class)->getH5PInstance('contentvalidator');
     }
 
     /**
@@ -448,7 +448,7 @@ class H5PIntegrationService implements SingletonInterface
      */
     public function getH5pEditor(): \H5peditor
     {
-        return TYPO3H5P::getInstance()->getH5PInstance('editor');
+        return GeneralUtility::makeInstance(TYPO3H5P::class)->getH5PInstance('editor');
     }
 
     public function getSettings(): array

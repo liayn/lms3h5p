@@ -55,45 +55,33 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
  */
-class TYPO3H5P
+class TYPO3H5P implements \TYPO3\CMS\Core\SingletonInterface
 {
-    protected static ?TYPO3H5P $instance = null;
-    protected static ?H5PFramework $interface = null;
-    protected static ?H5PCore $core = null;
-    protected static array $settings = [];
-
-    public static function getInstance(): self
-    {
-        if (null === self::$instance) {
-            self::$instance = new self;
-        }
-
-        return self::$instance;
-    }
+    protected ?H5PCore $core = null;
 
     public function getH5PInstance(string $type = 'interface'): H5PContentValidator|H5PValidator|H5PExport|H5peditor|H5PCore|H5PFramework|H5PStorage|null
     {
         $settings = $this->getSettings();
-        if (null === self::$interface) {
-            self::$interface = new H5PFramework();
-            self::$core = new \H5PCore(
-                self::$interface,
+        $interface = GeneralUtility::makeInstance(H5PFramework::class);
+        if (null === $this->core) {
+            $this->core = new \H5PCore(
+                $interface,
                 new FileAdapter(),
                 $settings['h5pPublicFolder']['url'],
                 $this->getLanguage(),
                 (bool) $settings['enableExport']
             );
-            self::$core->aggregateAssets = (bool) $settings['aggregateAssets'];
+            $this->core->aggregateAssets = (bool) $settings['aggregateAssets'];
         }
 
         return match ($type) {
-            'validator' => new \H5PValidator(self::$interface, self::$core),
-            'editor' => new \H5peditor(self::$core, new EditorFileAdapter(), new EditorAjax()),
-            'storage' => new \H5PStorage(self::$interface, self::$core),
-            'contentvalidator' => new \H5PContentValidator(self::$interface, self::$core),
-            'export' => new \H5PExport(self::$interface, self::$core),
-            'interface' => self::$interface,
-            'core' => self::$core,
+            'validator' => new \H5PValidator($interface, $this->core),
+            'editor' => new \H5peditor($this->core, new EditorFileAdapter(), new EditorAjax()),
+            'storage' => new \H5PStorage($interface, $this->core),
+            'contentvalidator' => new \H5PContentValidator($interface, $this->core),
+            'export' => new \H5PExport($interface, $this->core),
+            'interface' => $interface,
+            'core' => $this->core,
         };
     }
 

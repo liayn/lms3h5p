@@ -67,7 +67,7 @@ class H5pRepairLibraryCommand extends Command
             );
 
             /** @var H5PFramework $interface */
-            $interface = TYPO3H5P::getInstance()->getH5PInstance();
+            $interface = GeneralUtility::makeInstance(TYPO3H5P::class)->getH5PInstance();
 
             if (file_exists($libraryJsonPath)) {
                 $json = file_get_contents($libraryJsonPath);
