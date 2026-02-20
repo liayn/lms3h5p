@@ -30,7 +30,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_lms3h5p_domain_model_library',
-                'minitems' => 0,
+                'minitems' => 1,
                 'maxitems' => 1
             ]
         ],

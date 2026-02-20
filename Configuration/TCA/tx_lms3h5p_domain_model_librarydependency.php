@@ -17,17 +17,21 @@ return [
         'library' => [
             'label' => 'Library',
             'config' => [
-                'type' => 'input',
-                'required' => true,
-                'eval' => 'trim'
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_lms3h5p_domain_model_library',
+                'minitems' => 1,
+                'maxitems' => 1
             ]
         ],
         'required_library' => [
             'label' => 'Required Library',
             'config' => [
-                'type' => 'input',
-                'required' => true,
-                'eval' => 'trim'
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_lms3h5p_domain_model_library',
+                'minitems' => 1,
+                'maxitems' => 1
             ]
         ],
         'dependency_type' => [
