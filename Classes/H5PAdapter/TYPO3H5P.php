@@ -66,7 +66,7 @@ class TYPO3H5P implements \TYPO3\CMS\Core\SingletonInterface
         if (null === $this->core) {
             $this->core = new \H5PCore(
                 $interface,
-                new FileAdapter(),
+                GeneralUtility::makeInstance(FileAdapter::class),
                 $settings['h5pPublicFolder']['url'],
                 $this->getLanguage(),
                 (bool) $settings['enableExport']
@@ -76,7 +76,7 @@ class TYPO3H5P implements \TYPO3\CMS\Core\SingletonInterface
 
         return match ($type) {
             'validator' => new \H5PValidator($interface, $this->core),
-            'editor' => new \H5peditor($this->core, new EditorFileAdapter(), new EditorAjax()),
+            'editor' => new \H5peditor($this->core, GeneralUtility::makeInstance(EditorFileAdapter::class), GeneralUtility::makeInstance(EditorAjax::class)),
             'storage' => new \H5PStorage($interface, $this->core),
             'contentvalidator' => new \H5PContentValidator($interface, $this->core),
             'export' => new \H5PExport($interface, $this->core),

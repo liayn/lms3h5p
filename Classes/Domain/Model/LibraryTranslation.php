@@ -28,6 +28,8 @@ namespace LMS3\Lms3h5p\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Library Translation
  *
@@ -120,7 +122,7 @@ class LibraryTranslation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public static function create(Library $library, string $languageCode, string $translation) : LibraryTranslation
     {
-        $translationInstance = new LibraryTranslation();
+        $translationInstance = GeneralUtility::makeInstance(LibraryTranslation::class);
         $translationInstance->setLibrary($library)
             ->setLanguageCode($languageCode)
             ->setTranslation($translation);

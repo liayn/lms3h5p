@@ -28,6 +28,8 @@ namespace LMS3\Lms3h5p\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Content
  *
@@ -603,7 +605,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public static function createFromMetadata(array $contentData, Library $library, int $account): Content
     {
-        $content = new Content();
+        $content = GeneralUtility::makeInstance(Content::class);
         $content->setLibrary($library)
             ->setAccount($account)
             ->setCreatedAt(time())

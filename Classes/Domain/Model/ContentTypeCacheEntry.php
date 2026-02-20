@@ -28,6 +28,7 @@ namespace LMS3\Lms3h5p\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -536,7 +537,7 @@ class ContentTypeCacheEntry extends AbstractEntity
     {
         $createdAt = new \DateTime($contentTypeCacheObject->createdAt);
         $updatedAt = new \DateTime($contentTypeCacheObject->updatedAt);
-        $entry = new ContentTypeCacheEntry();
+        $entry = GeneralUtility::makeInstance(ContentTypeCacheEntry::class);
         $entry->setMachineName($contentTypeCacheObject->id)
             ->setMajorVersion($contentTypeCacheObject->version->major)
             ->setMinorVersion($contentTypeCacheObject->version->minor)

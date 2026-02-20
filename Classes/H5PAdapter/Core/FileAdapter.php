@@ -303,7 +303,7 @@ class FileAdapter implements \H5PFileStorage
                 'version' => '',
             ]];
 
-            $cacheAsset = new CachedAsset();
+            $cacheAsset = GeneralUtility::makeInstance(CachedAsset::class);
             $cacheAsset->setHashKey($key);
             $cacheAsset->setType($type);
             $this->cachedAssetRepository->add($cacheAsset);
@@ -407,7 +407,7 @@ class FileAdapter implements \H5PFileStorage
         @copy($_FILES['file']['tmp_name'], $path);
 
         $editorTempfileRepository = GeneralUtility::makeInstance(EditorTempfileRepository::class);
-        $editotTempFile = new EditorTempFile();
+        $editotTempFile = GeneralUtility::makeInstance(EditorTempFile::class);
         $editotTempFile->setPath(ltrim($path, Environment::getPublicPath()));
         $editotTempFile->setCreatedAt(time());
         $editorTempfileRepository->add($editotTempFile);

@@ -662,7 +662,7 @@ class H5PFramework implements \H5PFrameworkInterface, \TYPO3\CMS\Core\SingletonI
                 $this->libraryDependencyRepository->update($existingDependency);
             } else {
                 // Depedency does not exist, create it
-                $dependency = new LibraryDependency();
+                $dependency = GeneralUtility::makeInstance(LibraryDependency::class);
                 $dependency
                     ->setDependencyType($dependency_type)
                     ->setLibrary($dependingLibrary)
@@ -762,7 +762,7 @@ class H5PFramework implements \H5PFrameworkInterface, \TYPO3\CMS\Core\SingletonI
         }
 
         foreach ($librariesInUse as $dependencyData) {
-            $contentDependency = new ContentDependency();
+            $contentDependency = GeneralUtility::makeInstance(ContentDependency::class);
             $contentDependency->setContent($content);
             $contentDependency->setLibrary($this->libraryRepository->findByUid($dependencyData['library']['libraryId']));
             $contentDependency->setDependencyType($dependencyData['type']);
@@ -1045,7 +1045,7 @@ class H5PFramework implements \H5PFrameworkInterface, \TYPO3\CMS\Core\SingletonI
                 $configSetting->setConfigValue($value);
                 $this->settingRepository->update($configSetting);
             } else {
-                $configSetting = new Setting();
+                $configSetting = GeneralUtility::makeInstance(Setting::class);
                 $configSetting->setConfigKey($name);
                 $configSetting->setConfigValue($value);
                 $this->settingRepository->add($configSetting);
