@@ -3,7 +3,7 @@
 return [
     'ctrl' => [
         'title' => 'LMS3 H5P Setting',
-        'label' => 'title',
+        'label' => 'config_key',
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
     'types' => [

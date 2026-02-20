@@ -3,7 +3,9 @@
 return [
     'ctrl' => [
         'title' => 'LMS3 H5P Library Translation',
-        'label' => 'title',
+        'label' => 'library',
+        'label_alt' => 'language_code',
+        'label_alt_force' => true,
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
     'types' => [

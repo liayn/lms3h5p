@@ -3,7 +3,9 @@
 return [
     'ctrl' => [
         'title' => 'LMS3 H5P Library Dependency',
-        'label' => 'title',
+        'label' => 'library',
+        'label_alt' => 'required_library, dependency_type',
+        'label_alt_force' => true,
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
     'types' => [

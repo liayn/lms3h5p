@@ -3,7 +3,9 @@
 return [
     'ctrl' => [
         'title' => 'LMS3 H5P Cache Asset',
-        'label' => 'title',
+        'label' => 'library',
+        'label_alt' => 'type, hash_key',
+        'label_alt_force' => true,
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
     'types' => [
