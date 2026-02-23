@@ -6,6 +6,9 @@ return [
         'label' => 'library',
         'label_alt' => 'dependency_type',
         'label_alt_force' => true,
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
     'types' => [

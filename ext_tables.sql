@@ -35,21 +35,15 @@ CREATE TABLE tx_lms3h5p_domain_model_library (
     created_at int(11) DEFAULT 0 NOT NULL,
     updated_at int(11) DEFAULT 0 NOT NULL,
 
+    depends_on_preloaded int(11) DEFAULT '1' NOT NULL,
+    depends_on_editor int(11) DEFAULT '1' NOT NULL,
+
     PRIMARY KEY (uid),
     KEY parent (pid)
 );
 
 CREATE TABLE tx_lms3h5p_domain_model_librarydependency (
-
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT 0 NOT NULL,
-
-    library int(11) NOT NULL,
-    required_library int(11) NOT NULL,
     dependency_type VARCHAR(255) NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid)
 );
 
 CREATE TABLE tx_lms3h5p_domain_model_librarytranslation (

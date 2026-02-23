@@ -5,12 +5,14 @@ return [
         'title' => 'LMS3 H5P Library',
         'label' => 'title',
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg',
+        'default_sortby' => 'uid',
         'rootLevel' => -1
     ],
     'types' => [
         '1' => [
             'showitem' => '
-                name, title, major_version, minor_version, patch_version, runnable, restricted, fullscreen, embed_types
+                name, title, major_version, minor_version, patch_version, runnable, restricted, fullscreen, embed_types,
+                depends_on_preloaded, depends_on_editor
             '
         ]
     ],
@@ -131,6 +133,34 @@ return [
             'label' => 'Updated At',
             'config' => [
                 'type' => 'input',
+            ]
+        ],
+        'depends_on_preloaded' => [
+            'label' => 'Required libraries (Preloaded)',
+            'config' => [
+                'type' => 'group',
+                'allowed' => 'tx_lms3h5p_domain_model_library',
+                'foreign_table' => 'tx_lms3h5p_domain_model_library',
+                'readOnly' => 1,
+                'MM' => 'tx_lms3h5p_domain_model_librarydependency',
+                'MM_hasUidField' => true,
+                'MM_match_fields' => [
+                  'dependency_type' =>  'preloaded'
+                ],
+            ]
+        ],
+        'depends_on_editor' => [
+            'label' => 'Required libraries (Editor)',
+            'config' => [
+                'type' => 'group',
+                'allowed' => 'tx_lms3h5p_domain_model_library',
+                'foreign_table' => 'tx_lms3h5p_domain_model_library',
+                'readOnly' => 1,
+                'MM' => 'tx_lms3h5p_domain_model_librarydependency',
+                'MM_hasUidField' => true,
+                'MM_match_fields' => [
+                    'dependency_type' =>  'editor'
+                ],
             ]
         ]
     ]

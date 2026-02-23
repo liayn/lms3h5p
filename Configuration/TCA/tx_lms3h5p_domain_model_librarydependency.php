@@ -3,20 +3,21 @@
 return [
     'ctrl' => [
         'title' => 'LMS3 H5P Library Dependency',
-        'label' => 'library',
-        'label_alt' => 'required_library, dependency_type',
+        'label' => 'uid_local',
+        'label_alt' => 'uid_foreign, dependency_type',
         'label_alt_force' => true,
+        'sortby' => 'sorting',
         'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
     ],
     'types' => [
         '1' => [
             'showitem' => '
-                library, required_library, dependency_type
+                uid_local, uid_foreign, dependency_type
             '
         ]
     ],
     'columns' => [
-        'library' => [
+        'uid_local' => [
             'label' => 'Library',
             'config' => [
                 'type' => 'select',
@@ -26,7 +27,7 @@ return [
                 'maxitems' => 1
             ]
         ],
-        'required_library' => [
+        'uid_foreign' => [
             'label' => 'Required Library',
             'config' => [
                 'type' => 'select',
@@ -39,9 +40,22 @@ return [
         'dependency_type' => [
             'label' => 'Dependency Type',
             'config' => [
-                'type' => 'input',
-                'required' => true,
-                'eval' => 'trim'
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [
+                        'label' => 'Editor',
+                        'value' => 'editor',
+                    ],
+                    [
+                        'label' => 'Preloaded',
+                        'value' => 'preloaded',
+                    ],
+                    [
+                        'label' => 'Dynamic',
+                        'value' => 'dynamic',
+                    ],
+                ],
             ]
         ]
     ]

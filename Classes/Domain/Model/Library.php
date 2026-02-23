@@ -659,7 +659,7 @@ class Library extends AbstractEntity
             $dependencyRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
         );
 
-        return $dependencyRepository->findByLibrary($this->getUid());
+        return $dependencyRepository->findByUidLocal($this->getUid());
     }
 
     /**
@@ -672,7 +672,7 @@ class Library extends AbstractEntity
             $dependencyRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
         );
 
-        return $dependencyRepository->findByRequiredLibrary($this->getUid());
+        return $dependencyRepository->findByUidForeign($this->getUid());
     }
 
     /**

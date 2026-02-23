@@ -46,12 +46,12 @@ class LibraryDependency extends AbstractEntity
     /**
      * @var Library
      */
-    protected $library;
+    protected $uidLocal;
 
     /**
      * @var Library
      */
-    protected $requiredLibrary;
+    protected $uidForeign;
 
     /**
      * @var string
@@ -63,7 +63,7 @@ class LibraryDependency extends AbstractEntity
      */
     public function getLibrary(): Library
     {
-        return $this->library;
+        return $this->uidLocal;
     }
 
     /**
@@ -72,7 +72,7 @@ class LibraryDependency extends AbstractEntity
      */
     public function setLibrary(Library $library): LibraryDependency
     {
-        $this->library = $library;
+        $this->uidLocal = $library;
         return $this;
     }
 
@@ -81,7 +81,7 @@ class LibraryDependency extends AbstractEntity
      */
     public function getRequiredLibrary(): Library
     {
-        return $this->requiredLibrary;
+        return $this->uidForeign;
     }
 
     /**
@@ -90,7 +90,7 @@ class LibraryDependency extends AbstractEntity
      */
     public function setRequiredLibrary(Library $requiredLibrary): LibraryDependency
     {
-        $this->requiredLibrary = $requiredLibrary;
+        $this->uidForeign = $requiredLibrary;
         return $this;
     }
 

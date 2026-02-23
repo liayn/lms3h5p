@@ -652,8 +652,8 @@ class H5PFramework implements \H5PFrameworkInterface, \TYPO3\CMS\Core\SingletonI
             /** @var LibraryDependency $existingDependency */
             $query = $this->libraryDependencyRepository->createQuery();
             $query->matching($query->logicalAnd(
-                $query->equals('library', $dependingLibrary->getUid()),
-                $query->equals('requiredLibrary', $requiredLibrary->getUid())
+                $query->equals('uidLocal', $dependingLibrary->getUid()),
+                $query->equals('uidForeign', $requiredLibrary->getUid())
             ));
             $existingDependency = $query->execute()->getFirst();
             if ($existingDependency !== null) {
@@ -893,7 +893,7 @@ class H5PFramework implements \H5PFrameworkInterface, \TYPO3\CMS\Core\SingletonI
         if ($library === null) {
             return;
         }
-        $dependencies = $this->libraryDependencyRepository->findByLibrary($library);
+        $dependencies = $this->libraryDependencyRepository->findByUidLocal($library);
         /** @var LibraryDependency $dependency */
         foreach ($dependencies as $dependency) {
             $this->libraryDependencyRepository->remove($dependency);
