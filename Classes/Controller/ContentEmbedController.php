@@ -139,14 +139,9 @@ class ContentEmbedController extends ActionController
          */
         foreach ($mergedStyles as $style) {
             $this->pageRenderer->addCssFile(
-                $style,
-                'stylesheet',
-                'all',
-                '',
-                false,
-                false,
-                '',
-                true
+                file: $style,
+                compress: false,
+                excludeFromConcatenation: true
             );
         }
 
