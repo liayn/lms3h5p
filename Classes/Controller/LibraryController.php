@@ -133,7 +133,7 @@ class LibraryController extends AbstractModuleController
         $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
 
         if ('indexAction' !== $this->actionMethodName) {
-            $uri = $this->uriBuilder->uriFor('index', null);
+            $uri = $this->uriBuilder->uriFor('index');
             $title = $this->translate('back');
             $icon = $this->iconFactory
                 ->getIcon('actions-view-go-back', Icon::SIZE_SMALL);
@@ -149,6 +149,6 @@ class LibraryController extends AbstractModuleController
             ->setTitle($title)
             ->setIcon($icon);
 
-        $buttonBar->addButton($button, ButtonBar::BUTTON_POSITION_LEFT);
+        $buttonBar->addButton($button);
     }
 }

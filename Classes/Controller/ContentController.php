@@ -238,7 +238,7 @@ class ContentController extends AbstractModuleController
             ->setHref($uri)
             ->setTitle($title)
             ->setIcon($icon);
-        $buttonBar->addButton($button, ButtonBar::BUTTON_POSITION_LEFT);
+        $buttonBar->addButton($button);
     }
 
     private function showH5pErrorMessages(): void
