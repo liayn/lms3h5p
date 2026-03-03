@@ -4,12 +4,10 @@ declare(strict_types = 1);
 namespace LMS3\Lms3h5p\Command;
 
 use LMS3\Lms3h5p\Domain\Model\Library;
-use LMS3\Lms3h5p\Domain\Repository\ContentRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryDependencyRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
 use LMS3\Lms3h5p\H5PAdapter\Core\H5PFramework;
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
-use LMS3\Lms3h5p\Setup;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

@@ -28,7 +28,6 @@ namespace LMS3\Lms3h5p\Service;
  * ************************************************************* */
 
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
-use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\SingletonInterface;

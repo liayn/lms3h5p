@@ -30,7 +30,6 @@ namespace LMS3\Lms3h5p;
 
 use TYPO3\CMS\Core\Core\Environment;
 use LMS3\Lms3h5p\H5PAdapter\Core\FileAdapter;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
