@@ -62,6 +62,9 @@ class EditorAjaxController extends ActionController
             case \H5PEditorEndpoints::FILES:
                 $this->uploadFiles();
                 break;
+            case \H5PEditorEndpoints::FILTER;
+                $this->filter();
+                break;
             case \H5PEditorEndpoints::LIBRARY_UPLOAD:
                 $this->uploadLibrary();
                 break;
@@ -128,6 +131,15 @@ class EditorAjaxController extends ActionController
             $this->h5pIntegrationService->getH5pEditor()->ajax->storage->markFileForCleanup($file_id, 0);
         }
         $file->printResult();
+    }
+
+    protected function filter(): void
+    {
+        $this->h5pIntegrationService->getH5pEditor()->ajax->action(
+            \H5PEditorEndpoints::FILTER,
+            $this->request->getQueryParams()['token'],
+            $this->request->getParsedBody()['libraryParameters'],
+        );
     }
 
     protected function uploadLibrary(): void
