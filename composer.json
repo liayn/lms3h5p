@@ -13,7 +13,11 @@
     "php": ">=8.0",
     "ext-zip": "*",
     "h5p/h5p-core": "1.28.0",
-    "h5p/h5p-editor": "1.25"
+    "h5p/h5p-editor": "1.25",
+    "typo3/cms-core": "^12 || ^13",
+    "typo3/cms-backend": "^12 || ^13",
+    "typo3/cms-extbase": "^12 || ^13",
+    "guzzlehttp/guzzle": "*"
   },
   "autoload": {
     "psr-4": {
