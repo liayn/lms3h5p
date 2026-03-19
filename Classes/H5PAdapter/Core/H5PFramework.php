@@ -1339,4 +1339,9 @@ class H5PFramework implements \H5PFrameworkInterface, \TYPO3\CMS\Core\SingletonI
     {
         // TODO: Implement setContentHubMetadataChecked() method.
     }
+
+    public function resetHubOrganizationData()
+    {
+        // TODO: Implement resetHubOrganizationData() method.
+    }
 }
