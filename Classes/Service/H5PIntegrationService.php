@@ -28,6 +28,7 @@ namespace LMS3\Lms3h5p\Service;
  * ************************************************************* */
 
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -420,7 +421,7 @@ class H5PIntegrationService implements SingletonInterface
         $customStyle = GeneralUtility::getFileAbsFileName($this->h5pSettings['customStyle']['path']);
         if (file_exists($customStyle)) {
             $styles[] = (object) [
-                'path'    => '/' . $this->h5pSettings['customStyle']['path'],
+                'path'    => PathUtility::getAbsoluteWebPath($customStyle),
                 'version' => '?version=' . $this->h5pSettings['customStyle']['version']
             ];
         }
