@@ -28,6 +28,8 @@ namespace LMS3\Lms3h5p\Service;
  * ************************************************************* */
 
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Core\Cache\CacheManager;
@@ -172,8 +174,10 @@ class H5PIntegrationService implements SingletonInterface
             $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['core'] . DIRECTORY_SEPARATOR . $script;
         }
 
-        // Also add the editor script
-        $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . 'scripts/h5peditor-editor.js';
+        // Add the editor script only in the backend context
+        if ($this->isBackendContext()) {
+            $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . 'scripts/h5peditor-editor.js';
+        }
 
         return $urls;
     }
@@ -454,5 +458,11 @@ class H5PIntegrationService implements SingletonInterface
     public function getSettings(): array
     {
         return $this->h5pSettings;
+    }
+
+    private function isBackendContext(): bool
+    {
+        return (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface)
+            && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend();
     }
 }
