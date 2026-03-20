@@ -26,6 +26,13 @@
  * ************************************************************* */
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
+ExtensionUtility::registerPlugin(
+    'Lms3h5p',
+    'Pi1',
+    'LLL:EXT:lms3h5p/Resources/Private/Language/locallang.xlf:tx_lms3h5p_domain_model_pi1'
+);
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['lms3h5p_pi1'] = 'pi_flexform';
 ExtensionManagementUtility::addPiFlexFormValue(
