@@ -42,17 +42,12 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * Please visit: https://h5p.org/MIT-licensed
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
+ *
+ * @extends Repository<LibraryTranslation>
  */
 class LibraryTranslationRepository extends Repository
 {
-    /**
-     * Find library translation by language code
-     *
-     * @param Library $library
-     * @param string $language
-     * @return LibraryTranslation
-     */
-    public function findOneByLibraryAndLanguage(Library $library, $language): ?LibraryTranslation
+    public function findOneByLibraryAndLanguage(Library $library, string $language): ?LibraryTranslation
     {
         $query = $this->createQuery();
         $query->matching(

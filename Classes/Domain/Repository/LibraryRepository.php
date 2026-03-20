@@ -31,6 +31,7 @@ namespace LMS3\Lms3h5p\Domain\Repository;
 use LMS3\Lms3h5p\Domain\Model\Library;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -43,6 +44,8 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * Please visit: https://h5p.org/MIT-licensed
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
+ *
+ * @extends Repository<Library>
  */
 class LibraryRepository extends Repository
 {
@@ -135,20 +138,12 @@ class LibraryRepository extends Repository
                 }
             }
 
-            return $query->matching($query->logicalAnd($conditions))->execute()->count() > 0;
-        } catch (InvalidQueryException $exception) {
+            return $query->matching($query->logicalAnd(...$conditions))->execute()->count() > 0;
+        } catch (InvalidQueryException) {
             return true;
         }
     }
 
-    /**
-     * Find one by name. major version and minor version
-     *
-     * @param string $libraryName
-     * @param int $majorVersion
-     * @param int $minorVersion
-     * @return \LMS3\Lms3h5p\Domain\Model\Library
-     */
     public function findOneByNameMajorVersionAndMinorVersion(string $libraryName,
                                                              int $majorVersion,
                                                              int $minorVersion): ?Library
@@ -169,9 +164,9 @@ class LibraryRepository extends Repository
      *
      * @param array $criteria
      * @param array $ordering
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResultInterface<int, Library>
      */
-    public function findByConditions(array $criteria, array $ordering = [])
+    public function findByConditions(array $criteria, array $ordering = []): QueryResultInterface
     {
         $query = $this->createQuery();
         if (!empty($ordering)) {
@@ -195,7 +190,7 @@ class LibraryRepository extends Repository
      * @return void
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      */
-    public function removeById($id): void
+    public function removeById(int $id): void
     {
         $library = $this->findByUid($id);
         if ($library !== null) {
@@ -203,11 +198,9 @@ class LibraryRepository extends Repository
         }
     }
 
-    /**
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-     */
-    public function findAddOns()
+    public function findAddOns(): array
     {
         // TODO: find addon libraries
+        return [];
     }
 }

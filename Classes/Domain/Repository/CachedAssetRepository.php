@@ -28,6 +28,7 @@ namespace LMS3\Lms3h5p\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use LMS3\Lms3h5p\Domain\Model\CachedAsset;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -40,6 +41,8 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * Please visit: https://h5p.org/MIT-licensed
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
+ *
+ * @extends Repository<CachedAsset>
  */
 class CachedAssetRepository extends Repository
 {
