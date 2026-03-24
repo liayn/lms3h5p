@@ -9,6 +9,7 @@ mod {
             tx_lms3h5p_domain_model_cachedasset.hideTable = 1
             tx_lms3h5p_domain_model_contentdependency.hideTable = 1
             tx_lms3h5p_domain_model_editortempfile.hideTable = 1
+            tx_lms3h5p_domain_model_content.hideTable = 1
         }
     }
 }
