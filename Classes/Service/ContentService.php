@@ -29,6 +29,8 @@ namespace LMS3\Lms3h5p\Service;
 
 use LMS3\Lms3h5p\Domain\Model\Content;
 use LMS3\Lms3h5p\Domain\Repository\ContentRepository;
+use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Content Service
@@ -153,6 +155,10 @@ class ContentService
             $this->h5pCore->h5pF->setErrorMessage('No such library.');
             return null;
         }
+
+        // Clear related caches
+        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('lms3h5p_libraries');
+        $cache->flushByTag('content_' . $content['id']);
 
         $this->h5pEditor->processParameters($content['id'], $content['library'], $params->params, $oldLibrary, $oldParameters);
         $contentObject = $this->contentRepository->findByUid($content['id']);

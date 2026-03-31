@@ -80,9 +80,7 @@ class H5PIntegrationService implements SingletonInterface
                 $displayContentIds
             );
 
-            $cache->set($cacheKey, $coreSettings, ['lms3h5p']);
-
-            return $coreSettings;
+            $cache->set($cacheKey, $coreSettings, array_merge(['lms3h5p'], preg_replace('/^/', 'content_', $displayContentIds)));
         }
 
         return $coreSettings;
