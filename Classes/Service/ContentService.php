@@ -168,7 +168,7 @@ class ContentService
         $content['slug'] = '';
         $this->h5pCore->filterParameters($content);
 
-        return $this->contentRepository->findByUid($content['id']);
+        return $contentObject;
     }
 
     /**
