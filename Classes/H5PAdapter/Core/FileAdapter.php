@@ -35,6 +35,7 @@ use LMS3\Lms3h5p\Domain\Repository\ContentRepository;
 use LMS3\Lms3h5p\Domain\Repository\EditorTempfileRepository;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -299,7 +300,10 @@ class FileAdapter implements \H5PFileStorage
             $outputfile = "{$key}.{$ext}";
             file_put_contents($cachedAssetsDir . $outputfile, $content);
             $files[$type] = [(object) [
-                'path'    => $this->getPublicFolderPath('cachedAssets', false) . $outputfile,
+                'path'    => PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+                    $this->getPublicFolderPath('cachedAssets', false),
+                    $outputfile
+                ),
                 'version' => '',
             ]];
 

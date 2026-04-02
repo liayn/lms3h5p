@@ -108,14 +108,23 @@ class H5PIntegrationService implements SingletonInterface
         );
 
         $editorSettings = [
-            'filesPath' => $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editorTempfiles'],
+            'filesPath' => PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+                $this->h5pSettings['h5pPublicFolder']['url'],
+                $this->h5pSettings['subFolders']['editorTempfiles']
+            ),
             'fileIcon' => [
-                'path' => $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . '/images/binary-file.png',
+                'path' => PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+                    $this->h5pSettings['h5pPublicFolder']['url'],
+                    $this->h5pSettings['subFolders']['editor'] . '/images/binary-file.png'
+                ),
                 'width' => 50,
                 'height' => 50,
             ],
             'ajaxPath' => $editorAjaxAction . '&type=',
-            'libraryUrl' => $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . '/',
+            'libraryUrl' => PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+                $this->h5pSettings['h5pPublicFolder']['url'],
+                $this->h5pSettings['subFolders']['editor']
+            ) . '/',
             'copyrightSemantics' => $this->getH5pContentValidator()->getCopyrightSemantics(),
             'metadataSemantics' => $this->getH5pContentValidator()->getMetadataSemantics(),
             'assets' => [
@@ -169,12 +178,18 @@ class H5PIntegrationService implements SingletonInterface
     {
         $urls = [];
         foreach (\H5PCore::$scripts as $script) {
-            $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['core'] . DIRECTORY_SEPARATOR . $script;
+            $urls[] = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+                $this->h5pSettings['h5pPublicFolder']['url'],
+                $this->h5pSettings['subFolders']['core'] . DIRECTORY_SEPARATOR . $script
+            );
         }
 
         // Add the editor script only in the backend context
         if ($this->isBackendContext()) {
-            $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . 'scripts/h5peditor-editor.js';
+            $urls[] = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+                $this->h5pSettings['h5pPublicFolder']['url'],
+                $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . 'scripts/h5peditor-editor.js'
+            );
         }
 
         return $urls;
@@ -189,7 +204,10 @@ class H5PIntegrationService implements SingletonInterface
     {
         $urls = [];
         foreach (\H5PCore::$styles as $style) {
-            $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['core'] . DIRECTORY_SEPARATOR . $style;
+            $urls[] = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+                $this->h5pSettings['h5pPublicFolder']['url'],
+                $this->h5pSettings['subFolders']['core'] . DIRECTORY_SEPARATOR . $style
+            );
         }
 
         return $urls;
@@ -212,7 +230,10 @@ class H5PIntegrationService implements SingletonInterface
             if (str_contains($script, 'scripts/h5peditor-editor.js')) {
                 continue;
             }
-            $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . $script;
+            $urls[] = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+                $this->h5pSettings['h5pPublicFolder']['url'],
+                $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . $script
+            );
         }
 
         $language = $GLOBALS['BE_USER']->user['lang'];
@@ -220,7 +241,10 @@ class H5PIntegrationService implements SingletonInterface
             $language = 'en';
         }
 
-        $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . "/language/{$language}.js";
+        $urls[] = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+            $this->h5pSettings['h5pPublicFolder']['url'],
+            $this->h5pSettings['subFolders']['editor'] . "/language/{$language}.js"
+        );
 
         return $urls;
     }
@@ -234,7 +258,10 @@ class H5PIntegrationService implements SingletonInterface
     {
         $urls = [];
         foreach (\H5peditor::$styles as $style) {
-            $urls[] = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . $style;
+            $urls[] = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+                $this->h5pSettings['h5pPublicFolder']['url'],
+                $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . $style
+            );
         }
         return $urls;
     }
@@ -260,7 +287,10 @@ class H5PIntegrationService implements SingletonInterface
                 'index', ['content' => $content], 'ContentEmbed'
             );
 
-            $h5pCorePublicUrl = $this->h5pSettings['h5pPublicFolder']['url'] . $this->h5pSettings['subFolders']['core'];
+            $h5pCorePublicUrl = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
+                $this->h5pSettings['h5pPublicFolder']['url'],
+                $this->h5pSettings['subFolders']['core']
+            );
 
             // Add JavaScript settings for this content
             $contentSettings = [

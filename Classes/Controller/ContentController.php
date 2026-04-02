@@ -33,11 +33,11 @@ use LMS3\Lms3h5p\Service\ContentService;
 use LMS3\Lms3h5p\Service\H5PIntegrationService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Attribute\Controller;
-use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
@@ -62,7 +62,8 @@ class ContentController extends AbstractModuleController
         private readonly ModuleTemplateFactory $moduleTemplateFactory,
         private readonly IconFactory $iconFactory,
         private readonly H5PIntegrationService $h5pIntegrationService,
-        private readonly ContentService $contentService
+        private readonly ContentService $contentService,
+        private readonly PageRenderer $pageRenderer
     ) {}
 
     public function initializeAction(): void
@@ -97,10 +98,11 @@ class ContentController extends AbstractModuleController
     {
         $h5pIntegrationSettings = $this->h5pIntegrationService->getSettingsWithEditor($this->uriBuilder);
 
+        $this->addJsFiles($h5pIntegrationSettings['core']['scripts']);
+        $this->addCSSFiles($h5pIntegrationSettings['core']['styles']);
+
         $this->moduleTemplate->assignMultiple([
             'h5pSettings' => json_encode($h5pIntegrationSettings),
-            'scripts' => $h5pIntegrationSettings['core']['scripts'],
-            'styles' => $h5pIntegrationSettings['core']['styles'],
             'pid' => empty($this->request->getQueryParams()['id']),
             'parameters' => ''
         ]);
@@ -145,11 +147,12 @@ class ContentController extends AbstractModuleController
             ]
         );
 
+        $this->addJsFiles($this->h5pIntegrationService->getMergedScripts($h5pIntegrationSettings));
+        $this->addCSSFiles($this->h5pIntegrationService->getMergedStyles($h5pIntegrationSettings));
+
         $this->moduleTemplate->assignMultiple([
             'content' => $content,
             'h5pSettings' => json_encode($h5pIntegrationSettings),
-            'scripts' => $this->h5pIntegrationService->getMergedScripts($h5pIntegrationSettings),
-            'styles' => $this->h5pIntegrationService->getMergedStyles($h5pIntegrationSettings),
         ]);
 
         return $this->moduleTemplate->renderResponse('Content/Show');
@@ -166,10 +169,11 @@ class ContentController extends AbstractModuleController
         $parameters = '{"params":' . $content->getFiltered() . ', "metadata":' . json_encode($metadata) . '}';
         $options = $this->h5pIntegrationService->getH5PCoreInstance()->getDisplayOptionsForEdit($content->getDisable());
 
+        $this->addJsFiles($h5pIntegrationSettings['core']['scripts']);
+        $this->addCSSFiles($h5pIntegrationSettings['core']['styles']);
+
         $this->moduleTemplate->assignMultiple([
             'h5pSettings' => json_encode($h5pIntegrationSettings),
-            'scripts' => $h5pIntegrationSettings['core']['scripts'],
-            'styles' => $h5pIntegrationSettings['core']['styles'],
             'content' => $content,
             'parameters' => $parameters,
             'options' => $options,
@@ -218,6 +222,18 @@ class ContentController extends AbstractModuleController
         }
 
         return new ForwardResponse('index');
+    }
+
+    private function addJsFiles(array $jsFiles){
+        foreach ($jsFiles as $file){
+            $this->pageRenderer->addJsFile($file);
+        }
+    }
+
+    private function addCSSFiles(array $cssFiles){
+        foreach ($cssFiles as $file){
+            $this->pageRenderer->addCssFile($file);
+        }
     }
 
     protected function registerDocheaderButtons(): void
