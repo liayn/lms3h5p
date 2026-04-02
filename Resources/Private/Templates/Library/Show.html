@@ -6,7 +6,7 @@
 <f:section name="content">
     <div class="row">
         <div class="col-md-12">
-            <legend>{library.name}</legend>
+            <h1>{library.name}</h1>
         </div>
         <div class="col-md-6">
             <table class="table table-striped">
@@ -28,7 +28,7 @@
     <f:if condition="{library.contents}">
         <div class="row">
             <div class="col-md-12">
-                <legend><f:translate key="contentUsingThisLibrary" /></legend>
+                <h2><f:translate key="contentUsingThisLibrary" /></h2>
                 <f:render partial="ContentTable" arguments="{contents:library.contents, dateFormat: dateFormat, timeFormat: timeFormat}" />
             </div>
         </div>
