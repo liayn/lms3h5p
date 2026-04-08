@@ -28,6 +28,7 @@ namespace LMS3\Lms3h5p\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use LMS3\Lms3h5p\Domain\Model\Setting;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -43,5 +44,11 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class SettingRepository extends Repository
 {
+    public function findOneByConfigKey(string $configKey): ?Setting
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('configKey', $configKey));
 
+        return $query->execute()->getFirst();
+    }
 }

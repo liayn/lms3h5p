@@ -28,7 +28,9 @@ namespace LMS3\Lms3h5p\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use LMS3\Lms3h5p\Domain\Model\Content;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -50,6 +52,30 @@ class ContentRepository extends Repository
     protected $defaultOrderings = [
         'createdAt' => QueryInterface::ORDER_DESCENDING
     ];
+
+    /**
+     * Content count by library and skipped content
+     *
+     * @param int $library
+     * @param array $skip
+     * @return int
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function findByLibrary(int|object $library): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('library', $library));
+
+        return $query->execute();
+    }
+
+    public function findOneBySlug(string $slug): ?Content
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('slug', $slug));
+
+        return $query->execute()->getFirst();
+    }
 
     /**
      * Content count by library and skipped content

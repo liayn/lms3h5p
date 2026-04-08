@@ -44,6 +44,14 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class ContentTypeCacheEntryRepository extends Repository
 {
+    public function findOneByMachineName(string $machineName): ?ContentTypeCacheEntry
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('machineName', $machineName));
+
+        return $query->execute()->getFirst();
+    }
+
     /**
      * Returns all cache entries as an array of stdObjects, the way the H5P core
      * expects it.

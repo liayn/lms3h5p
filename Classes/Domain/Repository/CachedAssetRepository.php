@@ -28,6 +28,7 @@ namespace LMS3\Lms3h5p\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -43,5 +44,19 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class CachedAssetRepository extends Repository
 {
+    public function findByLibrary(int|object $library): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('library', $library));
 
+        return $query->execute();
+    }
+
+    public function findByHashKey(string $hashKey): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('hashKey', $hashKey));
+
+        return $query->execute();
+    }
 }

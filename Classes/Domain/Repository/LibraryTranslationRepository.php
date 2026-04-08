@@ -30,6 +30,7 @@ namespace LMS3\Lms3h5p\Domain\Repository;
 
 use LMS3\Lms3h5p\Domain\Model\Library;
 use LMS3\Lms3h5p\Domain\Model\LibraryTranslation;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -45,6 +46,14 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class LibraryTranslationRepository extends Repository
 {
+    public function findByLibrary(int|object $library): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('library', $library));
+
+        return $query->execute();
+    }
+
     /**
      * Find library translation by language code
      *

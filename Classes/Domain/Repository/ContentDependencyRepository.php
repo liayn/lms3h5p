@@ -44,6 +44,22 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class ContentDependencyRepository extends Repository
 {
+    public function findByContent(int|object $content): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('content', $content));
+
+        return $query->execute();
+    }
+
+    public function findByLibrary(int|object $library): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('library', $library));
+
+        return $query->execute();
+    }
+
     public function findByConditions(array $criteria, array $ordering = []): array|QueryResultInterface
     {
         $query = $this->createQuery();
