@@ -356,12 +356,14 @@ class H5PIntegrationService implements SingletonInterface
     public function getMergedStyles(array $h5pIntegrationSettings): array
     {
         $styles = $h5pIntegrationSettings['core']['styles'];
+        $version = $this->h5pSettings['customStyle']['version'];
         foreach ($h5pIntegrationSettings['contents'] as $contentSettings) {
             if (isset($contentSettings['styles'])) {
                 foreach ($contentSettings['styles'] as $style) {
-                    if (false === strpos($style, 'version')) {
-                        $styles[] = $style . '?version=' . $this->h5pSettings['customStyle']['version'];
+                    if ($version && !str_contains($style, 'version')) {
+                        $style .= '?version=' . $version;
                     }
+                    $styles[] = $style;
                 }
             }
         }
