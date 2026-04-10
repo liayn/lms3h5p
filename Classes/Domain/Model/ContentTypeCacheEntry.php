@@ -538,11 +538,11 @@ class ContentTypeCacheEntry extends AbstractEntity
         $updatedAt = new \DateTime($contentTypeCacheObject->updatedAt);
         $entry = new ContentTypeCacheEntry();
         $entry->setMachineName($contentTypeCacheObject->id)
-            ->setMajorVersion($contentTypeCacheObject->version->major)
-            ->setMinorVersion($contentTypeCacheObject->version->minor)
-            ->setPatchVersion($contentTypeCacheObject->version->patch)
-            ->setH5pMajorVersion($contentTypeCacheObject->coreApiVersionNeeded->major)
-            ->setH5pMinorVersion($contentTypeCacheObject->coreApiVersionNeeded->minor)
+            ->setMajorVersion((int)$contentTypeCacheObject->version->major)
+            ->setMinorVersion((int)$contentTypeCacheObject->version->minor)
+            ->setPatchVersion((int)$contentTypeCacheObject->version->patch)
+            ->setH5pMajorVersion((int)$contentTypeCacheObject->coreApiVersionNeeded->major)
+            ->setH5pMinorVersion((int)$contentTypeCacheObject->coreApiVersionNeeded->minor)
             ->setTitle($contentTypeCacheObject->title)
             ->setSummary($contentTypeCacheObject->summary)
             ->setDescription($contentTypeCacheObject->description)
