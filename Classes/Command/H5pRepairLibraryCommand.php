@@ -4,16 +4,15 @@ declare(strict_types = 1);
 namespace LMS3\Lms3h5p\Command;
 
 use LMS3\Lms3h5p\Domain\Model\Library;
-use LMS3\Lms3h5p\Domain\Repository\ContentRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryDependencyRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
 use LMS3\Lms3h5p\H5PAdapter\Core\H5PFramework;
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
-use LMS3\Lms3h5p\Setup;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
@@ -33,9 +32,7 @@ class H5pRepairLibraryCommand extends Command
 {
     public function configure(): void
     {
-        $info = 'Run this command to repair the h5p library.';
-
-        $this->setDescription($info);
+        $this->setDescription('Repair H5P library dependencies by re-reading them from library.json.');
         $this->addArgument(
           'machineName',
             InputArgument::REQUIRED,
@@ -44,10 +41,12 @@ class H5pRepairLibraryCommand extends Command
     }
 
     /**
-     * Copy required resources from h5p vendor packages
+     * Repair library dependencies from filesystem
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
+        $io = new SymfonyStyle($input, $output);
+
         /** @var LibraryRepository $libraryRepository */
         $libraryRepository = GeneralUtility::makeInstance(LibraryRepository::class);
         $libraryRepository->setDefaultQuerySettings(
@@ -69,53 +68,65 @@ class H5pRepairLibraryCommand extends Command
             /** @var H5PFramework $interface */
             $interface = TYPO3H5P::getInstance()->getH5PInstance();
 
-            if (file_exists($libraryJsonPath)) {
-                $json = file_get_contents($libraryJsonPath);
-                if (json_validate($json)) {
-                    $libraryArray = json_decode($json, true);
-                    $output->writeln('-> Finding ' . $libraryArray['machineName'] . ' in the database');
-                    $library = $libraryRepository->findOneByNameMajorVersionAndMinorVersion(
-                        $libraryArray['machineName'],
-                        $libraryArray['majorVersion'],
-                        $libraryArray['minorVersion'],
-                    );
-                    if (!$library instanceof Library) {
-                        $output->writeln($libraryArray['machineName'] . ' not found in the database');
-                    }
-                    $output->writeln($libraryArray['machineName'] . ' found in the database');
-                    $output->writeln('-> Checking library dependencies');
-                    /** @var QueryResult $dependencies */
-                    $dependencies = $library->getLibraryDependencies();
-                    if ($dependencies->count() === 0) {
-                        $output->writeln($libraryArray['machineName'] . ' library dependencies not found in the database');
-                    } else {
-                        $output->writeln($libraryArray['machineName'] . ' library dependencies found in the database');
-                    }
-                    $totalDependencyCount = count($libraryArray['preloadedDependencies'] ?? []) +
-                        count($libraryArray['editorDependencies'] ?? []) +
-                        count($libraryArray['dynamicDependencies'] ?? []);
-
-                    if ($dependencies->count() !== $totalDependencyCount) {
-                        $output->writeln($libraryArray['machineName'] . ' library dependencies count doesn\'t matched, actual count is ' . $totalDependencyCount);
-
-                        if (isset($libraryArray['preloadedDependencies'])) {
-                            $interface->saveLibraryDependencies($library->getUid(), $libraryArray['preloadedDependencies'], 'preloaded');
-                        }
-                        if (isset($libraryArray['dynamicDependencies'])) {
-                            $interface->saveLibraryDependencies($library->getUid(), $libraryArray['dynamicDependencies'], 'dynamic');
-                        }
-                        if (isset($libraryArray['editorDependencies'])) {
-                            $interface->saveLibraryDependencies($library->getUid(), $libraryArray['editorDependencies'], 'editor');
-                        }
-                    } else {
-                        $output->writeln($libraryArray['machineName'] . ' library dependencies count (' . $totalDependencyCount . ') matched');
-                    }
-
-                }
-            } else {
-                $output->writeln('Library not found on filesystem');
+            if (!file_exists($libraryJsonPath)) {
+                $io->error('Library not found on filesystem: ' . $libraryJsonPath);
+                return Command::FAILURE;
             }
-        } catch (\Exception) {
+
+            $json = file_get_contents($libraryJsonPath);
+            if (!json_validate($json)) {
+                $io->error('Invalid JSON in library.json');
+                return Command::FAILURE;
+            }
+
+            $libraryArray = json_decode($json, true);
+            $io->writeln('-> Finding ' . $libraryArray['machineName'] . ' in the database');
+
+            $library = $libraryRepository->findOneByNameMajorVersionAndMinorVersion(
+                $libraryArray['machineName'],
+                $libraryArray['majorVersion'],
+                $libraryArray['minorVersion'],
+            );
+
+            if (!$library instanceof Library) {
+                $io->error($libraryArray['machineName'] . ' not found in the database');
+                return Command::FAILURE;
+            }
+
+            $io->writeln('<info>' . $libraryArray['machineName'] . ' found in the database</info>');
+            $io->writeln('-> Checking library dependencies');
+
+            /** @var QueryResult $dependencies */
+            $dependencies = $library->getLibraryDependencies();
+            if ($dependencies->count() === 0) {
+                $io->writeln($libraryArray['machineName'] . ' library dependencies not found in the database');
+            } else {
+                $io->writeln($libraryArray['machineName'] . ' library dependencies found in the database');
+            }
+
+            $totalDependencyCount = count($libraryArray['preloadedDependencies'] ?? []) +
+                count($libraryArray['editorDependencies'] ?? []) +
+                count($libraryArray['dynamicDependencies'] ?? []);
+
+            if ($dependencies->count() !== $totalDependencyCount) {
+                $io->writeln($libraryArray['machineName'] . ' library dependencies count doesn\'t match, actual count is ' . $totalDependencyCount);
+
+                if (isset($libraryArray['preloadedDependencies'])) {
+                    $interface->saveLibraryDependencies($library->getUid(), $libraryArray['preloadedDependencies'], 'preloaded');
+                }
+                if (isset($libraryArray['dynamicDependencies'])) {
+                    $interface->saveLibraryDependencies($library->getUid(), $libraryArray['dynamicDependencies'], 'dynamic');
+                }
+                if (isset($libraryArray['editorDependencies'])) {
+                    $interface->saveLibraryDependencies($library->getUid(), $libraryArray['editorDependencies'], 'editor');
+                }
+
+                $io->success('Library dependencies have been repaired.');
+            } else {
+                $io->success($libraryArray['machineName'] . ' library dependencies count (' . $totalDependencyCount . ') matched - no repair needed.');
+            }
+        } catch (\Exception $e) {
+            $io->error('Failed to repair library: ' . $e->getMessage());
             return Command::FAILURE;
         }
 

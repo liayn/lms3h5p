@@ -9,7 +9,7 @@ use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * H5P Config Setting Command
@@ -24,25 +24,9 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  */
 class H5pConfigSettingCommand extends Command
 {
-    protected array $settings;
-
-    public function __construct(
-        private readonly ConfigurationManagerInterface $configurationManager,
-    ){
-        parent::__construct();
-
-        $this->settings = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'Lms3h5p',
-            'Pi1'
-        );
-    }
-
     public function configure(): void
     {
-        $info = 'Run this command to add required configuration settings';
-
-        $this->setDescription($info);
+        $this->setDescription('Add required H5P configuration settings to the database.');
     }
 
     /**
@@ -50,14 +34,27 @@ class H5pConfigSettingCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $interface = TYPO3H5P::getInstance()->getH5PInstance();
+        $io = new SymfonyStyle($input, $output);
 
-        if (empty($this->settings['config'])) {
+        try {
+            $typo3h5p = TYPO3H5P::getInstance();
+            $settings = $typo3h5p->getSettings();
+            $interface = $typo3h5p->getH5PInstance();
+
+            if (empty($settings['config'])) {
+                $io->error('No H5P configuration settings found.');
+                return Command::FAILURE;
+            }
+
+            foreach ($settings['config'] as $name => $value) {
+                $interface->setOption($name, $value);
+                $io->writeln(sprintf('  Set <info>%s</info> = %s', $name, $value));
+            }
+
+            $io->success('H5P configuration settings have been saved.');
+        } catch (\Exception $e) {
+            $io->error('Failed to save H5P settings: ' . $e->getMessage());
             return Command::FAILURE;
-        }
-
-        foreach ($this->settings['config'] as $name => $value) {
-            $interface->setOption($name, $value);
         }
 
         return Command::SUCCESS;

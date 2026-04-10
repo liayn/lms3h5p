@@ -11,8 +11,8 @@
   ],
   "require": {
     "ext-zip": "*",
-    "h5p/h5p-core": "1.27.0",
-    "h5p/h5p-editor": "1.25"
+    "h5p/h5p-core": "dev-master",
+    "h5p/h5p-editor": "dev-master"
   },
   "autoload": {
     "psr-4": {

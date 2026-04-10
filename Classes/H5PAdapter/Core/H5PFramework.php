@@ -1329,4 +1329,15 @@ class H5PFramework implements \H5PFrameworkInterface
     {
         // TODO: Implement setContentHubMetadataChecked() method.
     }
+
+    /**
+     * Reset hub organization data.
+     * Clears cached hub registration data so the site can re-register
+     * with the new hub endpoint.
+     */
+    public function resetHubOrganizationData()
+    {
+        $this->setOption('hub_secret', null);
+        $this->setOption('site_uuid', null);
+    }
 }

@@ -30,7 +30,6 @@ namespace LMS3\Lms3h5p;
 
 use TYPO3\CMS\Core\Core\Environment;
 use LMS3\Lms3h5p\H5PAdapter\Core\FileAdapter;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
@@ -48,6 +47,29 @@ class Setup
 {
     private array $ts;
 
+    /**
+     * Default settings used as fallback when TypoScript is not available (e.g. CLI context)
+     */
+    private const DEFAULT_SETTINGS = [
+        'h5pPublicFolder' => [
+            'url' => '/fileadmin/h5p/',
+            'path' => '/fileadmin/h5p/',
+        ],
+        'subFolders' => [
+            'content' => 'content',
+            'libraries' => 'libraries',
+            'core' => 'h5p-core',
+            'editor' => 'h5p-editor',
+            'editorTempfiles' => 'editor-temp',
+            'temp' => 'temp',
+            'exports' => 'exports',
+            'cachedAssets' => 'cached-assets',
+        ],
+        'libraryPath' => '/vendor/h5p/',
+        'aggregateAssets' => '1',
+        'enableExport' => '1',
+    ];
+
     public function __construct(private readonly ConfigurationManagerInterface $configurationManager)
     {
         $this->ts = $this->configurationManager->getConfiguration(
@@ -55,6 +77,11 @@ class Setup
             'Lms3h5p',
             'Pi1'
         );
+
+        // Fallback to defaults when TypoScript is not available (CLI context)
+        if (empty($this->ts)) {
+            $this->ts = self::DEFAULT_SETTINGS;
+        }
     }
 
     /**
@@ -62,14 +89,13 @@ class Setup
      */
     public function copyResourcesFromH5PLibraries(): void
     {
-        if (empty($this->ts)) {
-            return;
-        }
-
         $h5pLibraryPath = dirname(Environment::getPublicPath()) . $this->ts['libraryPath'];
 
         if (!is_dir($h5pLibraryPath)) {
-            return;
+            throw new \RuntimeException(
+                'H5P library source path does not exist: ' . $h5pLibraryPath,
+                1650000001
+            );
         }
 
         $coreSubfolders = ['fonts', 'images', 'js', 'styles'];

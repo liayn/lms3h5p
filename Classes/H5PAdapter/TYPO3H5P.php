@@ -97,12 +97,60 @@ class TYPO3H5P
         };
     }
 
+    /**
+     * Default settings used as fallback when TypoScript is not available (e.g. CLI context)
+     */
+    private const DEFAULT_SETTINGS = [
+        'h5pPublicFolder' => [
+            'url' => '/fileadmin/h5p/',
+            'path' => '/fileadmin/h5p/',
+        ],
+        'subFolders' => [
+            'content' => 'content',
+            'libraries' => 'libraries',
+            'core' => 'h5p-core',
+            'editor' => 'h5p-editor',
+            'editorTempfiles' => 'editor-temp',
+            'temp' => 'temp',
+            'exports' => 'exports',
+            'cachedAssets' => 'cached-assets',
+        ],
+        'libraryPath' => '/vendor/h5p/',
+        'aggregateAssets' => '1',
+        'enableExport' => '1',
+        'config' => [
+            'send_usage_statistics' => '0',
+            'track_user' => '1',
+            'save_content_state' => '1',
+            'save_content_frequency' => '10',
+            'hub_is_enabled' => '1',
+            'enable_lrs_content_types' => '0',
+            'frame' => '0',
+            'export' => '0',
+            'embed' => '0',
+            'copyright' => '0',
+            'icon' => '1',
+            'h5p_version' => '1.0.0',
+        ],
+    ];
+
     public function getSettings(): array
     {
+        if (!empty(self::$settings)) {
+            return self::$settings;
+        }
+
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
-        return $configurationManager->getConfiguration(
+        self::$settings = $configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'Lms3h5p', 'Pi1'
         );
+
+        // Fallback to defaults when TypoScript is not available (CLI context)
+        if (empty(self::$settings)) {
+            self::$settings = self::DEFAULT_SETTINGS;
+        }
+
+        return self::$settings;
     }
 
     protected function getLanguage(): string
