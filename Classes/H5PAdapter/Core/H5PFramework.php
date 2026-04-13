@@ -188,7 +188,7 @@ class H5PFramework implements \H5PFrameworkInterface, \TYPO3\CMS\Core\SingletonI
                     'data' => $response->getBody()->getContents()
                 ];
             }
-            if ($response->getStatusCode() === 200) {
+            if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
                 return $response->getBody()->getSize() ? $response->getBody()->getContents() : true;
             }
         } catch (GuzzleException $e) {
