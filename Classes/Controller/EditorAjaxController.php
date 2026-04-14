@@ -28,6 +28,8 @@ namespace LMS3\Lms3h5p\Controller;
  * ************************************************************* */
 
 use LMS3\Lms3h5p\Service\H5PIntegrationService;
+use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -44,7 +46,10 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class EditorAjaxController extends ActionController
 {
-    public function __construct(private readonly H5PIntegrationService $h5pIntegrationService) {}
+    public function __construct(
+        private readonly H5PIntegrationService $h5pIntegrationService,
+        private readonly CacheManager $cacheManager
+    ) {}
 
     public function indexAction()
     {
@@ -94,6 +99,15 @@ class EditorAjaxController extends ActionController
             $this->request->getQueryParams()['moduleToken'],
             $id
         );
+
+        // Clear related caches
+        try {
+            $this->cacheManager
+                ->getCache('lms3h5p_libraries')
+                ->flushByTag($this->h5pIntegrationService->getCacheTagForLibrary($id));
+        } catch (NoSuchCacheException $exception) {
+
+        }
     }
 
     protected function libraries(): void
@@ -152,6 +166,15 @@ class EditorAjaxController extends ActionController
             $_FILES['h5p']['tmp_name'],
             $contentId
         );
+
+        // Clear related caches
+        try {
+            $this->cacheManager
+                ->getCache('lms3h5p_libraries')
+                ->flushByTag($this->h5pIntegrationService->getCacheTagForLibrary($contentId));
+        } catch (NoSuchCacheException $exception) {
+
+        }
     }
 
     protected function translations(): void

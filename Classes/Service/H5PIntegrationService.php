@@ -80,7 +80,10 @@ class H5PIntegrationService implements SingletonInterface
                 $displayContentIds
             );
 
-            $cache->set($cacheKey, $coreSettings, array_merge(['lms3h5p'], preg_replace('/^/', 'content_', $displayContentIds)));
+            $cache->set($cacheKey, $coreSettings, array_merge(
+                ['lms3h5p'],
+                ...array_column($coreSettings['contents'], 'cacheTags')
+            ));
         }
 
         return $coreSettings;
@@ -307,6 +310,15 @@ class H5PIntegrationService implements SingletonInterface
                 'metadata' => $contentArray['metadata'],
             ];
 
+            // Add cacheTags specific to the content and used libraries
+            $dependencies = array_column($contentArray['library']['preloadedDependencies'] ?? [], 'machineName');
+            $contentSettings['cacheTags'] = [
+                'content_' . $contentArray['id'],
+                self::getCacheTagForLibrary($contentArray['library']['machineName']),
+                ...self::getCacheTagForLibrary($dependencies)
+            ];
+
+
             // Get assets for this content
             $preloadedDependencies = $this->getH5PCoreInstance()->loadContentDependencies(
                 $content->getUid(),
@@ -494,5 +506,9 @@ class H5PIntegrationService implements SingletonInterface
     {
         return (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface)
             && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend();
+    }
+
+    public static function getCacheTagForLibrary(array|string $library): array|string {
+        return preg_replace('/^/', 'library_', str_replace('.', '-', $library));
     }
 }
