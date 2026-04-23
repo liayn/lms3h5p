@@ -210,6 +210,10 @@ class ContentService
 
     public function findByUids(array $uids): array
     {
+        if (empty($uids)) {
+            return [];
+        }
+
         $this->contentRepository->setDefaultQuerySettings(
             $this->contentRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
         );
