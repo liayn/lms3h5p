@@ -29,6 +29,7 @@ namespace LMS3\Lms3h5p\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use Doctrine\DBAL\ArrayParameterType;
 use LMS3\Lms3h5p\Service\ContentService;
 use LMS3\Lms3h5p\Service\FlexFormService;
 use LMS3\Lms3h5p\Service\H5PIntegrationService;
@@ -53,7 +54,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class ContentEmbedController extends ActionController
 {
-    private const string LIST_TYPE = 'lms3h5p_pi1';
+    private const string CONTENT_TYPE = 'lms3h5p_pi1';
     protected string $nonce;
 
     public function __construct(
@@ -101,8 +102,9 @@ class ContentEmbedController extends ActionController
         $query = $queryBuilder->select('pi_flexform')
             ->from('tt_content')
             ->where(
-                'list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId(
-                ) . ' AND sys_language_uid IN (0, ' . $languageId . ')'
+                $queryBuilder->expr()->eq('ctype', $queryBuilder->createNamedParameter(self::CONTENT_TYPE)),
+                $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($this->request->getAttribute('frontend.page.information')->getId())),
+                $queryBuilder->expr()->in('sys_language_uid', $queryBuilder->createNamedParameter([0, $languageId], ArrayParameterType::INTEGER)),
             )
             ->orderBy('sorting')
             ->executeQuery();
