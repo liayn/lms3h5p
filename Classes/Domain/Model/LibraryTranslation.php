@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Domain\Model;
 
@@ -120,7 +121,7 @@ class LibraryTranslation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $translation
      * @return LibraryTranslation
      */
-    public static function create(Library $library, string $languageCode, string $translation) : LibraryTranslation
+    public static function create(Library $library, string $languageCode, string $translation): LibraryTranslation
     {
         $translationInstance = GeneralUtility::makeInstance(LibraryTranslation::class);
         $translationInstance->setLibrary($library)

@@ -53,7 +53,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class ContentEmbedController extends ActionController
 {
-    const LIST_TYPE = 'lms3h5p_pi1';
+    public const LIST_TYPE = 'lms3h5p_pi1';
 
     protected Context $context;
     protected PageRenderer $pageRenderer;
@@ -78,13 +78,13 @@ class ContentEmbedController extends ActionController
 
         $this->addScriptAndStyles();
 
-        $contentId = (int) $this->settings['contentId'];
+        $contentId = (int)$this->settings['contentId'];
         if (empty($contentId)) {
             return $this->htmlResponse();
         }
 
         $content = $this->contentService->findByUid($contentId);
-        if (null === $content) {
+        if ($content === null) {
             return $this->htmlResponse();
         }
 
@@ -98,7 +98,6 @@ class ContentEmbedController extends ActionController
      */
     protected function addScriptAndStyles(): void
     {
-        /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder */
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('tt_content');
 
@@ -111,7 +110,7 @@ class ContentEmbedController extends ActionController
             ->executeQuery();
 
         $h5pInstances = $query->fetchAllAssociative();
-        if (0 === count($h5pInstances)) {
+        if (count($h5pInstances) === 0) {
             return;
         }
 

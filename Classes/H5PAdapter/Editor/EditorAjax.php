@@ -27,7 +27,6 @@ namespace LMS3\Lms3h5p\H5PAdapter\Editor;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-use LMS3\Lms3h5p\Domain\Model\Library;
 use LMS3\Lms3h5p\Domain\Repository\ContentTypeCacheEntryRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryTranslationRepository;
@@ -67,14 +66,7 @@ class EditorAjax implements \H5PEditorAjaxInterface
     public function getLatestLibraryVersions()
     {
         $librariesOrderedByMajorAndMinorVersion = $this->libraryRepository->findLatestLibraryVersions();
-
-        $versionInformation = [];
-        /** @var Library $library */
-        foreach ($librariesOrderedByMajorAndMinorVersion as $library) {
-            $versionInformation[] = (object)$library;
-        }
-
-        return $versionInformation;
+        return array_values($librariesOrderedByMajorAndMinorVersion);
     }
 
     /**
@@ -85,7 +77,7 @@ class EditorAjax implements \H5PEditorAjaxInterface
      *
      * @return array|object|null Returns results from querying the database
      */
-    public function getContentTypeCache($machineName = NULL)
+    public function getContentTypeCache($machineName = null)
     {
         if ($machineName != null) {
             return $this->contentTypeCacheEntryRepository->findOneByMachineName($machineName);
@@ -121,11 +113,11 @@ class EditorAjax implements \H5PEditorAjaxInterface
     /**
      * Get translations for a language for a list of libraries
      *
-     * @param array $libraries An array of libraries, in the form "<machineName> <majorVersion>.<minorVersion>
+     * @param string[] $libraries An array of libraries, in the form "<machineName> <majorVersion>.<minorVersion>"
      * @param string $language_code
-     * @return array
+     * @return array<string,string>
      */
-    public function getTranslations($libraries, $language_code)
+    public function getTranslations($libraries, $language_code): array
     {
         $libraryTranslations = [];
         foreach ($libraries as $libraryName) {

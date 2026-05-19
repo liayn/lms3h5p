@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Domain\Model;
 
@@ -539,9 +540,9 @@ class ContentTypeCacheEntry extends AbstractEntity
         $updatedAt = new \DateTime($contentTypeCacheObject->updatedAt);
         $entry = GeneralUtility::makeInstance(ContentTypeCacheEntry::class);
         $entry->setMachineName($contentTypeCacheObject->id)
-            ->setMajorVersion((int) $contentTypeCacheObject->version->major)
-            ->setMinorVersion((int) $contentTypeCacheObject->version->minor)
-            ->setPatchVersion((int) $contentTypeCacheObject->version->patch)
+            ->setMajorVersion((int)$contentTypeCacheObject->version->major)
+            ->setMinorVersion((int)$contentTypeCacheObject->version->minor)
+            ->setPatchVersion((int)$contentTypeCacheObject->version->patch)
             ->setH5pMajorVersion($contentTypeCacheObject->coreApiVersionNeeded->major)
             ->setH5pMinorVersion($contentTypeCacheObject->coreApiVersionNeeded->minor)
             ->setTitle($contentTypeCacheObject->title)
@@ -556,17 +557,17 @@ class ContentTypeCacheEntry extends AbstractEntity
                 json_encode($contentTypeCacheObject->screenshots)
             )
             ->setLicense(
-                json_encode(isset($contentTypeCacheObject->license) ? $contentTypeCacheObject->license : [])
+                json_encode($contentTypeCacheObject->license ?? [])
             )
             ->setExample($contentTypeCacheObject->example)
             ->setTutorial(
-                isset($contentTypeCacheObject->tutorial) ? $contentTypeCacheObject->tutorial : ''
+                $contentTypeCacheObject->tutorial ?? ''
             )
             ->setKeywords(
-                json_encode(isset($contentTypeCacheObject->keywords) ? $contentTypeCacheObject->keywords : [])
+                json_encode($contentTypeCacheObject->keywords ?? [])
             )
             ->setCategories(
-                json_encode(isset($contentTypeCacheObject->categories) ? $contentTypeCacheObject->categories : [])
+                json_encode($contentTypeCacheObject->categories ?? [])
             )
             ->setOwner($contentTypeCacheObject->owner);
 
@@ -598,7 +599,7 @@ class ContentTypeCacheEntry extends AbstractEntity
             'popularity' => $this->getPopularity(),
             'screenshots' => $this->getScreenshots(),
             'license' => $this->getLicense(),
-            'owner' => $this->getOwner()
+            'owner' => $this->getOwner(),
         ];
     }
 

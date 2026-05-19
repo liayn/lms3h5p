@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Command;
 
@@ -35,7 +36,7 @@ class H5pRepairLibraryCommand extends Command
 
         $this->setDescription($info);
         $this->addArgument(
-          'machineName',
+            'machineName',
             InputArgument::REQUIRED,
             'The library name with version e.g. H5P.MultiChoice-1.16'
         );
@@ -60,8 +61,8 @@ class H5pRepairLibraryCommand extends Command
         try {
             $libraryJsonPath = sprintf(
                 '%s/fileadmin/h5p/libraries/%s/library.json',
-                    Environment::getPublicPath(),
-                    $input->getArgument('machineName')
+                Environment::getPublicPath(),
+                $input->getArgument('machineName')
             );
 
             /** @var H5PFramework $interface */
@@ -89,9 +90,9 @@ class H5pRepairLibraryCommand extends Command
                     } else {
                         $output->writeln($libraryArray['machineName'] . ' library dependencies found in the database');
                     }
-                    $totalDependencyCount = count($libraryArray['preloadedDependencies'] ?? []) +
-                        count($libraryArray['editorDependencies'] ?? []) +
-                        count($libraryArray['dynamicDependencies'] ?? []);
+                    $totalDependencyCount = count($libraryArray['preloadedDependencies'] ?? [])
+                        + count($libraryArray['editorDependencies'] ?? [])
+                        + count($libraryArray['dynamicDependencies'] ?? []);
 
                     if ($dependencies->count() !== $totalDependencyCount) {
                         $output->writeln($libraryArray['machineName'] . ' library dependencies count doesn\'t matched, actual count is ' . $totalDependencyCount);

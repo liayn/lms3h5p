@@ -25,10 +25,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use LMS3\Lms3h5p\Controller\ContentEmbedController;
 use LMS3\Lms3h5p\Form\Element\H5PContentElement;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3') or die();
 
@@ -39,7 +39,6 @@ ExtensionManagementUtility::addTypoScriptConstants(
 ExtensionManagementUtility::addTypoScriptSetup(
     "@import 'EXT:lms3h5p/Configuration/TypoScript/setup.typoscript'"
 );
-
 
 ExtensionUtility::configurePlugin(
     'Lms3h5p',

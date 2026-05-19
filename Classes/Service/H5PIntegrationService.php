@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace LMS3\Lms3h5p\Service;
 
@@ -27,16 +29,16 @@ namespace LMS3\Lms3h5p\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use LMS3\Lms3h5p\Domain\Model\Content;
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\Http\ApplicationType;
-use TYPO3\CMS\Core\Utility\PathUtility;
-use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\SingletonInterface;
-use LMS3\Lms3h5p\Domain\Model\Content;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -107,7 +109,9 @@ class H5PIntegrationService implements SingletonInterface
     private function generateEditorSettings(UriBuilder $uriBuilder, int $contentId = -1): array
     {
         $editorAjaxAction = $uriBuilder->uriFor(
-            'index', [], 'EditorAjax'
+            'index',
+            [],
+            'EditorAjax'
         );
 
         $editorSettings = [
@@ -132,9 +136,9 @@ class H5PIntegrationService implements SingletonInterface
             'metadataSemantics' => $this->getH5pContentValidator()->getMetadataSemantics(),
             'assets' => [
                 'css' => array_merge($this->getRelativeCoreStyleUrls(), $this->getRelativeEditorStyleUrls()),
-                'js' => array_merge($this->getRelativeCoreScriptUrls(), $this->getRelativeEditorScriptUrls())
+                'js' => array_merge($this->getRelativeCoreScriptUrls(), $this->getRelativeEditorScriptUrls()),
             ],
-            'apiVersion' => \H5PCore::$coreApi
+            'apiVersion' => \H5PCore::$coreApi,
         ];
 
         if ($contentId !== -1) {
@@ -156,7 +160,7 @@ class H5PIntegrationService implements SingletonInterface
             'postUserStatistics' => true,
             'ajax' => [
                 'setFinished' => '',
-                'contentUserData' => ''
+                'contentUserData' => '',
             ],
             'saveFreq' => 10,
             'siteUrl' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
@@ -167,8 +171,8 @@ class H5PIntegrationService implements SingletonInterface
             'reportingIsEnabled' => false,
             'core' => [
                 'scripts' => $this->getRelativeCoreScriptUrls(),
-                'styles' => $this->getRelativeCoreStyleUrls()
-            ]
+                'styles' => $this->getRelativeCoreStyleUrls(),
+            ],
         ];
     }
 
@@ -287,7 +291,9 @@ class H5PIntegrationService implements SingletonInterface
             $contentArray = $content->toAssocArray();
 
             $embedUrl = $uriBuilder->uriFor(
-                'index', ['content' => $content], 'ContentEmbed'
+                'index',
+                ['content' => $content],
+                'ContentEmbed'
             );
 
             $h5pCorePublicUrl = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
@@ -315,9 +321,8 @@ class H5PIntegrationService implements SingletonInterface
             $contentSettings['cacheTags'] = [
                 'content_' . $contentArray['id'],
                 self::getCacheTagForLibrary($contentArray['library']['machineName']),
-                ...self::getCacheTagForLibrary($dependencies)
+                ...self::getCacheTagForLibrary($dependencies),
             ];
-
 
             // Get assets for this content
             $preloadedDependencies = $this->getH5PCoreInstance()->loadContentDependencies(
@@ -326,7 +331,7 @@ class H5PIntegrationService implements SingletonInterface
             );
             $files = $this->getH5PCoreInstance()->getDependenciesFiles(
                 $preloadedDependencies,
-                $this->h5pSettings['h5pPublicFolder']['url']
+                rtrim($this->h5pSettings['h5pPublicFolder']['path'], '/')
             );
 
             $this->addCustomStylesheet($files['styles']);
@@ -466,9 +471,9 @@ class H5PIntegrationService implements SingletonInterface
     {
         $customStyle = GeneralUtility::getFileAbsFileName($this->h5pSettings['customStyle']['path']);
         if (file_exists($customStyle)) {
-            $styles[] = (object) [
+            $styles[] = (object)[
                 'path'    => PathUtility::getAbsoluteWebPath($customStyle),
-                'version' => '?version=' . $this->h5pSettings['customStyle']['version']
+                'version' => '?version=' . $this->h5pSettings['customStyle']['version'],
             ];
         }
     }
@@ -508,7 +513,8 @@ class H5PIntegrationService implements SingletonInterface
             && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend();
     }
 
-    public static function getCacheTagForLibrary(array|string $library): array|string {
+    public static function getCacheTagForLibrary(array|string $library): array|string
+    {
         return preg_replace('/^/', 'library_', str_replace('.', '-', $library));
     }
 }

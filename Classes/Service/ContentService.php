@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LMS3\Lms3h5p\Service;
 
 /* * *************************************************************
@@ -88,11 +90,11 @@ class ContentService
      *
      * @param string $library
      * @param string $parameters
-     * @param int $contentId
+     * @param ?int $contentId
      * @param array $options
-     * @return null|Content
+     * @return Content|null
      */
-    public function handleCreateOrUpdate(string $library, string $parameters, $contentId = null, $options = [])
+    public function handleCreateOrUpdate(string $library, string $parameters, ?int $contentId = null, array $options = []): ?Content
     {
         $content = [];
         $oldLibrary = null;
@@ -103,7 +105,7 @@ class ContentService
             $content['id'] = $contentId;
             $contentObject = $this->contentRepository->findByUid($content['id']);
 
-            if($contentObject !== null) {
+            if ($contentObject !== null) {
                 $oldLibrary = $contentObject->getLibrary()->toAssocArray();
                 $oldParameters = json_decode($contentObject->getParameters());
             }
@@ -115,7 +117,7 @@ class ContentService
         $disable = $this->getDisabledContentFeatures($this->h5pCore, $options);
 
         $params = json_decode($parameters);
-        if ($params === NULL) {
+        if ($params === null) {
             $this->h5pCore->h5pF->setErrorMessage('Invalid parameters.');
             return null;
         }
@@ -193,13 +195,7 @@ class ContentService
         return $this->contentRepository->findAll();
     }
 
-    /**
-     * Content
-     *
-     * @param int $uid
-     * @return Content
-     */
-    public function findByUid(int $uid)
+    public function findByUid(int $uid): ?Content
     {
         $this->contentRepository->setDefaultQuerySettings(
             $this->contentRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
@@ -233,12 +229,12 @@ class ContentService
      */
     protected function getDisabledContentFeatures(\H5PCore $core, array $options)
     {
-        $set = array(
-            \H5PCore::DISPLAY_OPTION_FRAME => (bool) $options['frame'],
-            \H5PCore::DISPLAY_OPTION_DOWNLOAD => (bool) $options['download'],
-            \H5PCore::DISPLAY_OPTION_EMBED => (bool) $options['embed'],
-            \H5PCore::DISPLAY_OPTION_COPYRIGHT => (bool) $options['copyright'],
-        );
+        $set = [
+            \H5PCore::DISPLAY_OPTION_FRAME => (bool)$options['frame'],
+            \H5PCore::DISPLAY_OPTION_DOWNLOAD => (bool)$options['download'],
+            \H5PCore::DISPLAY_OPTION_EMBED => (bool)$options['embed'],
+            \H5PCore::DISPLAY_OPTION_COPYRIGHT => (bool)$options['copyright'],
+        ];
 
         return $core->getStorableDisplayOptions($set, \H5PCore::DISABLE_NONE);
     }

@@ -27,7 +27,6 @@ namespace LMS3\Lms3h5p\H5PAdapter\Editor;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-use H5peditorFile;
 use LMS3\Lms3h5p\Domain\Model\Library;
 use LMS3\Lms3h5p\Domain\Model\LibraryTranslation;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
@@ -71,7 +70,9 @@ class EditorFileAdapter implements \H5peditorStorage
     public function getLanguage($machineName, $majorVersion, $minorVersion, $language)
     {
         $library = $this->libraryRepository->findOneByNameMajorVersionAndMinorVersion(
-            $machineName, $majorVersion, $minorVersion
+            $machineName,
+            $majorVersion,
+            $minorVersion
         );
         $libraryTranslation = $this->libraryTranslationRepository->findOneByLibraryAndLanguage($library, $language);
         if (!$libraryTranslation) {
@@ -105,7 +106,7 @@ class EditorFileAdapter implements \H5peditorStorage
      * @param array $libraries List of library names + version to load info for
      * @return array List of all libraries loaded
      */
-    public function getLibraries($libraries = NULL)
+    public function getLibraries($libraries = null)
     {
         $librariesWithDetails = [];
 
@@ -146,18 +147,18 @@ class EditorFileAdapter implements \H5peditorStorage
             }
             $libraryData = $library->toStdClass();
             // Make sure we only display the newest version of a library.
-            foreach ($librariesWithDetails as $key => $existingLibrary) {
+            foreach ($librariesWithDetails as $existingLibrary) {
                 if ($libraryData->name === $existingLibrary->name) {
 
                     // Found library with same name, check versions
-                    if (($libraryData->majorVersion === $existingLibrary->majorVersion &&
-                            $libraryData->minorVersion > $existingLibrary->minorVersion) ||
-                        ($libraryData->majorVersion > $existingLibrary->majorVersion)) {
+                    if (($libraryData->majorVersion === $existingLibrary->majorVersion
+                            && $libraryData->minorVersion > $existingLibrary->minorVersion)
+                        || ($libraryData->majorVersion > $existingLibrary->majorVersion)) {
                         // This is a newer version
-                        $existingLibrary->isOld = TRUE;
+                        $existingLibrary->isOld = true;
                     } else {
                         // This is an older version
-                        $libraryData->isOld = TRUE;
+                        $libraryData->isOld = true;
                     }
                 }
             }
@@ -192,7 +193,7 @@ class EditorFileAdapter implements \H5peditorStorage
      * validate and store uploaded or fetched H5Ps.
      *
      * @param string $data Uri of data that should be saved as a temporary file
-     * @param boolean $move_file Can be set to TRUE to move the data instead of saving it
+     * @param bool $move_file Can be set to TRUE to move the data instead of saving it
      *
      * @return bool|object Returns false if saving failed or the path to the file
      *  if saving succeeded
@@ -206,15 +207,14 @@ class EditorFileAdapter implements \H5peditorStorage
         if ($move_file) {
             // Move so core can validate the file extension.
             rename($data, $path);
-        }
-        else {
+        } else {
             // Create file from data
             file_put_contents($path, $data);
         }
 
-        return (object) [
+        return (object)[
             'dir' => dirname($path),
-            'fileName' => basename($path)
+            'fileName' => basename($path),
         ];
     }
 
@@ -222,7 +222,7 @@ class EditorFileAdapter implements \H5peditorStorage
      * Marks a file for later cleanup, useful when files are not instantly cleaned
      * up. E.g. for files that are uploaded through the editor.
      *
-     * @param H5peditorFile
+     * @param $file
      * @param $content_id
      */
     public static function markFileForCleanup($file, $content_id)
@@ -257,9 +257,11 @@ class EditorFileAdapter implements \H5peditorStorage
     public function getAvailableLanguages($machineName, $majorVersion, $minorVersion)
     {
         $library = $this->libraryRepository->findOneByNameMajorVersionAndMinorVersion(
-            $machineName, $majorVersion, $minorVersion
+            $machineName,
+            $majorVersion,
+            $minorVersion
         );
-        if (null === $library) {
+        if ($library === null) {
             return [];
         }
 

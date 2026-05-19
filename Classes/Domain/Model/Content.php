@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Domain\Model;
 
@@ -379,9 +380,6 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getLicense(): ?string
     {
         return $this->license;
@@ -631,7 +629,6 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param array $contentData
      * @param Library $library
-     * @return void
      */
     public function updateFromMetadata(array $contentData, Library $library): void
     {
@@ -648,9 +645,6 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         }
     }
 
-    /**
-     * @return void
-     */
     public function determineEmbedType(): void
     {
         $this->setEmbedType(

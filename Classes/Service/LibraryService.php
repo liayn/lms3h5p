@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LMS3\Lms3h5p\Service;
 
 /* * *************************************************************
@@ -29,6 +31,7 @@ namespace LMS3\Lms3h5p\Service;
 
 use LMS3\Lms3h5p\Domain\Model\Library;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Library Service
@@ -50,23 +53,12 @@ class LibraryService
         $this->libraryRepository = $libraryRepository;
     }
 
-    /**
-     * Find all libraries
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-     */
-    public function findAll()
+    public function findAll(): QueryResultInterface
     {
         return $this->libraryRepository->findAll();
     }
 
-    /**
-     * Find library by uid
-     *
-     * @param int $uid
-     * @return null|Library
-     */
-    public function findByUid($uid)
+    public function findByUid(int $uid)
     {
         return $this->libraryRepository->findByUid($uid);
     }

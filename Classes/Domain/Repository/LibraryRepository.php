@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Domain\Repository;
 
@@ -49,7 +50,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class LibraryRepository extends Repository
 {
-    const LIBRARY_TABLE_NAME = 'tx_lms3h5p_domain_model_library';
+    public const LIBRARY_TABLE_NAME = 'tx_lms3h5p_domain_model_library';
 
     /**
      * @var array
@@ -57,13 +58,13 @@ class LibraryRepository extends Repository
     protected $defaultOrderings = [
         'name' => QueryInterface::ORDER_DESCENDING,
         'majorVersion' => QueryInterface::ORDER_DESCENDING,
-        'minorVersion' => QueryInterface::ORDER_DESCENDING
+        'minorVersion' => QueryInterface::ORDER_DESCENDING,
     ];
 
     /**
      * Find latest library versions
      *
-     * @return array
+     * @return array[]
      */
     public function findLatestLibraryVersions(): array
     {
@@ -118,7 +119,6 @@ class LibraryRepository extends Repository
         return $query->execute()->count() === 1;
     }
 
-
     /**
      * Check if is patched library
      *
@@ -131,7 +131,7 @@ class LibraryRepository extends Repository
             $query = $this->createQuery();
             $conditions = [];
             foreach ($criteria as $key => $value) {
-                if ('patchVersion' === $key) {
+                if ($key === 'patchVersion') {
                     $conditions[] = $query->lessThan($key, $value);
                 } else {
                     $conditions[] = $query->equals($key, $value);
@@ -144,10 +144,11 @@ class LibraryRepository extends Repository
         }
     }
 
-    public function findOneByNameMajorVersionAndMinorVersion(string $libraryName,
-                                                             int $majorVersion,
-                                                             int $minorVersion): ?Library
-    {
+    public function findOneByNameMajorVersionAndMinorVersion(
+        string $libraryName,
+        int $majorVersion,
+        int $minorVersion
+    ): ?Library {
         $query = $this->createQuery();
 
         $query->matching($query->logicalAnd(
@@ -187,7 +188,6 @@ class LibraryRepository extends Repository
      * Remove by library id
      *
      * @param int $id
-     * @return void
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      */
     public function removeById(int $id): void

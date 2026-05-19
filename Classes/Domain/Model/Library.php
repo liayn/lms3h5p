@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Domain\Model;
 
@@ -414,7 +415,7 @@ class Library extends AbstractEntity
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getMetaDataSettings(): ?string
     {
@@ -422,7 +423,7 @@ class Library extends AbstractEntity
     }
 
     /**
-     * @param null|string $metaDataSettings
+     * @param string|null $metaDataSettings
      * @return Library
      */
     public function setMetaDataSettings(?string $metaDataSettings): Library
@@ -432,7 +433,7 @@ class Library extends AbstractEntity
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAddTo(): ?string
     {
@@ -440,7 +441,7 @@ class Library extends AbstractEntity
     }
 
     /**
-     * @param null|string $addTo
+     * @param string|null $addTo
      * @return Library
      */
     public function setAddTo(?string $addTo): Library
@@ -498,7 +499,7 @@ class Library extends AbstractEntity
 
         $libraryData['__dropLibraryCss'] = '0';
         if (isset($libraryData['dropLibraryCss'])) {
-            $libs = array();
+            $libs = [];
             foreach ($libraryData['dropLibraryCss'] as $lib) {
                 $libs[] = $lib['machineName'];
             }
@@ -533,7 +534,6 @@ class Library extends AbstractEntity
      * Update library object
      *
      * @param array $libraryData
-     * @return void
      */
     public function updateFromMetadata(array $libraryData): void
     {
@@ -543,15 +543,15 @@ class Library extends AbstractEntity
             ->setMajorVersion($libraryData['majorVersion'])
             ->setMinorVersion($libraryData['minorVersion'])
             ->setPatchVersion($libraryData['patchVersion'])
-            ->setRunnable((bool) $libraryData['runnable'])
-            ->setHasIcon((bool) $libraryData['hasIcon'])
+            ->setRunnable((bool)$libraryData['runnable'])
+            ->setHasIcon((bool)$libraryData['hasIcon'])
             ->setMetaDataSettings($libraryData['metadataSettings'] ?? null)
             ->setAddTo(isset($library['addTo']) ? json_encode($libraryData['addTo']) : null);
         if (isset($libraryData['semantics'])) {
             $this->setSemantics($libraryData['semantics']);
         }
         if (isset($libraryData['fullscreen'])) {
-            $this->setFullscreen((bool) $libraryData['fullscreen']);
+            $this->setFullscreen((bool)$libraryData['fullscreen']);
         }
         if (isset($libraryData['__embedTypes'])) {
             $this->setEmbedTypes($libraryData['__embedTypes']);
@@ -617,7 +617,7 @@ class Library extends AbstractEntity
             'runnable' => $this->isRunnable(),
             'semantics' => $this->getSemantics(),
             'hasIcon' => $this->isHasIcon(),
-            'metadataSettings' => $this->getMetaDataSettings()
+            'metadataSettings' => $this->getMetaDataSettings(),
         ];
 
         if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
@@ -627,7 +627,7 @@ class Library extends AbstractEntity
                 $libraryArray[$dependency->getDependencyType() . 'Dependencies'][] = [
                     'machineName' => $dependency->getRequiredLibrary()->getName(),
                     'majorVersion' => $dependency->getRequiredLibrary()->getMajorVersion(),
-                    'minorVersion' => $dependency->getRequiredLibrary()->getMinorVersion()
+                    'minorVersion' => $dependency->getRequiredLibrary()->getMinorVersion(),
                 ];
             }
         }
@@ -640,7 +640,6 @@ class Library extends AbstractEntity
      */
     public function getContents()
     {
-        /** @var ContentRepository $contentRepository */
         $contentRepository = GeneralUtility::makeInstance(ContentRepository::class);
         $contentRepository->setDefaultQuerySettings(
             $contentRepository->createQuery()->getQuerySettings()->setRespectStoragePage(false)
@@ -703,7 +702,7 @@ class Library extends AbstractEntity
      * @param string $key Key that should be found in $libraryData
      * @return string File paths separated by ', '
      */
-    private static function pathsToCsv($library, $key): string
+    private static function pathsToCsv(array $library, string $key): string
     {
         if (isset($library[$key])) {
             $paths = [];

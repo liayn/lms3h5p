@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Domain\Repository;
 
@@ -51,7 +52,7 @@ class ContentRepository extends Repository
      * @var array
      */
     protected $defaultOrderings = [
-        'createdAt' => QueryInterface::ORDER_DESCENDING
+        'createdAt' => QueryInterface::ORDER_DESCENDING,
     ];
 
     /**

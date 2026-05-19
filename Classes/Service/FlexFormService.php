@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LMS3\Lms3h5p\Service;
 
 /*
@@ -15,12 +17,13 @@ namespace LMS3\Lms3h5p\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Utilities to process flexForms
  */
-class FlexFormService implements \TYPO3\CMS\Core\SingletonInterface
+class FlexFormService implements SingletonInterface
 {
     /**
      * Parses the flexForm content and converts it to an array
@@ -34,7 +37,7 @@ class FlexFormService implements \TYPO3\CMS\Core\SingletonInterface
      * @param string $valuePointer value pointer used in the flexForm
      * @return array the processed array
      */
-    public function convertFlexFormContentToArray($flexFormContent, $languagePointer = 'lDEF', $valuePointer = 'vDEF')
+    public function convertFlexFormContentToArray(string $flexFormContent, string $languagePointer = 'lDEF', string $valuePointer = 'vDEF'): array
     {
         $settings = [];
         $flexFormArray = GeneralUtility::xml2array($flexFormContent);
@@ -44,7 +47,7 @@ class FlexFormService implements \TYPO3\CMS\Core\SingletonInterface
                 continue;
             }
             foreach ($languages[$languagePointer] as $valueKey => $valueDefinition) {
-                if (strpos($valueKey, '.') === false) {
+                if (!str_contains($valueKey, '.')) {
                     $settings[$valueKey] = $this->walkFlexFormNode($valueDefinition, $valuePointer);
                 } else {
                     $valueKeyParts = explode('.', $valueKey);
@@ -71,11 +74,11 @@ class FlexFormService implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Parses a flexForm node recursively and takes care of sections etc
      *
-     * @param array $nodeArray The flexForm node to parse
+     * @param mixed $nodeArray The flexForm node to parse
      * @param string $valuePointer The valuePointer to use for value retrieval
      * @return array
      */
-    public function walkFlexFormNode($nodeArray, $valuePointer = 'vDEF')
+    public function walkFlexFormNode(mixed $nodeArray, string $valuePointer = 'vDEF'): array
     {
         if (is_array($nodeArray)) {
             $return = [];

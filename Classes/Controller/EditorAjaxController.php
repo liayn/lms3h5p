@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LMS3\Lms3h5p\Controller;
 
 /* * *************************************************************
@@ -51,7 +53,7 @@ class EditorAjaxController extends ActionController
         private readonly CacheManager $cacheManager
     ) {}
 
-    public function indexAction()
+    public function indexAction(): void
     {
         $type = $this->request->getQueryParams()['type'];
         switch ($type) {
@@ -67,7 +69,7 @@ class EditorAjaxController extends ActionController
             case \H5PEditorEndpoints::FILES:
                 $this->uploadFiles();
                 break;
-            case \H5PEditorEndpoints::FILTER;
+            case \H5PEditorEndpoints::FILTER:
                 $this->filter();
                 break;
             case \H5PEditorEndpoints::LIBRARY_UPLOAD:
@@ -187,7 +189,7 @@ class EditorAjaxController extends ActionController
         );
     }
 
-    protected function contentHubMetadataCache()
+    protected function contentHubMetadataCache(): void
     {
         $this->h5pIntegrationService->getH5pEditor()->ajax->action(
             \H5PEditorEndpoints::CONTENT_HUB_METADATA_CACHE,

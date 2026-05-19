@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace LMS3\Lms3h5p;
@@ -28,8 +31,8 @@ namespace LMS3\Lms3h5p;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-use TYPO3\CMS\Core\Core\Environment;
 use LMS3\Lms3h5p\H5PAdapter\Core\FileAdapter;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
@@ -65,7 +68,7 @@ class Setup
             return;
         }
 
-        $h5pLibraryPath = dirname(Environment::getPublicPath()) . $this->ts['libraryPath'];
+        $h5pLibraryPath = Environment::getProjectPath() . $this->ts['libraryPath'];
 
         if (!is_dir($h5pLibraryPath)) {
             return;

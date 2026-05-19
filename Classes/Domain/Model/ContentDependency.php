@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Domain\Model;
 
@@ -170,7 +171,7 @@ class ContentDependency extends AbstractEntity
         $libraryData = $this->getLibrary()->toAssocArray();
         return array_merge($libraryData, [
             'dropCss' => $this->isDropCss(),
-            'dependencyType' => $this->getDependencyType()
+            'dependencyType' => $this->getDependencyType(),
         ]);
     }
 }

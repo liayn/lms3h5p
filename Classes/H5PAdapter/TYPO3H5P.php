@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\H5PAdapter;
 
@@ -40,6 +41,7 @@ use LMS3\Lms3h5p\H5PAdapter\Editor\EditorAjax;
 use LMS3\Lms3h5p\H5PAdapter\Editor\EditorFileAdapter;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -55,7 +57,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
  */
-class TYPO3H5P implements \TYPO3\CMS\Core\SingletonInterface
+class TYPO3H5P implements SingletonInterface
 {
     protected ?H5PCore $core = null;
 
@@ -63,15 +65,15 @@ class TYPO3H5P implements \TYPO3\CMS\Core\SingletonInterface
     {
         $settings = $this->getSettings();
         $interface = GeneralUtility::makeInstance(H5PFramework::class);
-        if (null === $this->core) {
+        if ($this->core === null) {
             $this->core = new \H5PCore(
                 $interface,
                 GeneralUtility::makeInstance(FileAdapter::class),
-                $settings['h5pPublicFolder']['url'],
+                rtrim($settings['h5pPublicFolder']['url'], '/'),
                 $this->getLanguage(),
-                (bool) $settings['enableExport']
+                (bool)$settings['enableExport']
             );
-            $this->core->aggregateAssets = (bool) $settings['aggregateAssets'];
+            $this->core->aggregateAssets = (bool)$settings['aggregateAssets'];
         }
 
         return match ($type) {
@@ -89,20 +91,22 @@ class TYPO3H5P implements \TYPO3\CMS\Core\SingletonInterface
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         return $configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'Lms3h5p', 'Pi1'
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'Lms3h5p',
+            'Pi1'
         );
     }
 
     protected function getLanguage(): string
     {
         if (Environment::isCli()) {
-            return "en";
+            return 'en';
         }
 
         /** @var SiteLanguage $siteLanguage */
         $siteLanguage = $this->getRequest()->getAttribute('language');
         $language = $siteLanguage?->getLocale()->getLanguageCode();
-        
+
         if (empty($language) || $language === 'default') {
             $language = 'en';
         }

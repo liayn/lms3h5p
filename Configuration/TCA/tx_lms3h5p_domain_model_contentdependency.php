@@ -9,14 +9,14 @@ return [
         'security' => [
             'ignorePageTypeRestriction' => true,
         ],
-        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg'
+        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg',
     ],
     'types' => [
         '1' => [
             'showitem' => '
                 content, library, dependency_type, weight, drop_css
-            '
-        ]
+            ',
+        ],
     ],
     'columns' => [
         'content' => [
@@ -26,8 +26,8 @@ return [
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_lms3h5p_domain_model_content',
                 'minitems' => 1,
-                'maxitems' => 1
-            ]
+                'maxitems' => 1,
+            ],
         ],
         'library' => [
             'label' => 'Library',
@@ -36,26 +36,26 @@ return [
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_lms3h5p_domain_model_library',
                 'minitems' => 1,
-                'maxitems' => 1
-            ]
+                'maxitems' => 1,
+            ],
         ],
         'dependency_type' => [
             'label' => 'Dependency Type',
             'config' => [
-                'type' => 'input'
-            ]
+                'type' => 'input',
+            ],
         ],
         'weight' => [
             'label' => 'Type',
             'config' => [
-                'type' => 'input'
-            ]
+                'type' => 'input',
+            ],
         ],
         'drop_css' => [
             'label' => 'Drop Css',
             'config' => [
                 'type' => 'input',
-            ]
-        ]
-    ]
+            ],
+        ],
+    ],
 ];
