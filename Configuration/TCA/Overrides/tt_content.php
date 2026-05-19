@@ -34,8 +34,9 @@ ExtensionUtility::registerPlugin(
     'LLL:EXT:lms3h5p/Resources/Private/Language/locallang.xlf:tx_lms3h5p_domain_model_pi1'
 );
 
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['lms3h5p_pi1'] = 'pi_flexform';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tt_content', '--div--;Configuration,pi_flexform,', 'lms3h5p_pi1', 'after:subheader');
 ExtensionManagementUtility::addPiFlexFormValue(
-    'lms3h5p_pi1',
-    'FILE:EXT:lms3h5p/Configuration/FlexForms/FlexFormPi1.xml'
+    '*',
+    'FILE:EXT:lms3h5p/Configuration/FlexForms/FlexFormPi1.xml',
+    'lms3h5p_pi1'
 );

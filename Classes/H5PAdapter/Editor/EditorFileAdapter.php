@@ -88,7 +88,7 @@ class EditorFileAdapter implements \H5peditorStorage
      *
      * @param int $fileId
      */
-    public function keepFile($fileId)
+    public function keepFile($fileId): void
     {
         // TODO: Implement keepFile() method.
     }
@@ -183,7 +183,7 @@ class EditorFileAdapter implements \H5peditorStorage
      *  List of libraries indexed by machineName with objects as values. The objects
      *  have majorVersion and minorVersion as properties.
      */
-    public function alterLibraryFiles(&$files, $libraries)
+    public function alterLibraryFiles(&$files, $libraries): void
     {
         // TODO: Implement alterLibraryFiles() method.
     }
@@ -225,7 +225,7 @@ class EditorFileAdapter implements \H5peditorStorage
      * @param $file
      * @param $content_id
      */
-    public static function markFileForCleanup($file, $content_id)
+    public static function markFileForCleanup($file, $content_id): void
     {
         // TODO: Implement markFileForCleanup() method.
     }
@@ -235,7 +235,7 @@ class EditorFileAdapter implements \H5peditorStorage
      *
      * @param string $filePath Path to file or directory
      */
-    public static function removeTemporarilySavedFiles($filePath)
+    public static function removeTemporarilySavedFiles($filePath): void
     {
         if (is_dir($filePath)) {
             \H5PCore::deleteFileTree($filePath);

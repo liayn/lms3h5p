@@ -60,6 +60,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 class TYPO3H5P implements SingletonInterface
 {
     protected ?H5PCore $core = null;
+    public function __construct(private readonly \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManagerInterface) {}
 
     public function getH5PInstance(string $type = 'interface'): H5PContentValidator|H5PValidator|H5PExport|H5peditor|H5PCore|H5PFramework|H5PStorage|null
     {
@@ -69,7 +70,7 @@ class TYPO3H5P implements SingletonInterface
             $this->core = new \H5PCore(
                 $interface,
                 GeneralUtility::makeInstance(FileAdapter::class),
-                rtrim($settings['h5pPublicFolder']['url'], '/'),
+                rtrim((string)$settings['h5pPublicFolder']['url'], '/'),
                 $this->getLanguage(),
                 (bool)$settings['enableExport']
             );
@@ -89,7 +90,7 @@ class TYPO3H5P implements SingletonInterface
 
     public function getSettings(): array
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        $configurationManager = $this->configurationManagerInterface;
         return $configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'Lms3h5p',

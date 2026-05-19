@@ -143,7 +143,6 @@ return [
                 'foreign_table' => 'tx_lms3h5p_domain_model_library',
                 'readOnly' => 1,
                 'MM' => 'tx_lms3h5p_domain_model_librarydependency',
-                'MM_hasUidField' => true,
                 'MM_match_fields' => [
                     'dependency_type' =>  'preloaded',
                 ],
@@ -157,7 +156,6 @@ return [
                 'foreign_table' => 'tx_lms3h5p_domain_model_library',
                 'readOnly' => 1,
                 'MM' => 'tx_lms3h5p_domain_model_librarydependency',
-                'MM_hasUidField' => true,
                 'MM_match_fields' => [
                     'dependency_type' =>  'editor',
                 ],

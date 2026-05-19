@@ -48,15 +48,8 @@ ExtensionUtility::configurePlugin(
     ],
     [
         ContentEmbedController::class => 'index',
-    ]
-);
-
-// Include base TSconfig setup
-ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:lms3h5p/Configuration/TSconfig/Page/Mod/Wizards/NewContentElement.tsconfig">'
-);
-ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:lms3h5p/Configuration/TSconfig/Page/Mod/HideTables.tsconfig">'
+    ],
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1539019571] = [

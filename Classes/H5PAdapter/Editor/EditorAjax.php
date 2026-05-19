@@ -92,7 +92,7 @@ class EditorAjax implements \H5PEditorAjaxInterface
      * @return array machine names. The first element in the array is the
      * most recently used.
      */
-    public function getAuthorsRecentlyUsedLibraries()
+    public function getAuthorsRecentlyUsedLibraries(): void
     {
         // TODO: Implement getAuthorsRecentlyUsedLibraries() method.
     }

@@ -223,14 +223,14 @@ class ContentController extends AbstractModuleController
         return new ForwardResponse('index');
     }
 
-    private function addJsFiles(array $jsFiles)
+    private function addJsFiles(array $jsFiles): void
     {
         foreach ($jsFiles as $file) {
             $this->pageRenderer->addJsFile($file);
         }
     }
 
-    private function addCSSFiles(array $cssFiles)
+    private function addCSSFiles(array $cssFiles): void
     {
         foreach ($cssFiles as $file) {
             $this->pageRenderer->addCssFile($file);

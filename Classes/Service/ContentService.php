@@ -31,8 +31,6 @@ namespace LMS3\Lms3h5p\Service;
 
 use LMS3\Lms3h5p\Domain\Model\Content;
 use LMS3\Lms3h5p\Domain\Repository\ContentRepository;
-use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Content Service
@@ -66,20 +64,9 @@ class ContentService
      * @var ContentRepository
      */
     protected $contentRepository;
-
-    /**
-     * @param H5PIntegrationService $h5PIntegrationService
-     */
-    public function injectH5PIntegrationService(H5PIntegrationService $h5PIntegrationService)
+    public function __construct(private readonly \TYPO3\CMS\Core\Cache\CacheManager $cacheManager, \LMS3\Lms3h5p\Service\H5PIntegrationService $h5pIntegrationService, \LMS3\Lms3h5p\Domain\Repository\ContentRepository $contentRepository)
     {
-        $this->h5pIntegrationService = $h5PIntegrationService;
-    }
-
-    /**
-     * @param ContentRepository $contentRepository
-     */
-    public function injectContentRepository(ContentRepository $contentRepository)
-    {
+        $this->h5pIntegrationService = $h5pIntegrationService;
         $this->contentRepository = $contentRepository;
     }
 
@@ -159,7 +146,7 @@ class ContentService
         }
 
         // Clear related caches
-        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('lms3h5p_libraries');
+        $cache = $this->cacheManager->getCache('lms3h5p_libraries');
         $cache->flushByTag('content_' . $content['id']);
 
         $this->h5pEditor->processParameters($content['id'], $content['library'], $params->params, $oldLibrary, $oldParameters);
@@ -178,7 +165,7 @@ class ContentService
      *
      * @param Content $content
      */
-    public function handleDelete(Content $content)
+    public function handleDelete(Content $content): void
     {
         $h5pCoreInstance = $this->h5pIntegrationService->getH5PCoreInstance();
         $h5pStorage = new \H5PStorage($h5pCoreInstance->h5pF, $h5pCoreInstance);

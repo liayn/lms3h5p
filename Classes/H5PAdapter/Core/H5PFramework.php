@@ -204,7 +204,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @param string $machineName
      * @param string $tutorialUrl
      */
-    public function setLibraryTutorialUrl($machineName, $tutorialUrl)
+    public function setLibraryTutorialUrl($machineName, $tutorialUrl): void
     {
         // TODO: Implement setLibraryTutorialUrl() method.
     }
@@ -215,7 +215,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @param string $message The error message
      * @param string $code An optional code
      */
-    public function setErrorMessage($message, $code = null)
+    public function setErrorMessage($message, $code = null): void
     {
         $this->messages['error'][] = (object)[
             'code' => $code,
@@ -229,7 +229,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @param string $message
      *  The error message
      */
-    public function setInfoMessage($message)
+    public function setInfoMessage($message): void
     {
         $this->messages['info'][] = $message;
     }
@@ -268,9 +268,9 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
         // Insert !var as is, escape @var and emphasis %var.
         foreach ($replacements as $key => $replacement) {
             if ($key[0] === '@') {
-                $replacements[$key] = htmlspecialchars($replacement);
+                $replacements[$key] = htmlspecialchars((string)$replacement);
             } elseif ($key[0] === '%') {
-                $replacements[$key] = '<em>' . htmlspecialchars($replacement) . '</em>';
+                $replacements[$key] = '<em>' . htmlspecialchars((string)$replacement) . '</em>';
             }
         }
         $message = preg_replace('/([!@%])[a-z0-9-]+/i', '%s', $message);
@@ -352,7 +352,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @return string
      *   URL to admin page
      */
-    public function getAdminUrl()
+    public function getAdminUrl(): void
     {
         // TODO: Implement getAdminUrl() method.
     }
@@ -452,7 +452,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *  TRUE if H5P development mode is active
      *  FALSE otherwise
      */
-    public function isInDevMode()
+    public function isInDevMode(): void
     {
         // TODO: Implement isInDevMode() method.
     }
@@ -499,7 +499,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
-    public function saveLibraryData(&$libraryData, $new = true)
+    public function saveLibraryData(&$libraryData, $new = true): void
     {
         if ($new) {
             $library = Library::createFromMetadata($libraryData);
@@ -512,7 +512,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
             /** @var Library $library */
             $library = $this->libraryRepository->findByUid($libraryData['libraryId']);
             if ($library === null) {
-                throw new Exception('Library with ID ' . $libraryData['libraryId'] . ' could not be found!');
+                throw new Exception('Library with ID ' . $libraryData['libraryId'] . ' could not be found!', 8225304040);
             }
             $library->updateFromMetadata($libraryData);
             $this->libraryRepository->update($library);
@@ -581,7 +581,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
-    public function updateContent($contentData, $contentMainId = null)
+    public function updateContent($contentData, $contentMainId = null): void
     {
         /** @var Content $content */
         $content = $this->contentRepository->findByUid($contentData['id']);
@@ -605,7 +605,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *
      * @param int $contentId
      */
-    public function resetContentUserData($contentId)
+    public function resetContentUserData($contentId): void
     {
         // TODO: Implement resetContentUserData() method.
     }
@@ -628,11 +628,11 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
-    public function saveLibraryDependencies($libraryId, $dependencies, $dependency_type)
+    public function saveLibraryDependencies($libraryId, $dependencies, $dependency_type): void
     {
         $dependingLibrary = $this->libraryRepository->findByUid($libraryId);
         if ($dependingLibrary === null) {
-            throw new Exception('The Library with ID ' . $libraryId . ' could not be found.');
+            throw new Exception('The Library with ID ' . $libraryId . ' could not be found.', 8901499604);
         }
 
         foreach ($dependencies as $dependency) {
@@ -683,7 +683,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *   That supports versions. (In this case the content id will typically be
      *   the version id, and the contentMainId will be the frameworks content id
      */
-    public function copyLibraryUsage($contentId, $copyFromId, $contentMainId = null)
+    public function copyLibraryUsage($contentId, $copyFromId, $contentMainId = null): void
     {
         // TODO: Implement copyLibraryUsage() method.
     }
@@ -695,7 +695,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *   Id identifying the content
      * @throws IllegalObjectTypeException
      */
-    public function deleteContentData($contentId)
+    public function deleteContentData($contentId): void
     {
         $content = $this->contentRepository->findByUid($contentId);
         if ($content === null) {
@@ -712,7 +712,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *   Content Id of the content we'll be deleting library usage for
      * @throws IllegalObjectTypeException
      */
-    public function deleteLibraryUsage($contentId)
+    public function deleteLibraryUsage($contentId): void
     {
         /** @var Content $content */
         $content = $this->contentRepository->findByUid($contentId);
@@ -744,7 +744,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *     - preloaded
      * @throws IllegalObjectTypeException
      */
-    public function saveLibraryUsage($contentId, $librariesInUse)
+    public function saveLibraryUsage($contentId, $librariesInUse): void
     {
         /** @var Content $content */
         $content = $this->contentRepository->findByUid($contentId);
@@ -755,7 +755,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
         $dropLibraryCssList = [];
         foreach ($librariesInUse as $dependencyData) {
             if (!empty($dependencyData['library']['dropLibraryCss'])) {
-                $dropLibraryCssList = array_merge($dropLibraryCssList, explode(', ', $dependencyData['library']['dropLibraryCss']));
+                $dropLibraryCssList = array_merge($dropLibraryCssList, explode(', ', (string)$dependencyData['library']['dropLibraryCss']));
             }
         }
 
@@ -784,7 +784,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *   - content: Number of content using the library
      *   - libraries: Number of libraries depending on the library
      */
-    public function getLibraryUsage($libraryId, $skipContent = false)
+    public function getLibraryUsage($libraryId, $skipContent = false): void
     {
         // TODO: Implement getLibraryUsage() method.
     }
@@ -869,7 +869,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @param int $minorVersion
      *   The library's minor version
      */
-    public function alterLibrarySemantics(&$semantics, $machineName, $majorVersion, $minorVersion)
+    public function alterLibrarySemantics(&$semantics, $machineName, $majorVersion, $minorVersion): void
     {
         // TODO: Implement alterLibrarySemantics() method.
     }
@@ -881,7 +881,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *   Library identifier
      * @throws IllegalObjectTypeException
      */
-    public function deleteLibraryDependencies($libraryId)
+    public function deleteLibraryDependencies($libraryId): void
     {
         $library = $this->libraryRepository->findByUid($libraryId);
         if ($library === null) {
@@ -900,7 +900,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
     /**
      * Start an atomic operation against the dependency storage
      */
-    public function lockDependencyStorage()
+    public function lockDependencyStorage(): void
     {
         // TODO: Implement lockDependencyStorage() method.
     }
@@ -908,7 +908,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
     /**
      * Stops an atomic operation against the dependency storage
      */
-    public function unlockDependencyStorage()
+    public function unlockDependencyStorage(): void
     {
         // TODO: Implement unlockDependencyStorage() method.
     }
@@ -920,7 +920,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *   Library object with id, name, major version and minor version.
      * @throws IllegalObjectTypeException
      */
-    public function deleteLibrary($library)
+    public function deleteLibrary($library): void
     {
         $this->deleteLibraryDependencies($library->id);
         $this->libraryRepository->removeById($library->id);
@@ -945,7 +945,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *   - libraryEmbedTypes: CSV of the main library's embed types
      *   - libraryFullscreen: 1 if fullscreen is supported. 0 otherwise.
      */
-    public function loadContent($id)
+    public function loadContent($id): void
     {
         // TODO: Implement loadContent() method.
     }
@@ -1029,7 +1029,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *   Whatever we want to store as the setting
      * @throws UnknownObjectException
      */
-    public function setOption($name, $value)
+    public function setOption($name, $value): void
     {
         /** @var Setting $configSetting */
         $configSetting = $this->settingRepository->findOneByConfigKey($name);
@@ -1057,7 +1057,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @param array $fields Content fields, e.g. filtered or slug.
      * @throws UnknownObjectException
      */
-    public function updateContentFields($id, $fields)
+    public function updateContentFields($id, $fields): void
     {
         /** @var Content $content */
         $content = $this->contentRepository->findByUid($id);
@@ -1071,7 +1071,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
 
         try {
             $this->contentRepository->update($content);
-        } catch (IllegalObjectTypeException $ex) {
+        } catch (IllegalObjectTypeException) {
             // will never happen
         }
     }
@@ -1085,13 +1085,13 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
-    public function clearFilteredParameters($library_ids)
+    public function clearFilteredParameters($library_ids): void
     {
         foreach ((array)$library_ids as $id) {
             /** @var Library $library */
             $library = $this->libraryRepository->findByUid($id);
             if ($library === null) {
-                throw new \Exception('Library with ID ' . $id . ' could not be found!');
+                throw new \Exception('Library with ID ' . $id . ' could not be found!', 7183067522);
             }
             $contentsOfThisLibrary = $this->contentRepository->findByLibrary($library);
             /** @var Content $content */
@@ -1108,7 +1108,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *
      * @return int
      */
-    public function getNumNotFiltered()
+    public function getNumNotFiltered(): void
     {
         // TODO: Implement getNumNotFiltered() method.
     }
@@ -1176,7 +1176,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
-    public function saveCachedAssets($key, $libraries)
+    public function saveCachedAssets($key, $libraries): void
     {
         /**
          * This is called after FileAdapter->cacheAssets and makes the assignment of
@@ -1233,7 +1233,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * Get the amount of content items associated to a library
      * return int
      */
-    public function getLibraryContentCount()
+    public function getLibraryContentCount(): void
     {
         // TODO: Implement getLibraryContentCount() method.
     }
@@ -1241,7 +1241,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
     /**
      * Will trigger after the export file is created.
      */
-    public function afterExportCreated($content, $filename)
+    public function afterExportCreated($content, $filename): void
     {
         // TODO: Implement afterExportCreated() method.
     }
@@ -1267,7 +1267,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *  containing the new content type cache that should replace the old one.
      * @throws IllegalObjectTypeException
      */
-    public function replaceContentTypeCache($contentTypeCache)
+    public function replaceContentTypeCache($contentTypeCache): void
     {
         $this->contentTypeCacheEntryRepository->removeAll();
 
@@ -1296,7 +1296,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @param array $libraries
      * @return array
      */
-    public function getLibraryConfig($libraries = null)
+    public function getLibraryConfig($libraries = null): void
     {
         // TODO: Implement getLibraryConfig() method.
     }
@@ -1313,27 +1313,27 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
         return $this->libraryRepository->libraryHasUpgrade($library);
     }
 
-    public function replaceContentHubMetadataCache($metadata, $lang)
+    public function replaceContentHubMetadataCache($metadata, $lang): void
     {
         // TODO: Implement replaceContentHubMetadataCache() method.
     }
 
-    public function getContentHubMetadataCache($lang = 'en')
+    public function getContentHubMetadataCache($lang = 'en'): void
     {
         // TODO: Implement getContentHubMetadataCache() method.
     }
 
-    public function getContentHubMetadataChecked($lang = 'en')
+    public function getContentHubMetadataChecked($lang = 'en'): void
     {
         // TODO: Implement getContentHubMetadataChecked() method.
     }
 
-    public function setContentHubMetadataChecked($time, $lang = 'en')
+    public function setContentHubMetadataChecked($time, $lang = 'en'): void
     {
         // TODO: Implement setContentHubMetadataChecked() method.
     }
 
-    public function resetHubOrganizationData()
+    public function resetHubOrganizationData(): void
     {
         // TODO: Implement resetHubOrganizationData() method.
     }

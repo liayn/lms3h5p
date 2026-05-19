@@ -60,7 +60,7 @@ class FileAdapter implements \H5PFileStorage
     protected ContentRepository $contentRepository;
     protected CachedAssetRepository $cachedAssetRepository;
 
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
+    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
     {
         $this->h5pSettings = $configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
@@ -90,7 +90,7 @@ class FileAdapter implements \H5PFileStorage
      *  Library properties
      * @throws \Exception
      */
-    public function saveLibrary($library)
+    public function saveLibrary($library): void
     {
         $dest = $this->getFolderPath('libraries') . \H5PCore::libraryToFolderName($library);
 
@@ -110,7 +110,7 @@ class FileAdapter implements \H5PFileStorage
      *  Content properties
      * @throws \Exception
      */
-    public function saveContent($source, $content)
+    public function saveContent($source, $content): void
     {
         $dest = $this->getFolderPath('content') . $content['id'];
 
@@ -126,7 +126,7 @@ class FileAdapter implements \H5PFileStorage
      * @param array $content
      *  Content properties
      */
-    public function deleteContent($content)
+    public function deleteContent($content): void
     {
         \H5PCore::deleteFileTree($this->getFolderPath('content') . $content['id']);
     }
@@ -140,7 +140,7 @@ class FileAdapter implements \H5PFileStorage
      *  The cloned content's identifier
      * @throws \Exception
      */
-    public function cloneContent($id, $newId)
+    public function cloneContent($id, $newId): void
     {
         $path = $this->getFolderPath('content');
         if (file_exists($path . $id)) {
@@ -172,7 +172,7 @@ class FileAdapter implements \H5PFileStorage
      *  Where the content folder will be saved
      * @throws \Exception
      */
-    public function exportContent($id, $target)
+    public function exportContent($id, $target): void
     {
         $source = $this->getFolderPath('content') . $id;
         if (file_exists($source)) {
@@ -193,7 +193,7 @@ class FileAdapter implements \H5PFileStorage
      *  Where the library folder will be saved
      * @throws \Exception
      */
-    public function exportLibrary($library, $target)
+    public function exportLibrary($library, $target): void
     {
         $folder = \H5PCore::libraryToFolderName($library);
         $srcPath = $this->getFolderPath('libraries') . $folder;
@@ -212,16 +212,16 @@ class FileAdapter implements \H5PFileStorage
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
-    public function saveExport($source, $filename)
+    public function saveExport($source, $filename): void
     {
         $this->deleteExport($filename);
         $exportDir = $this->getFolderPath('exports');
         if (!self::dirReady($exportDir)) {
-            throw new \Exception('Unable to create directory for H5P export file.');
+            throw new \Exception('Unable to create directory for H5P export file.', 4393869282);
         }
 
         if (!copy($source, $exportDir . $filename)) {
-            throw new \Exception('Unable to save H5P export file.');
+            throw new \Exception('Unable to save H5P export file.', 3982974687);
         }
 
         // Get the content from the filename again
@@ -236,7 +236,7 @@ class FileAdapter implements \H5PFileStorage
      *
      * @param string $filename
      */
-    public function deleteExport($filename)
+    public function deleteExport($filename): void
     {
         $target = $this->getFolderPath('exports') . $filename;
         if (file_exists($target)) {
@@ -266,7 +266,7 @@ class FileAdapter implements \H5PFileStorage
      * @param string $key
      *  Hashed key for cached asset
      */
-    public function cacheAssets(&$files, $key)
+    public function cacheAssets(&$files, $key): void
     {
         foreach ($files as $type => $assets) {
             if (empty($assets)) {
@@ -360,7 +360,7 @@ class FileAdapter implements \H5PFileStorage
      * @param array $keys
      *   The hash keys of removed files
      */
-    public function deleteCachedAssets($keys)
+    public function deleteCachedAssets($keys): void
     {
         $cachedAssetsPath = $this->getFolderPath('cachedAssets');
         foreach ($keys as $hash) {
@@ -435,7 +435,7 @@ class FileAdapter implements \H5PFileStorage
      * @param string|int $fromId Content ID or 'editor' string
      * @param int $toId Target Content ID
      */
-    public function cloneContentFile($file, $fromId, $toId)
+    public function cloneContentFile($file, $fromId, $toId): void
     {
         // Determine source path
         if ($fromId === 'editor') {
@@ -528,7 +528,7 @@ class FileAdapter implements \H5PFileStorage
      * @param string $file path + name
      * @param int $contentId
      */
-    public function removeContentFile($file, $contentId)
+    public function removeContentFile($file, $contentId): void
     {
         $path = $this->getFolderPath('content') . $contentId . DIRECTORY_SEPARATOR . $file;
         if (file_exists($path)) {
@@ -556,10 +556,10 @@ class FileAdapter implements \H5PFileStorage
      * @param string $destination To path
      * @throws \Exception
      */
-    public static function copyFileTree($source, $destination)
+    public static function copyFileTree($source, $destination): void
     {
         if (!self::dirReady($destination)) {
-            throw new \Exception('unabletocopy');
+            throw new \Exception('unabletocopy', 3643151353);
         }
 
         $ignoredFiles = self::getIgnoredFiles("{$source}/.h5pignore");
@@ -568,7 +568,7 @@ class FileAdapter implements \H5PFileStorage
         if ($dir === false) {
             trigger_error('Unable to open directory ' . $source, E_USER_WARNING);
 
-            throw new \Exception('unabletocopy');
+            throw new \Exception('unabletocopy', 8344758862);
         }
 
         while (false !== ($file = readdir($dir))) {

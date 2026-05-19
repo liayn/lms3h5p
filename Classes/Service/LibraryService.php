@@ -46,12 +46,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class LibraryService
 {
-    protected LibraryRepository $libraryRepository;
-
-    public function __construct(LibraryRepository $libraryRepository)
-    {
-        $this->libraryRepository = $libraryRepository;
-    }
+    public function __construct(protected LibraryRepository $libraryRepository) {}
 
     public function findAll(): QueryResultInterface
     {

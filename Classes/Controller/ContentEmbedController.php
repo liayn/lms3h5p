@@ -34,7 +34,6 @@ use LMS3\Lms3h5p\Service\FlexFormService;
 use LMS3\Lms3h5p\Service\H5PIntegrationService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Domain\ConsumableString;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -57,16 +56,12 @@ class ContentEmbedController extends ActionController
 
     protected Context $context;
     protected PageRenderer $pageRenderer;
-    protected ContentService $contentService;
-    protected H5PIntegrationService $h5pIntegrationService;
     protected string $nonce;
 
-    public function __construct(H5PIntegrationService $integrationService, ContentService $contentService, PageRenderer $pageRenderer)
+    public function __construct(protected H5PIntegrationService $h5pIntegrationService, protected ContentService $contentService, PageRenderer $pageRenderer, private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool)
     {
         $this->context = GeneralUtility::makeInstance(Context::class);
         $this->pageRenderer = $pageRenderer;
-        $this->contentService = $contentService;
-        $this->h5pIntegrationService = $integrationService;
     }
 
     public function indexAction(): ResponseInterface
@@ -98,14 +93,14 @@ class ContentEmbedController extends ActionController
      */
     protected function addScriptAndStyles(): void
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+        $queryBuilder = $this->connectionPool
             ->getQueryBuilderForTable('tt_content');
 
         $languageId = $this->context->getPropertyFromAspect('language', 'id');
 
         $query = $queryBuilder->select('pi_flexform')
             ->from('tt_content')
-            ->where('list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TSFE']->id . ' AND sys_language_uid IN (0, ' . $languageId . ')')
+            ->where('list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId() . ' AND sys_language_uid IN (0, ' . $languageId . ')')
             ->orderBy('sorting')
             ->executeQuery();
 

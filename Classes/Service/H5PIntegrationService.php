@@ -32,7 +32,6 @@ namespace LMS3\Lms3h5p\Service;
 use LMS3\Lms3h5p\Domain\Model\Content;
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -57,7 +56,8 @@ class H5PIntegrationService implements SingletonInterface
     protected array $h5pSettings;
     public function __construct(
         private readonly ConfigurationManagerInterface $configurationManager,
-        private readonly ContentService $contentService
+        private readonly ContentService $contentService,
+        private readonly \TYPO3\CMS\Core\Cache\CacheManager $cacheManager
     ) {
         $this->h5pSettings = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
@@ -72,8 +72,8 @@ class H5PIntegrationService implements SingletonInterface
      */
     public function getH5PSettings(UriBuilder $uriBuilder, array $displayContentIds = []): array
     {
-        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('lms3h5p_libraries');
-        $cacheKey = sha1(__CLASS__ . md5(implode('-', $displayContentIds)));
+        $cache = $this->cacheManager->getCache('lms3h5p_libraries');
+        $cacheKey = sha1(self::class . md5(implode('-', $displayContentIds)));
         $coreSettings = $cache->get($cacheKey);
         if ($coreSettings === false) {
             $coreSettings = $this->generateCoreSettings();
@@ -306,7 +306,7 @@ class H5PIntegrationService implements SingletonInterface
                 'library' => \H5PCore::libraryToString($contentArray['library']),
                 'jsonContent' => $content->getFiltered(),
                 'fullScreen' => $contentArray['library']['fullscreen'],
-                'exportUrl' => $content->getExportFile() ? GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . ltrim($this->h5pSettings['h5pPublicFolder']['url'], '/') . $this->h5pSettings['subFolders']['exports'] . DIRECTORY_SEPARATOR . $content->getExportFile() : '',
+                'exportUrl' => $content->getExportFile() ? GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . ltrim((string)$this->h5pSettings['h5pPublicFolder']['url'], '/') . $this->h5pSettings['subFolders']['exports'] . DIRECTORY_SEPARATOR . $content->getExportFile() : '',
                 'embedCode' => '<iframe src="' . $embedUrl . '" width=":w" height=":h" frameborder="0" allowfullscreen="allowfullscreen"></iframe>',
                 'resizeCode' => '<script src="' . $h5pCorePublicUrl . '/js/h5p-resizer.js' . '" charset="UTF-8"></script>',
                 'url' => $embedUrl,
@@ -331,14 +331,12 @@ class H5PIntegrationService implements SingletonInterface
             );
             $files = $this->getH5PCoreInstance()->getDependenciesFiles(
                 $preloadedDependencies,
-                rtrim($this->h5pSettings['h5pPublicFolder']['path'], '/')
+                rtrim((string)$this->h5pSettings['h5pPublicFolder']['path'], '/')
             );
 
             $this->addCustomStylesheet($files['styles']);
 
-            $buildUrl = function (\stdClass $asset) {
-                return $asset->path . $asset->version;
-            };
+            $buildUrl = (fn(\stdClass $asset) => $asset->path . $asset->version);
             $contentSettings['scripts'] = array_map($buildUrl, $files['scripts']);
             $contentSettings['styles'] = array_map($buildUrl, $files['styles']);
 
@@ -377,7 +375,7 @@ class H5PIntegrationService implements SingletonInterface
         foreach ($h5pIntegrationSettings['contents'] as $contentSettings) {
             if (isset($contentSettings['styles'])) {
                 foreach ($contentSettings['styles'] as $style) {
-                    if ($version && !str_contains($style, 'version')) {
+                    if ($version && !str_contains((string)$style, 'version')) {
                         $style .= '?version=' . $version;
                     }
                     $styles[] = $style;

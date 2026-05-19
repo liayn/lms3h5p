@@ -107,7 +107,7 @@ class EditorAjaxController extends ActionController
             $this->cacheManager
                 ->getCache('lms3h5p_libraries')
                 ->flushByTag($this->h5pIntegrationService->getCacheTagForLibrary($id));
-        } catch (NoSuchCacheException $exception) {
+        } catch (NoSuchCacheException) {
 
         }
     }
@@ -174,7 +174,7 @@ class EditorAjaxController extends ActionController
             $this->cacheManager
                 ->getCache('lms3h5p_libraries')
                 ->flushByTag($this->h5pIntegrationService->getCacheTagForLibrary($contentId));
-        } catch (NoSuchCacheException $exception) {
+        } catch (NoSuchCacheException) {
 
         }
     }
