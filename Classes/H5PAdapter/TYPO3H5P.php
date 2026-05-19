@@ -44,6 +44,7 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Configuration\Exception\NoServerRequestGivenException;
 
 /**
  * EditorAjaxController
@@ -91,7 +92,7 @@ class TYPO3H5P implements SingletonInterface
             'embed' => '0',
             'copyright' => '0',
             'icon' => '1',
-            'h5p_version' => '1.0.0',
+            'h5p_version' => '1.28.0',
         ],
     ];
 
@@ -104,8 +105,12 @@ class TYPO3H5P implements SingletonInterface
 
     public function getH5PInstance(string $type = 'interface'): H5PContentValidator|H5PValidator|H5PExport|H5peditor|H5PCore|H5PFramework|H5PStorage|null
     {
-        $settings = $this->getSettings();
         $interface = GeneralUtility::makeInstance(H5PFramework::class);
+        if ($type === 'interface') {
+            return $interface;
+        }
+
+        $settings = $this->getSettings();
         if ($this->core === null) {
             $this->core = new H5PCore(
                 $interface,
@@ -123,7 +128,6 @@ class TYPO3H5P implements SingletonInterface
             'storage' => new H5PStorage($interface, $this->core),
             'contentvalidator' => new H5PContentValidator($interface, $this->core),
             'export' => new H5PExport($interface, $this->core),
-            'interface' => $interface,
             'core' => $this->core,
             default => null,
         };
@@ -135,11 +139,15 @@ class TYPO3H5P implements SingletonInterface
             return self::$settings;
         }
 
-        self::$settings = $this->configurationManagerInterface->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'Lms3h5p',
-            'Pi1'
-        );
+        try {
+            self::$settings = $this->configurationManagerInterface->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+                'Lms3h5p',
+                'Pi1'
+            );
+        } catch (NoServerRequestGivenException) {
+            self::$settings = null;
+        }
 
         // Fallback to defaults when TypoScript is not available (CLI context)
         if (empty(self::$settings)) {

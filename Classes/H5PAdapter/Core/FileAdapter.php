@@ -58,8 +58,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  */
 class FileAdapter implements H5PFileStorage
 {
-    protected array $h5pSettings;
-    protected ConfigurationManagerInterface $configurationManager;
+    protected array $h5pSettings = [];
     protected PersistenceManager $persistenceManager;
     protected ContentRepository $contentRepository;
     protected CachedAssetRepository $cachedAssetRepository;
@@ -75,16 +74,9 @@ class FileAdapter implements H5PFileStorage
 
     public function __construct()
     {
-        $this->configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $this->contentRepository = GeneralUtility::makeInstance(ContentRepository::class);
         $this->cachedAssetRepository = GeneralUtility::makeInstance(CachedAssetRepository::class);
-        $this->h5pSettings = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'Lms3h5p',
-            'Pi1'
-        );
-
     }
 
     /**
