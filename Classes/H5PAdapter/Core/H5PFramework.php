@@ -987,8 +987,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
             $criteria['dependencyType'] = $type;
         }
 
-        $dependencies = $this->contentDependencyRepository->findByConditions($criteria, ['weight' => QueryInterface::ORDER_ASCENDING]);
-        /** @var ContentDependency $dependency */
+        $dependencies = $this->contentDependencyRepository->findBy($criteria, ['weight' => QueryInterface::ORDER_ASCENDING]);
         foreach ($dependencies as $dependency) {
             $dependencyArray[] = $dependency->toAssocArray();
         }

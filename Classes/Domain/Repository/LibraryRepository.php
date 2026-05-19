@@ -50,7 +50,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class LibraryRepository extends Repository
 {
-    public const LIBRARY_TABLE_NAME = 'tx_lms3h5p_domain_model_library';
+    public const string LIBRARY_TABLE_NAME = 'tx_lms3h5p_domain_model_library';
 
     /**
      * @var array
@@ -184,12 +184,6 @@ class LibraryRepository extends Repository
         return $query->matching($query->logicalAnd(...$conditions))->execute();
     }
 
-    /**
-     * Remove by library id
-     *
-     * @param int $id
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     */
     public function removeById(int $id): void
     {
         $library = $this->findByUid($id);
