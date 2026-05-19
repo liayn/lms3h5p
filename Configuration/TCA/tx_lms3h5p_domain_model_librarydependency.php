@@ -7,7 +7,8 @@ return [
         'label_alt' => 'uid_foreign, dependency_type',
         'label_alt_force' => true,
         'sortby' => 'sorting',
-        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg',
+        'hideTable' => 1,
+        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/Extension.svg',
     ],
     'types' => [
         '1' => [

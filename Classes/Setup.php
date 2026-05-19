@@ -30,8 +30,9 @@ namespace LMS3\Lms3h5p;
  * ************************************************************* */
 
 use LMS3\Lms3h5p\H5PAdapter\Core\FileAdapter;
+use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Setup
@@ -48,13 +49,10 @@ class Setup
 {
     private array $ts;
 
-    public function __construct(private readonly ConfigurationManagerInterface $configurationManager)
+    public function __construct()
     {
-        $this->ts = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'Lms3h5p',
-            'Pi1'
-        );
+        $typo3h5p = GeneralUtility::makeInstance(TYPO3H5P::class);
+        $this->ts = $typo3h5p->getSettings();
     }
 
     /**
@@ -62,14 +60,13 @@ class Setup
      */
     public function copyResourcesFromH5PLibraries(): void
     {
-        if (empty($this->ts)) {
-            return;
-        }
-
         $h5pLibraryPath = Environment::getProjectPath() . $this->ts['libraryPath'];
 
         if (!is_dir($h5pLibraryPath)) {
-            return;
+            throw new \RuntimeException(
+                'H5P library source path does not exist: ' . $h5pLibraryPath,
+                1650000001
+            );
         }
 
         $coreSubfolders = ['fonts', 'images', 'js', 'styles'];

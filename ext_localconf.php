@@ -1,10 +1,10 @@
 <?php
 
+defined('TYPO3') or die();
+
 /* * *************************************************************
  *
  *  Copyright notice
- *
- *  (c) 2019 LEARNTUBE! GmbH - Contact: mail@learntube.de
  *
  *  All rights reserved
  *
@@ -49,7 +49,7 @@ ExtensionUtility::configurePlugin(
     [
         ContentEmbedController::class => 'index',
     ],
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1539019571] = [

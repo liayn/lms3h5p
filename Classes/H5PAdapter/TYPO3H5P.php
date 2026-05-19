@@ -58,7 +58,46 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  */
 class TYPO3H5P implements SingletonInterface
 {
+    /**
+     * Default settings used as fallback when TypoScript is not available (e.g. CLI context)
+     */
+    private const array DEFAULT_SETTINGS = [
+        'h5pPublicFolder' => [
+            'url' => '/fileadmin/h5p/',
+            'path' => '/fileadmin/h5p/',
+        ],
+        'subFolders' => [
+            'content' => 'content',
+            'libraries' => 'libraries',
+            'core' => 'h5p-core',
+            'editor' => 'h5p-editor',
+            'editorTempfiles' => 'editor-temp',
+            'temp' => 'temp',
+            'exports' => 'exports',
+            'cachedAssets' => 'cached-assets',
+        ],
+        'libraryPath' => '/vendor/h5p/',
+        'aggregateAssets' => '1',
+        'enableExport' => '1',
+        'config' => [
+            'send_usage_statistics' => '0',
+            'track_user' => '1',
+            'save_content_state' => '1',
+            'save_content_frequency' => '10',
+            'hub_is_enabled' => '1',
+            'enable_lrs_content_types' => '0',
+            'frame' => '0',
+            'export' => '0',
+            'embed' => '0',
+            'copyright' => '0',
+            'icon' => '1',
+            'h5p_version' => '1.0.0',
+        ],
+    ];
+
+    protected static ?array $settings = null;
     protected ?H5PCore $core = null;
+
     public function __construct(
         private readonly ConfigurationManagerInterface $configurationManagerInterface
     ) {}
@@ -92,12 +131,22 @@ class TYPO3H5P implements SingletonInterface
 
     public function getSettings(): array
     {
-        $configurationManager = $this->configurationManagerInterface;
-        return $configurationManager->getConfiguration(
+        if (!empty(self::$settings)) {
+            return self::$settings;
+        }
+
+        self::$settings = $this->configurationManagerInterface->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'Lms3h5p',
             'Pi1'
         );
+
+        // Fallback to defaults when TypoScript is not available (CLI context)
+        if (empty(self::$settings)) {
+            self::$settings = self::DEFAULT_SETTINGS;
+        }
+
+        return self::$settings;
     }
 
     protected function getLanguage(): string
@@ -116,9 +165,6 @@ class TYPO3H5P implements SingletonInterface
         return $language;
     }
 
-    /**
-     * @return ServerRequestInterface
-     */
     private function getRequest(): ServerRequestInterface
     {
         return $GLOBALS['TYPO3_REQUEST'];

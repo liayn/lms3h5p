@@ -9,6 +9,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * H5P Copy Resources Command
@@ -31,9 +32,7 @@ class H5pCopyResourcesCommand extends Command
 
     protected function configure(): void
     {
-        $info = 'Run this command to copy required resources from h5p vendor packages.';
-
-        $this->setDescription($info);
+        $this->setDescription('Copy required H5P core and editor resources from vendor packages to fileadmin.');
     }
 
     /**
@@ -41,9 +40,14 @@ class H5pCopyResourcesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $io = new SymfonyStyle($input, $output);
+
         try {
+            $io->info('Copying H5P core and editor resources...');
             $this->setup->copyResourcesFromH5PLibraries();
-        } catch (\Exception) {
+            $io->success('H5P resources have been copied successfully.');
+        } catch (\Exception $e) {
+            $io->error('Failed to copy H5P resources: ' . $e->getMessage());
             return Command::FAILURE;
         }
 

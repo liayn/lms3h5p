@@ -6,10 +6,11 @@ return [
         'label' => 'library',
         'label_alt' => 'dependency_type',
         'label_alt_force' => true,
+        'hideTable' => 1,
         'security' => [
             'ignorePageTypeRestriction' => true,
         ],
-        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg',
+        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/Extension.svg',
     ],
     'types' => [
         '1' => [

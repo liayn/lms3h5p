@@ -32,8 +32,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use H5PCore;
 use H5PFrameworkInterface;
-use H5PPermission;
-use LMS3\Lms3h5p\Domain\Model\CachedAsset;
 use LMS3\Lms3h5p\Domain\Model\Content;
 use LMS3\Lms3h5p\Domain\Model\ContentDependency;
 use LMS3\Lms3h5p\Domain\Model\ContentTypeCacheEntry;
@@ -1334,8 +1332,14 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
         return false;
     }
 
+    /**
+     * Reset hub organization data.
+     * Clears cached hub registration data so the site can re-register
+     * with the new hub endpoint.
+     */
     public function resetHubOrganizationData(): void
     {
-        // TODO: Implement resetHubOrganizationData() method.
+        $this->setOption('hub_secret', null);
+        $this->setOption('site_uuid', null);
     }
 }

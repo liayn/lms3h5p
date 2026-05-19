@@ -102,7 +102,7 @@ class ContentEmbedController extends ActionController
         $query = $queryBuilder->select('pi_flexform')
             ->from('tt_content')
             ->where(
-                $queryBuilder->expr()->eq('ctype', $queryBuilder->createNamedParameter(self::CONTENT_TYPE)),
+                $queryBuilder->expr()->eq('cType', $queryBuilder->createNamedParameter(self::CONTENT_TYPE)),
                 $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($this->request->getAttribute('frontend.page.information')->getId())),
                 $queryBuilder->expr()->in('sys_language_uid', $queryBuilder->createNamedParameter([0, $languageId], ArrayParameterType::INTEGER)),
             )

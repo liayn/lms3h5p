@@ -6,7 +6,8 @@ return [
         'label' => 'library',
         'label_alt' => 'language_code',
         'label_alt_force' => true,
-        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg',
+        'hideTable' => 1,
+        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/Extension.svg',
     ],
     'types' => [
         '1' => [

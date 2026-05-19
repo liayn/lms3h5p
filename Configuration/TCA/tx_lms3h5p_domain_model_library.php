@@ -4,9 +4,10 @@ return [
     'ctrl' => [
         'title' => 'LMS3 H5P Library',
         'label' => 'title',
-        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/h5p.svg',
-        'default_sortby' => 'uid',
+        'hideTable' => 1,
+        'iconfile' => 'EXT:lms3h5p/Resources/Public/Icons/Extension.svg',
         'rootLevel' => -1,
+        'default_sortby' => 'uid',
     ],
     'types' => [
         '1' => [

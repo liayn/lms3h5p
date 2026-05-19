@@ -1,10 +1,10 @@
 <?php
 
+defined('TYPO3') or die();
+
 /* * *************************************************************
  *
  *  Copyright notice
- *
- *  (c) 2019 LEARNTUBE! GmbH - Contact: mail@learntube.de
  *
  *  All rights reserved
  *
@@ -28,15 +28,26 @@
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-ExtensionUtility::registerPlugin(
+// Register Plugin
+$contentTypeName = ExtensionUtility::registerPlugin(
     'Lms3h5p',
     'Pi1',
-    'LLL:EXT:lms3h5p/Resources/Private/Language/locallang.xlf:tx_lms3h5p_domain_model_pi1'
+    'LLL:EXT:lms3h5p/Resources/Private/Language/locallang_db.xlf:tx_lms3h5p_domain_model_pi1.name',
+    'tx-lms3h5p-svgicon',
+    'LMS3',
+    'LLL:EXT:lms3h5p/Resources/Private/Language/locallang_db.xlf:tx_lms3h5p_domain_model_pi1.description',
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tt_content', '--div--;Configuration,pi_flexform,', 'lms3h5p_pi1', 'after:subheader');
+// Register Flexform
 ExtensionManagementUtility::addPiFlexFormValue(
     '*',
     'FILE:EXT:lms3h5p/Configuration/FlexForms/FlexFormPi1.xml',
-    'lms3h5p_pi1'
+    $contentTypeName
+);
+
+ExtensionManagementUtility::addToAllTCAtypes(
+    'tt_content',
+    '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:plugin, pi_flexform',
+    $contentTypeName,
+    'after:palette:headers'
 );
