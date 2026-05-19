@@ -27,6 +27,8 @@ namespace LMS3\Lms3h5p\H5PAdapter\Editor;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use H5PCore;
+use H5peditorStorage;
 use LMS3\Lms3h5p\Domain\Model\Library;
 use LMS3\Lms3h5p\Domain\Model\LibraryTranslation;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
@@ -46,7 +48,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
  */
-class EditorFileAdapter implements \H5peditorStorage
+class EditorFileAdapter implements H5peditorStorage
 {
     protected LibraryRepository $libraryRepository;
     protected LibraryTranslationRepository $libraryTranslationRepository;
@@ -195,7 +197,7 @@ class EditorFileAdapter implements \H5peditorStorage
      * @param string $data Uri of data that should be saved as a temporary file
      * @param bool $move_file Can be set to TRUE to move the data instead of saving it
      *
-     * @return bool|object Returns false if saving failed or the path to the file
+     * @return object Returns false if saving failed or the path to the file
      *  if saving succeeded
      */
     public static function saveFileTemporarily($data, $move_file)
@@ -238,11 +240,9 @@ class EditorFileAdapter implements \H5peditorStorage
     public static function removeTemporarilySavedFiles($filePath): void
     {
         if (is_dir($filePath)) {
-            \H5PCore::deleteFileTree($filePath);
-        } else {
-            if (file_exists($filePath)) {
-                unlink($filePath);
-            }
+            H5PCore::deleteFileTree($filePath);
+        } elseif (file_exists($filePath)) {
+            unlink($filePath);
         }
     }
 

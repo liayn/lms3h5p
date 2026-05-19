@@ -27,6 +27,7 @@ namespace LMS3\Lms3h5p\H5PAdapter\Editor;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use H5PEditorAjaxInterface;
 use LMS3\Lms3h5p\Domain\Repository\ContentTypeCacheEntryRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryTranslationRepository;
@@ -43,7 +44,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
  */
-class EditorAjax implements \H5PEditorAjaxInterface
+class EditorAjax implements H5PEditorAjaxInterface
 {
     protected LibraryRepository $libraryRepository;
     protected LibraryTranslationRepository $libraryTranslationRepository;
@@ -92,9 +93,10 @@ class EditorAjax implements \H5PEditorAjaxInterface
      * @return array machine names. The first element in the array is the
      * most recently used.
      */
-    public function getAuthorsRecentlyUsedLibraries(): void
+    public function getAuthorsRecentlyUsedLibraries(): array
     {
         // TODO: Implement getAuthorsRecentlyUsedLibraries() method.
+        return [];
     }
 
     /**

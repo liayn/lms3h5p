@@ -27,8 +27,12 @@ namespace LMS3\Lms3h5p\H5PAdapter\Core;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use H5PCore;
+use H5PFrameworkInterface;
+use H5PPermission;
 use LMS3\Lms3h5p\Domain\Model\CachedAsset;
 use LMS3\Lms3h5p\Domain\Model\Content;
 use LMS3\Lms3h5p\Domain\Model\ContentDependency;
@@ -70,9 +74,9 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
  */
-class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
+class H5PFramework implements H5PFrameworkInterface, SingletonInterface
 {
-    public const PLATFORM_NAME = 'TYPO3 CMS';
+    public const string PLATFORM_NAME = 'TYPO3 CMS';
 
     protected PackageManager $packageManager;
     protected SettingRepository $settingRepository;
@@ -133,7 +137,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
         );
     }
 
-    protected function getInjectedH5PCore(): \H5PCore
+    protected function getInjectedH5PCore(): H5PCore
     {
         return GeneralUtility::makeInstance(TYPO3H5P::class)->getH5PInstance('core');
     }
@@ -352,9 +356,10 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @return string
      *   URL to admin page
      */
-    public function getAdminUrl(): void
+    public function getAdminUrl(): string
     {
         // TODO: Implement getAdminUrl() method.
+        return '';
     }
 
     /**
@@ -452,9 +457,10 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *  TRUE if H5P development mode is active
      *  FALSE otherwise
      */
-    public function isInDevMode(): void
+    public function isInDevMode(): bool
     {
         // TODO: Implement isInDevMode() method.
+        return false;
     }
 
     /**
@@ -541,7 +547,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
     /**
      * Insert new content.
      *
-     * @param array $contentData
+     * @param array $content
      *   An associative array containing:
      *   - id: The content id
      *   - params: The content in json format
@@ -552,25 +558,25 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @return int
      * @throws IllegalObjectTypeException
      */
-    public function insertContent($contentData, $contentMainId = null)
+    public function insertContent($content, $contentMainId = null)
     {
         /** @var Library $library */
-        $library = $this->libraryRepository->findByUid($contentData['library']['libraryId']);
+        $library = $this->libraryRepository->findByUid($content['library']['libraryId']);
         $account = $GLOBALS['BE_USER']->user['uid'];
-        $content = Content::createFromMetadata($contentData, $library, $account);
+        $contentObject = Content::createFromMetadata($content, $library, $account);
 
         // Persist and re-read the entity to generate the content ID in the DB and fill the field
-        $this->contentRepository->add($content);
+        $this->contentRepository->add($contentObject);
         $this->persistenceManager->persistAll();
         $this->persistenceManager->clearState();
 
-        return $content->getUid();
+        return $contentObject->getUid();
     }
 
     /**
      * Update old content.
      *
-     * @param array $contentData
+     * @param array $content
      *   An associative array containing:
      *   - id: The content id
      *   - params: The content in json format
@@ -581,23 +587,21 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
-    public function updateContent($contentData, $contentMainId = null): void
+    public function updateContent($content, $contentMainId = null): void
     {
-        /** @var Content $content */
-        $content = $this->contentRepository->findByUid($contentData['id']);
-        if ($content === null) {
+        $contentObject = $this->contentRepository->findByUid($content['id']);
+        if ($contentObject === null) {
             return;
         }
 
-        /** @var Library $library */
-        $library = $this->libraryRepository->findByUid($contentData['library']['libraryId']);
+        $library = $this->libraryRepository->findByUid($content['library']['libraryId']);
         if ($library === null) {
             return;
         }
 
-        $content->updateFromMetadata($contentData, $library);
+        $contentObject->updateFromMetadata($content, $library);
 
-        $this->contentRepository->update($content);
+        $this->contentRepository->update($contentObject);
     }
 
     /**
@@ -784,9 +788,13 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *   - content: Number of content using the library
      *   - libraries: Number of libraries depending on the library
      */
-    public function getLibraryUsage($libraryId, $skipContent = false): void
+    public function getLibraryUsage($libraryId, $skipContent = false): array
     {
         // TODO: Implement getLibraryUsage() method.
+        return [
+            'content' => 0,
+            'libraries' => 0,
+        ];
     }
 
     /**
@@ -851,10 +859,10 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @return string
      *   The library's semantics as json
      */
-    public function loadLibrarySemantics($machineName, $majorVersion, $minorVersion): ?string
+    public function loadLibrarySemantics($machineName, $majorVersion, $minorVersion): string
     {
         $library = $this->libraryRepository->findOneByNameMajorVersionAndMinorVersion($machineName, $majorVersion, $minorVersion);
-        return $library?->getSemantics();
+        return (string)$library?->getSemantics();
     }
 
     /**
@@ -945,9 +953,10 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *   - libraryEmbedTypes: CSV of the main library's embed types
      *   - libraryFullscreen: 1 if fullscreen is supported. 0 otherwise.
      */
-    public function loadContent($id): void
+    public function loadContent($id): array
     {
         // TODO: Implement loadContent() method.
+        return [];
     }
 
     /**
@@ -1087,13 +1096,11 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
     public function clearFilteredParameters($library_ids): void
     {
         foreach ((array)$library_ids as $id) {
-            /** @var Library $library */
             $library = $this->libraryRepository->findByUid($id);
             if ($library === null) {
-                throw new \Exception('Library with ID ' . $id . ' could not be found!', 7183067522);
+                throw new Exception('Library with ID ' . $id . ' could not be found!', 7183067522);
             }
             $contentsOfThisLibrary = $this->contentRepository->findByLibrary($library);
-            /** @var Content $content */
             foreach ($contentsOfThisLibrary as $content) {
                 $content->setFiltered('');
                 $this->contentRepository->update($content);
@@ -1107,9 +1114,10 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *
      * @return int
      */
-    public function getNumNotFiltered(): void
+    public function getNumNotFiltered(): int
     {
         // TODO: Implement getNumNotFiltered() method.
+        return 0;
     }
 
     /**
@@ -1118,7 +1126,6 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @param int $libraryId
      * @param array $skip
      * @return int
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function getNumContent($libraryId, $skip = null)
     {
@@ -1181,7 +1188,7 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
          * This is called after FileAdapter->cacheAssets and makes the assignment of
          * CachedAsset and Library.
          * @see FileAdapter::cacheAssets()
-         * @see \H5PCore::getDependenciesFiles()
+         * @see H5PCore::getDependenciesFiles()
          */
         $cachedAssets = $this->cachedAssetRepository->findByHashKey($key);
 
@@ -1249,8 +1256,8 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * Check if user has permissions to an action
      *
      * @method hasPermission
-     * @param $permission Permission type, ref H5PPermission
-     * @param $id  Id need by platform to determine permission
+     * @param H5PPermission $permission Permission type, ref H5PPermission
+     * @param ?int $id Id need by platform to determine permission
      * @return bool
      */
     public function hasPermission($permission, $id = null)
@@ -1295,9 +1302,10 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      * @param array $libraries
      * @return array
      */
-    public function getLibraryConfig($libraries = null): void
+    public function getLibraryConfig($libraries = null): array
     {
         // TODO: Implement getLibraryConfig() method.
+        return [];
     }
 
     /**
@@ -1305,7 +1313,6 @@ class H5PFramework implements \H5PFrameworkInterface, SingletonInterface
      *
      * @param array $library
      * @return bool
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function libraryHasUpgrade($library)
     {

@@ -27,6 +27,10 @@ namespace LMS3\Lms3h5p\H5PAdapter\Core;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use Exception;
+use H5PCore;
+use H5peditorFile;
+use H5PFileStorage;
 use LMS3\Lms3h5p\Domain\Model\CachedAsset;
 use LMS3\Lms3h5p\Domain\Model\Content;
 use LMS3\Lms3h5p\Domain\Model\EditorTempFile;
@@ -52,7 +56,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
  */
-class FileAdapter implements \H5PFileStorage
+class FileAdapter implements H5PFileStorage
 {
     protected array $h5pSettings;
     protected ConfigurationManagerInterface $configurationManager;
@@ -88,14 +92,14 @@ class FileAdapter implements \H5PFileStorage
      *
      * @param array $library
      *  Library properties
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveLibrary($library): void
     {
-        $dest = $this->getFolderPath('libraries') . \H5PCore::libraryToFolderName($library);
+        $dest = $this->getFolderPath('libraries') . H5PCore::libraryToFolderName($library);
 
         // Make sure destination dir doesn't exist
-        \H5PCore::deleteFileTree($dest);
+        H5PCore::deleteFileTree($dest);
 
         // Move library folder
         self::copyFileTree($library['uploadDirectory'], $dest);
@@ -108,14 +112,14 @@ class FileAdapter implements \H5PFileStorage
      *  Path on file system to content directory.
      * @param array $content
      *  Content properties
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveContent($source, $content): void
     {
         $dest = $this->getFolderPath('content') . $content['id'];
 
         // Remove any old content
-        \H5PCore::deleteFileTree($dest);
+        H5PCore::deleteFileTree($dest);
 
         self::copyFileTree($source, $dest);
     }
@@ -128,7 +132,7 @@ class FileAdapter implements \H5PFileStorage
      */
     public function deleteContent($content): void
     {
-        \H5PCore::deleteFileTree($this->getFolderPath('content') . $content['id']);
+        H5PCore::deleteFileTree($this->getFolderPath('content') . $content['id']);
     }
 
     /**
@@ -138,7 +142,7 @@ class FileAdapter implements \H5PFileStorage
      *  Identifier of content to clone.
      * @param int $newId
      *  The cloned content's identifier
-     * @throws \Exception
+     * @throws Exception
      */
     public function cloneContent($id, $newId): void
     {
@@ -170,7 +174,7 @@ class FileAdapter implements \H5PFileStorage
      *  Content identifier
      * @param string $target
      *  Where the content folder will be saved
-     * @throws \Exception
+     * @throws Exception
      */
     public function exportContent($id, $target): void
     {
@@ -191,11 +195,11 @@ class FileAdapter implements \H5PFileStorage
      *  Library properties
      * @param string $target
      *  Where the library folder will be saved
-     * @throws \Exception
+     * @throws Exception
      */
     public function exportLibrary($library, $target): void
     {
-        $folder = \H5PCore::libraryToFolderName($library);
+        $folder = H5PCore::libraryToFolderName($library);
         $srcPath = $this->getFolderPath('libraries') . $folder;
         $destination = $target . DIRECTORY_SEPARATOR . $folder;
 
@@ -217,11 +221,11 @@ class FileAdapter implements \H5PFileStorage
         $this->deleteExport($filename);
         $exportDir = $this->getFolderPath('exports');
         if (!self::dirReady($exportDir)) {
-            throw new \Exception('Unable to create directory for H5P export file.', 4393869282);
+            throw new Exception('Unable to create directory for H5P export file.', 4393869282);
         }
 
         if (!copy($source, $exportDir . $filename)) {
-            throw new \Exception('Unable to save H5P export file.', 3982974687);
+            throw new Exception('Unable to save H5P export file.', 3982974687);
         }
 
         // Get the content from the filename again
@@ -384,8 +388,8 @@ class FileAdapter implements \H5PFileStorage
         /**
          * This might cause issues if files are not put locally, because the path is generated inside H5P
          * and cannot be modified.
-         * @see \H5PCore::getDependenciesFiles()
-         * @see \H5PCore::getDependencyAssets()
+         * @see H5PCore::getDependenciesFiles()
+         * @see H5PCore::getDependencyAssets()
          */
         return file_get_contents($file_path);
     }
@@ -394,9 +398,9 @@ class FileAdapter implements \H5PFileStorage
      * Save files uploaded through the editor.
      * The files must be marked as temporary until the content form is saved.
      *
-     * @param \H5peditorFile $file
+     * @param H5peditorFile $file
      * @param int $contentId
-     * @return \H5peditorFile
+     * @return H5peditorFile
      */
     public function saveFile($file, $contentId)
     {
@@ -471,7 +475,7 @@ class FileAdapter implements \H5PFileStorage
      * @param string $contentId Id of content
      *
      * @return void|object Object containing h5p json and content json data
-     * @throws \Exception
+     * @throws Exception
      */
     public function moveContentDirectory($source, $contentId = null)
     {
@@ -554,12 +558,12 @@ class FileAdapter implements \H5PFileStorage
      *
      * @param string $source From path
      * @param string $destination To path
-     * @throws \Exception
+     * @throws Exception
      */
     public static function copyFileTree($source, $destination): void
     {
         if (!self::dirReady($destination)) {
-            throw new \Exception('unabletocopy', 3643151353);
+            throw new Exception('unabletocopy', 3643151353);
         }
 
         $ignoredFiles = self::getIgnoredFiles("{$source}/.h5pignore");
@@ -568,7 +572,7 @@ class FileAdapter implements \H5PFileStorage
         if ($dir === false) {
             trigger_error('Unable to open directory ' . $source, E_USER_WARNING);
 
-            throw new \Exception('unabletocopy', 8344758862);
+            throw new Exception('unabletocopy', 8344758862);
         }
 
         while (false !== ($file = readdir($dir))) {
@@ -687,13 +691,13 @@ class FileAdapter implements \H5PFileStorage
     /**
      * Check if the library has a presave.js in the root folder
      *
-     * @param string $libraryName
+     * @param string $libraryFolder
      * @param string $developmentPath
      * @return bool
      */
-    public function hasPresave($libraryName, $developmentPath = null)
+    public function hasPresave($libraryFolder, $developmentPath = null)
     {
-        $srcPath = $this->getFolderPath('libraries') . $libraryName;
+        $srcPath = $this->getFolderPath('libraries') . $libraryFolder;
         $filePath = realpath($srcPath . DIRECTORY_SEPARATOR . 'presave.js');
         return file_exists($filePath);
     }

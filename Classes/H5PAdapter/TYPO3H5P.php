@@ -60,14 +60,16 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 class TYPO3H5P implements SingletonInterface
 {
     protected ?H5PCore $core = null;
-    public function __construct(private readonly \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManagerInterface) {}
+    public function __construct(
+        private readonly ConfigurationManagerInterface $configurationManagerInterface
+    ) {}
 
     public function getH5PInstance(string $type = 'interface'): H5PContentValidator|H5PValidator|H5PExport|H5peditor|H5PCore|H5PFramework|H5PStorage|null
     {
         $settings = $this->getSettings();
         $interface = GeneralUtility::makeInstance(H5PFramework::class);
         if ($this->core === null) {
-            $this->core = new \H5PCore(
+            $this->core = new H5PCore(
                 $interface,
                 GeneralUtility::makeInstance(FileAdapter::class),
                 rtrim((string)$settings['h5pPublicFolder']['url'], '/'),
@@ -78,11 +80,11 @@ class TYPO3H5P implements SingletonInterface
         }
 
         return match ($type) {
-            'validator' => new \H5PValidator($interface, $this->core),
-            'editor' => new \H5peditor($this->core, GeneralUtility::makeInstance(EditorFileAdapter::class), GeneralUtility::makeInstance(EditorAjax::class)),
-            'storage' => new \H5PStorage($interface, $this->core),
-            'contentvalidator' => new \H5PContentValidator($interface, $this->core),
-            'export' => new \H5PExport($interface, $this->core),
+            'validator' => new H5PValidator($interface, $this->core),
+            'editor' => new H5peditor($this->core, GeneralUtility::makeInstance(EditorFileAdapter::class), GeneralUtility::makeInstance(EditorAjax::class)),
+            'storage' => new H5PStorage($interface, $this->core),
+            'contentvalidator' => new H5PContentValidator($interface, $this->core),
+            'export' => new H5PExport($interface, $this->core),
             'interface' => $interface,
             'core' => $this->core,
         };
