@@ -47,36 +47,22 @@ class Setting extends AbstractEntity
     protected string $configKey;
     protected string $configValue;
 
-    /**
-     * @return string
-     */
     public function getConfigKey(): string
     {
         return $this->configKey;
     }
 
-    /**
-     * @param string $configKey
-     * @return Setting
-     */
     public function setConfigKey(string $configKey): self
     {
         $this->configKey = $configKey;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getConfigValue(): string
     {
         return $this->configValue;
     }
 
-    /**
-     * @param string $configValue
-     * @return Setting
-     */
     public function setConfigValue(string $configValue): self
     {
         $this->configValue = $configValue;

@@ -21,7 +21,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
  */
-
 #[AsCommand('h5p:copyresources')]
 class H5pCopyResourcesCommand extends Command
 {

@@ -44,115 +44,61 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class ContentDependency extends AbstractEntity
 {
-    /**
-     * @var Content
-     */
-    protected $content;
+    protected Content $content;
+    protected Library $library;
+    protected string $dependencyType;
+    protected int $weight;
+    protected bool $dropCss;
 
-    /**
-     * @var Library
-     */
-    protected $library;
-
-    /**
-     * @var string
-     */
-    protected $dependencyType;
-
-    /**
-     * @var int
-     */
-    protected $weight;
-
-    /**
-     * @var bool
-     */
-    protected $dropCss;
-
-    /**
-     * @return Content
-     */
     public function getContent(): Content
     {
         return $this->content;
     }
 
-    /**
-     * @param Content $content
-     * @return ContentDependency
-     */
     public function setContent(Content $content): ContentDependency
     {
         $this->content = $content;
         return $this;
     }
 
-    /**
-     * @return Library
-     */
     public function getLibrary(): Library
     {
         return $this->library;
     }
 
-    /**
-     * @param Library $library
-     * @return ContentDependency
-     */
     public function setLibrary(Library $library): ContentDependency
     {
         $this->library = $library;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getDependencyType(): string
     {
         return $this->dependencyType;
     }
 
-    /**
-     * @param string $dependencyType
-     * @return ContentDependency
-     */
     public function setDependencyType(string $dependencyType): ContentDependency
     {
         $this->dependencyType = $dependencyType;
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getWeight(): int
     {
         return $this->weight;
     }
 
-    /**
-     * @param int $weight
-     * @return ContentDependency
-     */
     public function setWeight(int $weight): ContentDependency
     {
         $this->weight = $weight;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isDropCss(): bool
     {
         return $this->dropCss;
     }
 
-    /**
-     * @param bool $dropCss
-     * @return ContentDependency
-     */
     public function setDropCss(bool $dropCss): ContentDependency
     {
         $this->dropCss = $dropCss;

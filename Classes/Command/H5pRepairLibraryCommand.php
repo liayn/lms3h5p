@@ -29,7 +29,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
  */
-
 #[AsCommand('h5p:repairLibrary')]
 class H5pRepairLibraryCommand extends Command
 {

@@ -44,69 +44,37 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class CachedAsset extends AbstractEntity
 {
-    /**
-     * @var Library
-     */
     protected Library $library;
-
-    /**
-     * @var string
-     */
     protected string $hashKey;
-
-    /**
-     * @var string
-     */
     protected string $type;
 
-    /**
-     * @return Library
-     */
     public function getLibrary(): Library
     {
         return $this->library;
     }
 
-    /**
-     * @param Library $library
-     * @return CachedAsset
-     */
     public function setLibrary(Library $library): self
     {
         $this->library = $library;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getHashKey(): string
     {
         return $this->hashKey;
     }
 
-    /**
-     * @param string $hashKey
-     * @return CachedAsset
-     */
     public function setHashKey(string $hashKey): self
     {
         $this->hashKey = $hashKey;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     * @return CachedAsset
-     */
     public function setType(string $type): self
     {
         $this->type = $type;
