@@ -175,7 +175,7 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
      *
      * @return string|array The content (response body), or an array with data. NULL if something went wrong
      */
-    public function fetchExternalData($url, $data = null, $blocking = true, $stream = null, $fullData = false, $headers = [], $files = [], $method = 'POST'): string|array
+    public function fetchExternalData($url, $data = null, $blocking = true, $stream = null, $fullData = false, $headers = [], $files = [], $method = 'POST')
     {
         $client = new Client();
         $options = [
@@ -193,13 +193,13 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
                 ];
             }
             if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
-                return $response->getBody()->getSize() ? $response->getBody()->getContents() : true;
+                return $response->getBody()->getSize() ? $response->getBody()->getContents() : '';
             }
         } catch (GuzzleException $e) {
             $this->setErrorMessage($e->getMessage(), 'failed-fetching-external-data');
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -242,12 +242,12 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
      * Return messages
      *
      * @param string $type 'info' or 'error'
-     * @return array|null
+     * @return string[]
      */
-    public function getMessages($type): ?array
+    public function getMessages($type): array
     {
         if (empty($this->messages[$type])) {
-            return null;
+            return [];
         }
         $messages = $this->messages[$type];
         $this->messages[$type] = [];
@@ -372,7 +372,7 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
      *   Optional major version number for library
      * @param int $minorVersion
      *   Optional minor version number for library
-     * @return int
+     * @return int|false
      *   The id of the specified library or FALSE
      */
     public function getLibraryId($machineName, $majorVersion = null, $minorVersion = null)
@@ -395,7 +395,6 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
         );
 
         if (count($libraries) > 0) {
-            /** @var Library $library */
             $library = $libraries[0];
             return $library->getUid();
         }
@@ -526,7 +525,7 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
         }
 
         // Update languages
-        $translations = $this->libraryTranslationRepository->findByLibrary($library);
+        $translations = $this->libraryTranslationRepository->findBy(['library' => $library]);
         /** @var LibraryTranslation $translation */
         foreach ($translations as $translation) {
             $this->libraryTranslationRepository->remove($translation);
@@ -718,12 +717,11 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
      */
     public function deleteLibraryUsage($contentId): void
     {
-        /** @var Content $content */
         $content = $this->contentRepository->findByUid($contentId);
         if ($content === null) {
             return;
         }
-        $contentDependencies = $this->contentDependencyRepository->findByContent($content->getUid());
+        $contentDependencies = $this->contentDependencyRepository->findBy(['content' => $content->getUid()]);
         foreach ($contentDependencies as $contentDependency) {
             $this->contentDependencyRepository->remove($contentDependency);
         }
@@ -768,7 +766,7 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
             $contentDependency->setContent($content);
             $contentDependency->setLibrary($this->libraryRepository->findByUid($dependencyData['library']['libraryId']));
             $contentDependency->setDependencyType($dependencyData['type']);
-            $contentDependency->setDropCss(in_array($dependencyData['library']['machineName'], $dropLibraryCssList));
+            $contentDependency->setDropCss(in_array($dependencyData['library']['machineName'], $dropLibraryCssList, true));
             $contentDependency->setWeight($dependencyData['weight']);
             $this->contentDependencyRepository->add($contentDependency);
         }
@@ -895,8 +893,7 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
         if ($library === null) {
             return;
         }
-        $dependencies = $this->libraryDependencyRepository->findByUidLocal($library);
-        /** @var LibraryDependency $dependency */
+        $dependencies = $this->libraryDependencyRepository->findBy(['uid_local' => $library]);
         foreach ($dependencies as $dependency) {
             $this->libraryDependencyRepository->remove($dependency);
         }
@@ -964,7 +961,7 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
      *
      * @param int $id
      *   Content identifier
-     * @param int $type
+     * @param string|null $type
      *   Dependency types. Allowed values:
      *   - editor
      *   - preloaded
@@ -1016,10 +1013,9 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
      */
     public function getOption($name, $default = null)
     {
-        /** @var Setting $configSetting */
-        $configSetting = $this->settingRepository->findOneByConfigKey($name);
+        $configSetting = $this->settingRepository->findOneBy(['config_key' => $name]);
 
-        if ($configSetting != null) {
+        if ($configSetting !== null) {
             return $configSetting->getConfigValue();
         }
 
@@ -1039,11 +1035,9 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
      */
     public function setOption($name, $value): void
     {
-        /** @var Setting $configSetting */
-        $configSetting = $this->settingRepository->findOneByConfigKey($name);
-
+        $configSetting = $this->settingRepository->findOneBy(['config_key' => $name]);
         try {
-            if ($configSetting != null) {
+            if ($configSetting !== null) {
                 $configSetting->setConfigValue($value);
                 $this->settingRepository->update($configSetting);
             } else {
@@ -1100,7 +1094,7 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
             if ($library === null) {
                 throw new Exception('Library with ID ' . $id . ' could not be found!', 7183067522);
             }
-            $contentsOfThisLibrary = $this->contentRepository->findByLibrary($library);
+            $contentsOfThisLibrary = $this->contentRepository->findBy(['library' => $library]);
             foreach ($contentsOfThisLibrary as $content) {
                 $content->setFiltered('');
                 $this->contentRepository->update($content);
@@ -1131,7 +1125,7 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
     {
         $library = $this->libraryRepository->findByUid($libraryId);
         if ($skip === null) {
-            return $this->contentRepository->countByLibrary($library);
+            return $this->contentRepository->count(['library' => $library]);
         }
 
         return $this->contentRepository->countByLibraryAndSkipped($library, $skip);
@@ -1145,7 +1139,7 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
      */
     public function isContentSlugAvailable($slug)
     {
-        return $this->contentRepository->findOneBySlug($slug) === null;
+        return $this->contentRepository->findOneBy(['slug' => $slug]) === null;
     }
 
     /**
@@ -1190,9 +1184,8 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
          * @see FileAdapter::cacheAssets()
          * @see H5PCore::getDependenciesFiles()
          */
-        $cachedAssets = $this->cachedAssetRepository->findByHashKey($key);
+        $cachedAssets = $this->cachedAssetRepository->findBy(['hash_key' => $key]);
 
-        /** @var CachedAsset $cachedAsset */
         foreach ($cachedAssets as $cachedAsset) {
             foreach ($libraries as $libraryData) {
                 /** @var Library $library */
@@ -1226,7 +1219,7 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
             return $removedKeys;
         }
 
-        $cachedAssetsForLibrary = $this->cachedAssetRepository->findByLibrary($library);
+        $cachedAssetsForLibrary = $this->cachedAssetRepository->findBy(['library' => $library]);
         foreach ($cachedAssetsForLibrary as $cachedAsset) {
             $removedKeys[] = $this->persistenceManager->getIdentifierByObject($cachedAsset);
             $this->cachedAssetRepository->remove($cachedAsset);
@@ -1255,9 +1248,8 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
     /**
      * Check if user has permissions to an action
      *
-     * @method hasPermission
-     * @param H5PPermission $permission Permission type, ref H5PPermission
-     * @param ?int $id Id need by platform to determine permission
+     * @param mixed $permission Permission type, ref H5PPermission
+     * @param mixed $id Id need by platform to determine permission
      * @return bool
      */
     public function hasPermission($permission, $id = null)
@@ -1324,19 +1316,22 @@ class H5PFramework implements H5PFrameworkInterface, SingletonInterface
         // TODO: Implement replaceContentHubMetadataCache() method.
     }
 
-    public function getContentHubMetadataCache($lang = 'en'): void
+    public function getContentHubMetadataCache($lang = 'en'): \JsonSerializable
     {
         // TODO: Implement getContentHubMetadataCache() method.
+        return new \SplFixedArray();
     }
 
-    public function getContentHubMetadataChecked($lang = 'en'): void
+    public function getContentHubMetadataChecked($lang = 'en'): ?string
     {
         // TODO: Implement getContentHubMetadataChecked() method.
+        return null;
     }
 
-    public function setContentHubMetadataChecked($time, $lang = 'en'): void
+    public function setContentHubMetadataChecked($time, $lang = 'en'): bool
     {
         // TODO: Implement setContentHubMetadataChecked() method.
+        return false;
     }
 
     public function resetHubOrganizationData(): void

@@ -78,7 +78,7 @@ class EditorFileAdapter implements H5peditorStorage
         );
         $libraryTranslation = $this->libraryTranslationRepository->findOneByLibraryAndLanguage($library, $language);
         if (!$libraryTranslation) {
-            return null;
+            return '';
         }
 
         return $libraryTranslation->getTranslation();
@@ -266,8 +266,7 @@ class EditorFileAdapter implements H5peditorStorage
         }
 
         $languages = [];
-        $libraryTranslations = $this->libraryTranslationRepository->findByLibrary($library);
-        /** @var LibraryTranslation $translation */
+        $libraryTranslations = $this->libraryTranslationRepository->findBy(['library' => $library]);
         foreach ($libraryTranslations as $translation) {
             $languages[] = $translation->getLanguageCode();
         }

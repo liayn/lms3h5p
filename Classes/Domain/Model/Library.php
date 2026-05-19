@@ -328,7 +328,7 @@ class Library extends AbstractEntity
             ->setRunnable((bool)$libraryData['runnable'])
             ->setHasIcon((bool)$libraryData['hasIcon'])
             ->setMetaDataSettings($libraryData['metadataSettings'] ?? null)
-            ->setAddTo(isset($library['addTo']) ? json_encode($libraryData['addTo']) : null);
+            ->setAddTo(isset($libraryData['addTo']) ? json_encode($libraryData['addTo']) : null);
         if (isset($libraryData['semantics'])) {
             $this->setSemantics($libraryData['semantics']);
         }

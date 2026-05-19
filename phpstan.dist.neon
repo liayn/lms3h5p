@@ -2,12 +2,12 @@ includes:
 	- phpstan-baseline.neon
 
 parameters:
-	level: 1
+	level: 5
 	treatPhpDocTypesAsCertain: false
 	paths:
 		- Classes
 	ignoreErrors:
-	  - identifier: missingType.iterableValue
+	  - identifier: arrayFilter.strict
 	strictRules:
 		booleansInConditions: false
 		booleansInLoopConditions: false

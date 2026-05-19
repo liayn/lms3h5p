@@ -31,6 +31,7 @@ namespace LMS3\Lms3h5p\Domain\Repository;
 
 use LMS3\Lms3h5p\Domain\Model\Library;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -52,9 +53,6 @@ class LibraryRepository extends Repository
 {
     public const string LIBRARY_TABLE_NAME = 'tx_lms3h5p_domain_model_library';
 
-    /**
-     * @var array
-     */
     protected $defaultOrderings = [
         'name' => QueryInterface::ORDER_DESCENDING,
         'majorVersion' => QueryInterface::ORDER_DESCENDING,
@@ -68,7 +66,6 @@ class LibraryRepository extends Repository
      */
     public function findLatestLibraryVersions(): array
     {
-        $query = $this->createQuery();
         $tableName = self::LIBRARY_TABLE_NAME;
         $majorVersionSql = "SELECT lib1.name, MAX(lib1.major_version) AS major_version
             FROM  {$tableName} lib1
@@ -88,6 +85,8 @@ class LibraryRepository extends Repository
             AND lib3.major_version = lib4.major_version
             AND lib3.minor_version = lib4.minor_version";
 
+        /** @var Query<Library> $query */
+        $query = $this->createQuery();
         $query->statement($finalSql);
 
         return $query->execute(true);

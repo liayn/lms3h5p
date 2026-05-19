@@ -80,8 +80,8 @@ class EditorAjax implements H5PEditorAjaxInterface
      */
     public function getContentTypeCache($machineName = null)
     {
-        if ($machineName != null) {
-            return $this->contentTypeCacheEntryRepository->findOneByMachineName($machineName);
+        if ($machineName !== null) {
+            return $this->contentTypeCacheEntryRepository->findOneBy(['machine_name' => $machineName]);
         }
 
         return $this->contentTypeCacheEntryRepository->getContentTypeCacheObjects();
@@ -115,20 +115,20 @@ class EditorAjax implements H5PEditorAjaxInterface
     /**
      * Get translations for a language for a list of libraries
      *
-     * @param string[] $libraries An array of libraries, in the form "<machineName> <majorVersion>.<minorVersion>"
+     * @param array $libraries An array of libraries, in the form "<machineName> <majorVersion>.<minorVersion>"
      * @param string $language_code
-     * @return array<string,string>
+     * @return array
      */
     public function getTranslations($libraries, $language_code): array
     {
         $libraryTranslations = [];
         foreach ($libraries as $libraryName) {
             preg_match_all('/(.+)\s(\d+)\.(\d+)$/', $libraryName, $matches);
-            if ($matches && $matches[1] && $matches[2] && $matches[3]) {
+            if ($matches[1] && $matches[2] && $matches[3]) {
                 $library = $this->libraryRepository->findOneByNameMajorVersionAndMinorVersion(
                     $matches[1][0],
-                    $matches[2][0],
-                    $matches[3][0]
+                    (int)$matches[2][0],
+                    (int)$matches[3][0]
                 );
                 $libraryTranslation = $this->libraryTranslationRepository->findOneByLibraryAndLanguage($library, $language_code);
                 $libraryTranslations[$libraryName] = $libraryTranslation->getTranslation();

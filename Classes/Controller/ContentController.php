@@ -73,7 +73,7 @@ class ContentController extends AbstractModuleController
         $this->moduleTemplate->assign('settings', $this->settings);
         $actions = ['createAction', 'updateAction', 'deleteAction'];
 
-        if (!in_array($this->actionMethodName, $actions)) {
+        if (!in_array($this->actionMethodName, $actions, true)) {
             $this->generateMenu($this->moduleTemplate);
             $this->registerDocheaderButtons();
         }

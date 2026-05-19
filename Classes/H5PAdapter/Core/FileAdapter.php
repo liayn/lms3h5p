@@ -474,13 +474,16 @@ class FileAdapter implements H5PFileStorage
      * @param string $source path to source directory
      * @param string $contentId Id of content
      *
-     * @return void|object Object containing h5p json and content json data
+     * @return object Object containing h5p json and content json data
      * @throws Exception
      */
     public function moveContentDirectory($source, $contentId = null)
     {
         if ($source === null) {
-            return;
+            return (object)[
+                'h5pJson'     => '',
+                'contentJson' => '',
+            ];
         }
 
         if ($contentId === null || (int)$contentId === 0) {
@@ -516,7 +519,7 @@ class FileAdapter implements H5PFileStorage
      *
      * @param string $file path + name
      * @param int $contentId
-     * @return string|null File path or NULL if not found
+     * @return string|int File path or NULL if not found
      */
     public function getContentFile($file, $contentId)
     {
@@ -576,7 +579,7 @@ class FileAdapter implements H5PFileStorage
         }
 
         while (false !== ($file = readdir($dir))) {
-            if (($file != '.') && ($file != '..') && $file != '.git' && $file != '.gitignore' && !in_array($file, $ignoredFiles)) {
+            if (($file !== '.') && ($file !== '..') && $file !== '.git' && $file !== '.gitignore' && !in_array($file, $ignoredFiles, true)) {
                 if (is_dir("{$source}/{$file}")) {
                     self::copyFileTree("{$source}/{$file}", "{$destination}/{$file}");
                 } else {
@@ -653,7 +656,7 @@ class FileAdapter implements H5PFileStorage
     {
         $parts = explode('-', str_replace('.h5p', '', $filename));
         $contentId = end($parts);
-        return $this->contentRepository->findByUid($contentId);
+        return $this->contentRepository->findByUid((int)$contentId);
     }
 
     /**
@@ -708,7 +711,7 @@ class FileAdapter implements H5PFileStorage
      * @param string $machineName
      * @param int $majorVersion
      * @param int $minorVersion
-     * @return string|null Relative path
+     * @return string Relative path
      */
     public function getUpgradeScript($machineName, $majorVersion, $minorVersion)
     {
@@ -718,8 +721,7 @@ class FileAdapter implements H5PFileStorage
         if (file_exists(Environment::getPublicPath() . $upgradesFilePath)) {
             return 'libraries/' . $upgradeScript;
         }
-        return null;
-
+        return '';
     }
 
     /**

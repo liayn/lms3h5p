@@ -87,6 +87,7 @@ class TYPO3H5P implements SingletonInterface
             'export' => new H5PExport($interface, $this->core),
             'interface' => $interface,
             'core' => $this->core,
+            default => null,
         };
     }
 
@@ -106,11 +107,10 @@ class TYPO3H5P implements SingletonInterface
             return 'en';
         }
 
-        /** @var SiteLanguage $siteLanguage */
         $siteLanguage = $this->getRequest()->getAttribute('language');
         $language = $siteLanguage?->getLocale()->getLanguageCode();
 
-        if (empty($language) || $language === 'default') {
+        if (!$language || $language === 'default') {
             $language = 'en';
         }
 

@@ -85,7 +85,6 @@ class H5pRepairLibraryCommand extends Command
                     }
                     $output->writeln($libraryArray['machineName'] . ' found in the database');
                     $output->writeln('-> Checking library dependencies');
-                    /** @var QueryResult $dependencies */
                     $dependencies = $library->getLibraryDependencies();
                     if ($dependencies->count() === 0) {
                         $output->writeln($libraryArray['machineName'] . ' library dependencies not found in the database');

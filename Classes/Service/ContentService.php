@@ -112,7 +112,7 @@ class ContentService
         $content['metadata'] = $params->metadata;
 
         // Get library
-        $content['library'] = $this->h5pCore->libraryFromString($library);
+        $content['library'] = $this->h5pCore::libraryFromString($library);
         if (!$content['library']) {
             $this->h5pCore->h5pF->setErrorMessage('Invalid library.');
             return null;

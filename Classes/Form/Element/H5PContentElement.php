@@ -87,7 +87,7 @@ class H5PContentElement extends AbstractFormElement
         $html[] =       '</div>';
         $html[] =   '</div>';
         $html[] = '</div>';
-        $result['html'] = implode(LF, $html);
+        $result['html'] = implode("\n", $html);
 
         return $result;
     }

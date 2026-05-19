@@ -30,6 +30,7 @@ namespace LMS3\Lms3h5p\Domain\Repository;
  * ************************************************************* */
 
 use LMS3\Lms3h5p\Domain\Model\Content;
+use LMS3\Lms3h5p\Domain\Model\Library;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
@@ -52,7 +53,7 @@ class ContentRepository extends Repository
         'createdAt' => QueryInterface::ORDER_DESCENDING,
     ];
 
-    public function countByLibraryAndSkipped(int $library, array $skip): int
+    public function countByLibraryAndSkipped(Library $library, array $skip): int
     {
         $query = $this->createQuery();
         $query->matching(

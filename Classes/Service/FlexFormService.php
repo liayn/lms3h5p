@@ -75,9 +75,9 @@ class FlexFormService
      *
      * @param mixed $nodeArray The flexForm node to parse
      * @param string $valuePointer The valuePointer to use for value retrieval
-     * @return array
+     * @return mixed
      */
-    public function walkFlexFormNode(mixed $nodeArray, string $valuePointer = 'vDEF'): array
+    public function walkFlexFormNode(mixed $nodeArray, string $valuePointer = 'vDEF'): mixed
     {
         if (is_array($nodeArray)) {
             $return = [];
@@ -85,7 +85,7 @@ class FlexFormService
                 if ($nodeKey === $valuePointer) {
                     return $nodeValue;
                 }
-                if (in_array($nodeKey, ['el', '_arrayContainer'])) {
+                if (in_array($nodeKey, ['el', '_arrayContainer'], true)) {
                     return $this->walkFlexFormNode($nodeValue, $valuePointer);
                 }
                 if ($nodeKey[0] === '_') {

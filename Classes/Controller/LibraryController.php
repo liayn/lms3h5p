@@ -67,7 +67,7 @@ class LibraryController extends AbstractModuleController
         $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
         $actions = ['createAction', 'updateAction', 'deleteAction'];
 
-        if (!in_array($this->actionMethodName, $actions)) {
+        if (!in_array($this->actionMethodName, $actions, true)) {
             $this->generateMenu($this->moduleTemplate);
             $this->registerDocheaderButtons();
         }
