@@ -29,8 +29,13 @@ namespace LMS3\Lms3h5p\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use H5PCore;
+use H5peditor;
+use H5PStorage;
 use LMS3\Lms3h5p\Domain\Model\Content;
 use LMS3\Lms3h5p\Domain\Repository\ContentRepository;
+use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Content Service
@@ -45,30 +50,15 @@ use LMS3\Lms3h5p\Domain\Repository\ContentRepository;
  */
 class ContentService
 {
-    /**
-     * @var \H5PCore
-     */
-    protected $h5pCore;
+    protected H5PCore $h5pCore;
 
-    /**
-     * @var \H5peditor
-     */
-    protected $h5pEditor;
+    protected H5peditor $h5pEditor;
 
-    /**
-     * @var H5PIntegrationService
-     */
-    protected $h5pIntegrationService;
-
-    /**
-     * @var ContentRepository
-     */
-    protected $contentRepository;
-    public function __construct(private readonly \TYPO3\CMS\Core\Cache\CacheManager $cacheManager, \LMS3\Lms3h5p\Service\H5PIntegrationService $h5pIntegrationService, \LMS3\Lms3h5p\Domain\Repository\ContentRepository $contentRepository)
-    {
-        $this->h5pIntegrationService = $h5pIntegrationService;
-        $this->contentRepository = $contentRepository;
-    }
+    public function __construct(
+        private readonly CacheManager $cacheManager,
+        private readonly H5PIntegrationService $h5pIntegrationService,
+        private readonly ContentRepository $contentRepository
+    ) {}
 
     /**
      * Creates the content data structure that H5P expects and passes it into its API.
@@ -140,10 +130,6 @@ class ContentService
         }
 
         $content['id'] = $this->h5pCore->saveContent($content);
-        if (!$content['library']['libraryId']) {
-            $this->h5pCore->h5pF->setErrorMessage('No such library.');
-            return null;
-        }
 
         // Clear related caches
         $cache = $this->cacheManager->getCache('lms3h5p_libraries');
@@ -168,16 +154,16 @@ class ContentService
     public function handleDelete(Content $content): void
     {
         $h5pCoreInstance = $this->h5pIntegrationService->getH5PCoreInstance();
-        $h5pStorage = new \H5PStorage($h5pCoreInstance->h5pF, $h5pCoreInstance);
+        $h5pStorage = new H5PStorage($h5pCoreInstance->h5pF, $h5pCoreInstance);
         $h5pStorage->deletePackage($content->toAssocArray());
     }
 
     /**
      * Find all content records
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResultInterface<int, Content>
      */
-    public function findAll()
+    public function findAll(): QueryResultInterface
     {
         return $this->contentRepository->findAll();
     }
@@ -207,22 +193,15 @@ class ContentService
         return $query->matching($where)->execute()->toArray();
     }
 
-    /**
-     * Get disabled content features
-     *
-     * @param \H5PCore $core
-     * @param array $options
-     * @return int
-     */
-    protected function getDisabledContentFeatures(\H5PCore $core, array $options)
+    protected function getDisabledContentFeatures(H5PCore $core, array $options): int
     {
         $set = [
-            \H5PCore::DISPLAY_OPTION_FRAME => (bool)$options['frame'],
-            \H5PCore::DISPLAY_OPTION_DOWNLOAD => (bool)$options['download'],
-            \H5PCore::DISPLAY_OPTION_EMBED => (bool)$options['embed'],
-            \H5PCore::DISPLAY_OPTION_COPYRIGHT => (bool)$options['copyright'],
+            H5PCore::DISPLAY_OPTION_FRAME => (bool)$options['frame'],
+            H5PCore::DISPLAY_OPTION_DOWNLOAD => (bool)$options['download'],
+            H5PCore::DISPLAY_OPTION_EMBED => (bool)$options['embed'],
+            H5PCore::DISPLAY_OPTION_COPYRIGHT => (bool)$options['copyright'],
         ];
 
-        return $core->getStorableDisplayOptions($set, \H5PCore::DISABLE_NONE);
+        return $core->getStorableDisplayOptions($set, H5PCore::DISABLE_NONE);
     }
 }

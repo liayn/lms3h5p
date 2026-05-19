@@ -29,8 +29,8 @@ namespace LMS3\Lms3h5p\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
 use LMS3\Lms3h5p\Service\H5PIntegrationService;
-use LMS3\Lms3h5p\Service\LibraryService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
@@ -57,11 +57,11 @@ class LibraryController extends AbstractModuleController
     public function __construct(
         private readonly ModuleTemplateFactory $moduleTemplateFactory,
         private readonly IconFactory $iconFactory,
-        private readonly LibraryService $libraryService,
+        private readonly LibraryRepository $libraryRepository,
         private readonly H5PIntegrationService $h5pIntegrationService
     ) {}
 
-    public function initializeAction(): void
+    protected function initializeAction(): void
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
@@ -75,7 +75,7 @@ class LibraryController extends AbstractModuleController
 
     public function indexAction(): ResponseInterface
     {
-        $libraries = $this->libraryService->findAll();
+        $libraries = $this->libraryRepository->findAll();
 
         $this->moduleTemplate->assign('libraries', $libraries);
 
@@ -84,12 +84,12 @@ class LibraryController extends AbstractModuleController
 
     public function showAction(int $library): ResponseInterface
     {
-        $library = $this->libraryService->findByUid($library);
+        $library = $this->libraryRepository->findByUid($library);
 
         $this->moduleTemplate->assignMultiple([
             'library' => $library,
-            'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
-            'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
+            'timeFormat' => 'hh:mm',
+            'dateFormat' => 'y-m-d',
         ]);
 
         return $this->moduleTemplate->renderResponse('Library/Show');
@@ -97,7 +97,7 @@ class LibraryController extends AbstractModuleController
 
     public function deleteAction(int $library): ResponseInterface
     {
-        $library = $this->libraryService->findByUid($library);
+        $library = $this->libraryRepository->findByUid($library);
 
         $this->h5pIntegrationService->getH5PCoreInstance()->deleteLibrary($library->toStdClass());
 

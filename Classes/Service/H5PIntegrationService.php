@@ -1,6 +1,6 @@
 <?php
 
-/** @noinspection PhpUnhandledExceptionInspection */
+declare(strict_types=1);
 
 namespace LMS3\Lms3h5p\Service;
 
@@ -29,9 +29,13 @@ namespace LMS3\Lms3h5p\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
+use H5PContentValidator;
+use H5PCore;
+use H5peditor;
 use LMS3\Lms3h5p\Domain\Model\Content;
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -54,10 +58,11 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 class H5PIntegrationService implements SingletonInterface
 {
     protected array $h5pSettings;
+
     public function __construct(
         private readonly ConfigurationManagerInterface $configurationManager,
         private readonly ContentService $contentService,
-        private readonly \TYPO3\CMS\Core\Cache\CacheManager $cacheManager
+        private readonly CacheManager $cacheManager
     ) {
         $this->h5pSettings = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
@@ -138,7 +143,7 @@ class H5PIntegrationService implements SingletonInterface
                 'css' => array_merge($this->getRelativeCoreStyleUrls(), $this->getRelativeEditorStyleUrls()),
                 'js' => array_merge($this->getRelativeCoreScriptUrls(), $this->getRelativeEditorScriptUrls()),
             ],
-            'apiVersion' => \H5PCore::$coreApi,
+            'apiVersion' => H5PCore::$coreApi,
         ];
 
         if ($contentId !== -1) {
@@ -184,7 +189,7 @@ class H5PIntegrationService implements SingletonInterface
     private function getRelativeCoreScriptUrls(): array
     {
         $urls = [];
-        foreach (\H5PCore::$scripts as $script) {
+        foreach (H5PCore::$scripts as $script) {
             $urls[] = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
                 $this->h5pSettings['h5pPublicFolder']['url'],
                 $this->h5pSettings['subFolders']['core'] . DIRECTORY_SEPARATOR . $script
@@ -210,7 +215,7 @@ class H5PIntegrationService implements SingletonInterface
     private function getRelativeCoreStyleUrls(): array
     {
         $urls = [];
-        foreach (\H5PCore::$styles as $style) {
+        foreach (H5PCore::$styles as $style) {
             $urls[] = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
                 $this->h5pSettings['h5pPublicFolder']['url'],
                 $this->h5pSettings['subFolders']['core'] . DIRECTORY_SEPARATOR . $style
@@ -228,7 +233,7 @@ class H5PIntegrationService implements SingletonInterface
     private function getRelativeEditorScriptUrls(): array
     {
         $urls = [];
-        foreach (\H5peditor::$scripts as $script) {
+        foreach (H5peditor::$scripts as $script) {
             /**
              * We do not want the creator of the iframe inside the iframe.
              * If we loaded this, the iframe would continually try to load more iframes inside itself.
@@ -250,7 +255,7 @@ class H5PIntegrationService implements SingletonInterface
 
         $urls[] = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
             $this->h5pSettings['h5pPublicFolder']['url'],
-            $this->h5pSettings['subFolders']['editor'] . "/language/{$language}.js"
+            $this->h5pSettings['subFolders']['editor'] . "/language/$language.js"
         );
 
         return $urls;
@@ -264,7 +269,7 @@ class H5PIntegrationService implements SingletonInterface
     private function getRelativeEditorStyleUrls(): array
     {
         $urls = [];
-        foreach (\H5peditor::$styles as $style) {
+        foreach (H5peditor::$styles as $style) {
             $urls[] = PathUtility::getAbsolutePathOfRelativeReferencedFileOrPath(
                 $this->h5pSettings['h5pPublicFolder']['url'],
                 $this->h5pSettings['subFolders']['editor'] . DIRECTORY_SEPARATOR . $style
@@ -303,7 +308,7 @@ class H5PIntegrationService implements SingletonInterface
 
             // Add JavaScript settings for this content
             $contentSettings = [
-                'library' => \H5PCore::libraryToString($contentArray['library']),
+                'library' => H5PCore::libraryToString($contentArray['library']),
                 'jsonContent' => $content->getFiltered(),
                 'fullScreen' => $contentArray['library']['fullscreen'],
                 'exportUrl' => $content->getExportFile() ? GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . ltrim((string)$this->h5pSettings['h5pPublicFolder']['url'], '/') . $this->h5pSettings['subFolders']['exports'] . DIRECTORY_SEPARATOR . $content->getExportFile() : '',
@@ -479,7 +484,7 @@ class H5PIntegrationService implements SingletonInterface
     /**
      * Get the H5PCore instance
      */
-    public function getH5PCoreInstance(): \H5PCore
+    public function getH5PCoreInstance(): H5PCore
     {
         return GeneralUtility::makeInstance(TYPO3H5P::class)->getH5PInstance('core');
     }
@@ -487,7 +492,7 @@ class H5PIntegrationService implements SingletonInterface
     /**
      * Get the H5P Content Validator
      */
-    public function getH5pContentValidator(): \H5PContentValidator
+    public function getH5pContentValidator(): H5PContentValidator
     {
         return GeneralUtility::makeInstance(TYPO3H5P::class)->getH5PInstance('contentvalidator');
     }
@@ -495,7 +500,7 @@ class H5PIntegrationService implements SingletonInterface
     /**
      * Get the H5P Editor
      */
-    public function getH5pEditor(): \H5peditor
+    public function getH5pEditor(): H5peditor
     {
         return GeneralUtility::makeInstance(TYPO3H5P::class)->getH5PInstance('editor');
     }
