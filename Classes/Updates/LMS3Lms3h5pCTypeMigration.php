@@ -35,7 +35,7 @@ final class LMS3Lms3h5pCTypeMigration extends AbstractListTypeToCTypeUpdate
     protected function getListTypeToCTypeMapping(): array
     {
         return [
-            // TODO: Add this mapping yourself!
+            'lms3h5p_pi1' => 'lms3h5p_pi1',
         ];
     }
 }

@@ -24,6 +24,7 @@
 		"typo3/cms-backend": "^13",
 		"typo3/cms-extbase": "^13",
 		"typo3/cms-beuser": "^13",
+		"typo3/cms-install": "^13",
 		"guzzlehttp/guzzle": "*"
 	},
 	"autoload": {
