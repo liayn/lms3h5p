@@ -32,7 +32,6 @@ namespace LMS3\Lms3h5p\Service;
 use H5PContentValidator;
 use H5PCore;
 use H5peditor;
-use LMS3\Lms3h5p\Domain\Model\Content;
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Cache\CacheManager;
