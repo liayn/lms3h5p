@@ -17,13 +17,12 @@ namespace LMS3\Lms3h5p\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Utilities to process flexForms
  */
-class FlexFormService implements SingletonInterface
+class FlexFormService
 {
     /**
      * Parses the flexForm content and converts it to an array
