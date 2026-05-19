@@ -34,6 +34,7 @@ use LMS3\Lms3h5p\Service\FlexFormService;
 use LMS3\Lms3h5p\Service\H5PIntegrationService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Domain\ConsumableString;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -52,17 +53,16 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class ContentEmbedController extends ActionController
 {
-    public const LIST_TYPE = 'lms3h5p_pi1';
-
-    protected Context $context;
-    protected PageRenderer $pageRenderer;
+    private const string LIST_TYPE = 'lms3h5p_pi1';
     protected string $nonce;
 
-    public function __construct(protected H5PIntegrationService $h5pIntegrationService, protected ContentService $contentService, PageRenderer $pageRenderer, private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool)
-    {
-        $this->context = GeneralUtility::makeInstance(Context::class);
-        $this->pageRenderer = $pageRenderer;
-    }
+    public function __construct(
+        protected readonly Context $context,
+        protected readonly PageRenderer $pageRenderer,
+        protected readonly H5PIntegrationService $h5pIntegrationService,
+        protected readonly ContentService $contentService,
+        protected readonly ConnectionPool $connectionPool
+    ) {}
 
     public function indexAction(): ResponseInterface
     {
@@ -100,7 +100,10 @@ class ContentEmbedController extends ActionController
 
         $query = $queryBuilder->select('pi_flexform')
             ->from('tt_content')
-            ->where('list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId() . ' AND sys_language_uid IN (0, ' . $languageId . ')')
+            ->where(
+                'list_type = "' . self::LIST_TYPE . '" AND pid = ' . $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId(
+                ) . ' AND sys_language_uid IN (0, ' . $languageId . ')'
+            )
             ->orderBy('sorting')
             ->executeQuery();
 
