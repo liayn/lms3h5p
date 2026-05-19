@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-/** @noinspection PhpUnhandledExceptionInspection */
-
 namespace LMS3\Lms3h5p;
 
 /* * *************************************************************

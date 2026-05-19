@@ -9,6 +9,7 @@ use LMS3\Lms3h5p\Domain\Repository\LibraryDependencyRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
 use LMS3\Lms3h5p\H5PAdapter\Core\H5PFramework;
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,6 +29,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
  *
  * H5P is a brandmark of Joubel AS - Contact: https://joubel.com/
  */
+
+#[AsCommand('h5p:repairLibrary')]
 class H5pRepairLibraryCommand extends Command
 {
     protected function configure(): void
