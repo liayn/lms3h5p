@@ -30,7 +30,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
  */
 class H5pRepairLibraryCommand extends Command
 {
-    public function configure(): void
+    protected function configure(): void
     {
         $info = 'Run this command to repair the h5p library.';
 
@@ -45,7 +45,7 @@ class H5pRepairLibraryCommand extends Command
     /**
      * Copy required resources from h5p vendor packages
      */
-    public function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var LibraryRepository $libraryRepository */
         $libraryRepository = GeneralUtility::makeInstance(LibraryRepository::class);

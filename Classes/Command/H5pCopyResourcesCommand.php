@@ -27,7 +27,7 @@ class H5pCopyResourcesCommand extends Command
         parent::__construct();
     }
 
-    public function configure(): void
+    protected function configure(): void
     {
         $info = 'Run this command to copy required resources from h5p vendor packages.';
 
@@ -37,7 +37,7 @@ class H5pCopyResourcesCommand extends Command
     /**
      * Copy required resources from h5p vendor packages
      */
-    public function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
             $this->setup->copyResourcesFromH5PLibraries();
