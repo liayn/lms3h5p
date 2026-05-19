@@ -30,7 +30,6 @@ namespace LMS3\Lms3h5p\H5PAdapter\Editor;
 use H5PCore;
 use H5peditorStorage;
 use LMS3\Lms3h5p\Domain\Model\Library;
-use LMS3\Lms3h5p\Domain\Model\LibraryTranslation;
 use LMS3\Lms3h5p\Domain\Repository\LibraryRepository;
 use LMS3\Lms3h5p\Domain\Repository\LibraryTranslationRepository;
 use LMS3\Lms3h5p\H5PAdapter\TYPO3H5P;

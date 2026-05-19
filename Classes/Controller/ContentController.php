@@ -118,7 +118,14 @@ class ContentController extends AbstractModuleController
         $parameters = $this->request->getArgument('parameters');
         $options = $this->request->getArgument('options');
 
-        $content = $this->contentService->handleCreateOrUpdate($library, $parameters, null, $options);
+        $content = $this->contentService->handleCreateOrUpdate(
+            $this->h5pIntegrationService->getH5PCoreInstance(),
+            $this->h5pIntegrationService->getH5pEditor(),
+            $library,
+            $parameters,
+            null,
+            $options
+        );
         if ($content === null) {
             $this->showH5pErrorMessages();
             return new ForwardResponse('new');
@@ -210,7 +217,7 @@ class ContentController extends AbstractModuleController
     {
         $content = $this->contentService->findByUid($content);
         if ($content) {
-            $this->contentService->handleDelete($content);
+            $this->contentService->handleDelete($this->h5pIntegrationService->getH5PCoreInstance(), $content);
 
             $this->addFlashMessage(
                 sprintf(

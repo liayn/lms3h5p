@@ -283,7 +283,6 @@ class H5PIntegrationService implements SingletonInterface
      */
     private function generateContentSettings(UriBuilder $uriBuilder, array $contentIds): array
     {
-        /** @var Content[] $contents */
         $contents = $this->contentService->findByUids($contentIds);
 
         if (!isset($contents[0])) {
