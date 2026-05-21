@@ -60,13 +60,13 @@ class ContentTypeCacheEntry extends AbstractEntity
     protected int $updatedAt;
     protected bool $isRecommended;
     protected int $popularity;
-    protected string $screenshots;
-    protected string $license;
+    protected ?string $screenshots;
+    protected ?string $license;
     protected string $example;
-    protected string $tutorial;
-    protected string $keywords;
-    protected string $categories;
-    protected string $owner;
+    protected ?string $tutorial;
+    protected ?string $keywords;
+    protected ?string $categories;
+    protected ?string $owner;
 
     public function getMachineName(): string
     {

@@ -55,20 +55,20 @@ class Content extends AbstractEntity
     protected string $slug;
     protected string $embedType;
     protected int $disable;
-    protected string $contentType;
-    protected string $author;
-    protected string $license;
-    protected string $keywords;
-    protected string $description;
-    protected string $zippedContentFile;
-    protected string $exportFile;
+    protected ?string $contentType;
+    protected ?string $author;
+    protected ?string $license;
+    protected ?string $keywords;
+    protected ?string $description;
+    protected ?string $zippedContentFile;
+    protected ?string $exportFile;
     protected ?string $source;
     protected ?int $yearFrom;
     protected ?int $yearTo;
     protected ?string $licenseVersion;
     protected ?string $licenseExtras;
-    protected string $authorComments;
-    protected string $changes;
+    protected ?string $authorComments;
+    protected ?string $changes;
 
     public function getLibrary(): Library
     {
@@ -180,7 +180,7 @@ class Content extends AbstractEntity
         return $this;
     }
 
-    public function getContentType(): string
+    public function getContentType(): ?string
     {
         return $this->contentType;
     }
@@ -191,7 +191,7 @@ class Content extends AbstractEntity
         return $this;
     }
 
-    public function getAuthor(): string
+    public function getAuthor(): ?string
     {
         return $this->author;
     }
@@ -213,7 +213,7 @@ class Content extends AbstractEntity
         return $this;
     }
 
-    public function getKeywords(): string
+    public function getKeywords(): ?string
     {
         return $this->keywords;
     }
@@ -224,7 +224,7 @@ class Content extends AbstractEntity
         return $this;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -235,7 +235,7 @@ class Content extends AbstractEntity
         return $this;
     }
 
-    public function getZippedContentFile(): string
+    public function getZippedContentFile(): ?string
     {
         return $this->zippedContentFile;
     }
@@ -246,7 +246,7 @@ class Content extends AbstractEntity
         return $this;
     }
 
-    public function getExportFile(): string
+    public function getExportFile(): ?string
     {
         return $this->exportFile;
     }
@@ -323,7 +323,7 @@ class Content extends AbstractEntity
         return $this;
     }
 
-    public function getChanges(): string
+    public function getChanges(): ?string
     {
         return $this->changes;
     }
@@ -397,14 +397,14 @@ class Content extends AbstractEntity
             'filtered' => $this->getFiltered(),
             'metadata' => [
                 'title' => $this->getTitle(),
-                'authors' => $this->getAuthor(),
+                'authors' => $this->getAuthor() ?? 'null',
                 'source' => $this->getSource() ?? 'null',
                 'license' => $this->getLicense() ?? 'null',
                 'licenseVersion' => $this->getLicenseVersion() ?? 'null',
                 'licenseExtras' => $this->getLicenseExtras() ?? 'null',
                 'yearFrom' => $this->getYearFrom() ?? 'null',
                 'yearTo' => $this->getYearTo() ?? 'null',
-                'changes' => $this->getChanges(),
+                'changes' => $this->getChanges() ?? 'null',
                 'authorComments' => $this->getAuthorComments() ?? 'null',
             ],
         ];
