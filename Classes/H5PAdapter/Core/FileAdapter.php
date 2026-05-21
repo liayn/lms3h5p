@@ -63,20 +63,17 @@ class FileAdapter implements H5PFileStorage
     protected ContentRepository $contentRepository;
     protected CachedAssetRepository $cachedAssetRepository;
 
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
-    {
-        $this->h5pSettings = $configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            'Lms3h5p',
-            'Pi1'
-        );
-    }
-
     public function __construct()
     {
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $this->contentRepository = GeneralUtility::makeInstance(ContentRepository::class);
         $this->cachedAssetRepository = GeneralUtility::makeInstance(CachedAssetRepository::class);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        $this->h5pSettings = $configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'Lms3h5p',
+            'Pi1'
+        );
     }
 
     /**
