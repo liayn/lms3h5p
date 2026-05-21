@@ -473,7 +473,7 @@ class H5PIntegrationService implements SingletonInterface
         $customStyle = GeneralUtility::getFileAbsFileName($this->h5pSettings['customStyle']['path']);
         if (file_exists($customStyle)) {
             $styles[] = (object)[
-                'path'    => PathUtility::getAbsoluteWebPath($customStyle),
+                'path' => PathUtility::getPublicResourceWebPath($this->h5pSettings['customStyle']['path']),
                 'version' => '?version=' . $this->h5pSettings['customStyle']['version'],
             ];
         }
