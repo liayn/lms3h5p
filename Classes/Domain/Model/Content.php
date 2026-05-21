@@ -55,20 +55,20 @@ class Content extends AbstractEntity
     protected string $slug;
     protected string $embedType;
     protected int $disable;
-    protected ?string $contentType;
-    protected ?string $author;
-    protected ?string $license;
-    protected ?string $keywords;
-    protected ?string $description;
-    protected ?string $zippedContentFile;
-    protected ?string $exportFile;
-    protected ?string $source;
-    protected ?int $yearFrom;
-    protected ?int $yearTo;
-    protected ?string $licenseVersion;
-    protected ?string $licenseExtras;
-    protected ?string $authorComments;
-    protected ?string $changes;
+    protected ?string $contentType = null;
+    protected ?string $author = null;
+    protected ?string $license = null;
+    protected ?string $keywords = null;
+    protected ?string $description = null;
+    protected ?string $zippedContentFile = null;
+    protected ?string $exportFile = null;
+    protected ?string $source = null;
+    protected ?int $yearFrom = null;
+    protected ?int $yearTo = null;
+    protected ?string $licenseVersion = null;
+    protected ?string $licenseExtras = null;
+    protected ?string $authorComments = null;
+    protected ?string $changes = null;
 
     public function getLibrary(): Library
     {

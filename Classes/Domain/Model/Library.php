@@ -65,8 +65,8 @@ class Library extends AbstractEntity
     protected string $semantics;
     protected string $tutorialUrl;
     protected bool $hasIcon;
-    protected ?string $metaDataSettings;
-    protected ?string $addTo;
+    protected ?string $metaDataSettings = null;
+    protected ?string $addTo = null;
     protected int $createdAt;
     protected int $updatedAt;
 
