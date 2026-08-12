@@ -193,10 +193,17 @@ class ContentController extends AbstractModuleController
     {
         $library = $this->request->getArgument('library');
         $parameters = $this->request->getArgument('parameters');
-        $contentId = $this->request->getArgument('contentId');
+        $contentId = (int)$this->request->getArgument('contentId');
         $options = $this->request->getArgument('options');
 
-        $content = $this->contentService->handleCreateOrUpdate($library, $parameters, $contentId, $options);
+        $content = $this->contentService->handleCreateOrUpdate(
+            $this->h5pIntegrationService->getH5PCoreInstance(),
+            $this->h5pIntegrationService->getH5pEditor(),
+            $library,
+            $parameters,
+            $contentId,
+            $options
+        );
         if ($content === null) {
             $this->showH5pErrorMessages();
             return new ForwardResponse('index');

@@ -67,7 +67,9 @@ class EditorAjax implements H5PEditorAjaxInterface
     public function getLatestLibraryVersions()
     {
         $librariesOrderedByMajorAndMinorVersion = $this->libraryRepository->findLatestLibraryVersions();
-        $librariesOrderedByMajorAndMinorVersion = array_map(function ($libraryVersion) { return (object)$libraryVersion; }, $librariesOrderedByMajorAndMinorVersion);
+        $librariesOrderedByMajorAndMinorVersion = array_map(function ($libraryVersion) {
+            return (object)$libraryVersion;
+        }, $librariesOrderedByMajorAndMinorVersion);
         return array_values($librariesOrderedByMajorAndMinorVersion);
     }
 
