@@ -77,7 +77,7 @@ class EditorFileAdapter implements H5peditorStorage
         );
         $libraryTranslation = $this->libraryTranslationRepository->findOneByLibraryAndLanguage($library, $language);
         if (!$libraryTranslation) {
-            return null;
+            return false;
         }
 
         return $libraryTranslation->getTranslation();

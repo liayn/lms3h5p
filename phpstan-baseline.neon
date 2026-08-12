@@ -13,6 +13,12 @@ parameters:
 			path: Classes/H5PAdapter/Core/H5PFramework.php
 
 		-
+			message: '#^Method LMS3\\Lms3h5p\\H5PAdapter\\Editor\\EditorFileAdapter\:\:getLanguage\(\) should return string but returns false\.$#'
+			identifier: return.type
+			count: 1
+			path: Classes/H5PAdapter/Editor/EditorFileAdapter.php
+
+		-
 			message: '#^Parameter \#1 \$content of method H5peditor\:\:processParameters\(\) expects stdClass, int given\.$#'
 			identifier: argument.type
 			count: 1
