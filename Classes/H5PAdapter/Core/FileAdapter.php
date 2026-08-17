@@ -274,6 +274,8 @@ class FileAdapter implements H5PFileStorage
                     $assetContent = file_get_contents(Environment::getPublicPath() . DIRECTORY_SEPARATOR . ltrim($asset->path, '/'));
                 }
                 $cssRelPath = preg_replace('/[^\/]+$/', '', $asset->path);
+                // ensure CSS contains URLs and not local paths
+                $cssRelPath = str_replace($this->h5pSettings['h5pPublicFolder']['path'], $this->h5pSettings['h5pPublicFolder']['url'], $cssRelPath);
 
                 // Get file content and concatenate
                 if ($type === 'scripts') {
