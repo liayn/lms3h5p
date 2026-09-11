@@ -19,7 +19,7 @@
 		"php": "^8.3",
 		"ext-zip": "*",
 		"h5p/h5p-core": "dev-modern-php",
-		"h5p/h5p-editor": "^1.25",
+		"h5p/h5p-editor": "dev-master",
 		"typo3/cms-core": "^13",
 		"typo3/cms-backend": "^13",
 		"typo3/cms-extbase": "^13",
